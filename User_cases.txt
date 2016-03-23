@@ -1,0 +1,49 @@
+Murder She Wrote User Stories
+Cases:
+“As a <user category> I want to <action> so that I can <business purpose>”
+
+
+Users:
+1) As a user I want to be able to see crime data in Seattle so that I can look and be aware incidents.
+    See Dev 1
+2) As a user I want to be able to select crime categories to see specifics of incidents
+    See Dev 3/5
+3) As a user I want to be able to select neighborhood to see visual map representation to see neighborhood stats
+    See Dev 3/5
+4) As a user I want to be able to select date filters on specific crime stats
+    See Dev 3/5
+5) As a user I want a visually simple site to be able to access things cleaner
+    2 hours a night.
+6) As a user I want up to date information so I can just see it
+    See Dev 8
+7) As a user I want to be able to filter out non-violent crimes to narrow categories base on what I want.
+    See Dev 3
+**8) As a user of a site that represents city information, I want to not be offended by the things I see and read.**
+    All Developers Look over content. 1 hour
+9) As a user I want to be able to access this site with my phone
+    See Dev 10
+
+
+Developer:
+1)As a developer I want to be able view a map on a page to visualize every incident in Seattle
+    (half a day) By Tuesday at 1pm
+2) As a developer I "want" to be able to develop in a test driven manner in order to create more solid functions.
+    Add two hours to every estimate
+3) As a developer I want to be able to have filters on the map to narrow down incidents of data
+    Time. Type.
+    Wednesday by 1pm
+4) As a developer I want shaded overlays so I can create impactful representation.
+    3.5 hours
+5) As a developer I want graphs so I can reresent statistics.
+    With filters
+6) As a developer I want filters on my graph to represent slice of data
+    4 hours
+7) As a developer I want twitter feed from Seattle PD to display latest incidents on main page.
+    3 hours
+8) As a developer I want access to relevant data so I can manipulate data and use it to display.
+    Half a day
+9) As a developer I want a reference page that explains what the data is to provide clarity to my users
+    2 hours
+10) As a developer, I want to develop my site using a mobile first approach to keep my user base wide and to provide consistency
+    across platforms
+      N/A
