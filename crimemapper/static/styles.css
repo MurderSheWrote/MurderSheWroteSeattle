@@ -23,11 +23,22 @@ nav ul{
 }
 
 nav ul li {
-    margin-right: 5%;
+    margin-right:7%;
+}
+
+.words{
+    margin-left: 15%;
+    margin-right: 15%;
+    text-align: center;
+}
+
+p{
+    font-family: 'Merriweather', serif;
 }
 
 #map {
     margin-left: 15%;
     margin-right: 15%;
+    margin-bottom:2rem;
     height: 700px;
 }

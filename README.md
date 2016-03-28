@@ -36,3 +36,8 @@ data.seattle.gov
 ## License 
 This app is available under the MIT License. See License for more details.
 
+
+Sources
+-------
+- Open Sans Condensed,  https://www.google.com/fonts/specimen/Open+Sans+Condensed, Steve Matteson
+- Merriweather, https://www.google.com/fonts/specimen/Merriweather, Eben Sorkin
