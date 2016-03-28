@@ -20,7 +20,7 @@ requires = [
     'psycopg2',
 ]
 
-tests_require = ['pytest', 'tox', 'pytest-cov']
+tests_require = ['pytest', 'tox', 'pytest-cov', 'webtest']
 dev_requires = ['ipython', 'pyramid_ipython']
 
 setup(name='crimemapper',
