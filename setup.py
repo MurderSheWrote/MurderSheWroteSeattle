@@ -12,12 +12,16 @@ requires = [
     'pyramid',
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
+    'pyramid_tm',
+    'SQLAlchemy',
+    'transaction',
+    'zope.sqlalchemy',
     'waitress',
     ]
 
-setup(name='CrimeMapper',
+setup(name='crimemapper',
       version='0.0',
-      description='CrimeMapper',
+      description='crimemapper',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -28,15 +32,16 @@ setup(name='CrimeMapper',
       author='',
       author_email='',
       url='',
-      keywords='web pyramid pylons',
+      keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
+      test_suite='crimemapper',
       install_requires=requires,
-      tests_require=requires,
-      test_suite="crimemapper",
       entry_points="""\
       [paste.app_factory]
       main = crimemapper:main
+      [console_scripts]
+      initialize_crimemapper_db = crimemapper.scripts.initializedb:main
       """,
       )
