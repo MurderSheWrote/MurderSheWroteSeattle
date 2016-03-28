@@ -13,4 +13,7 @@ from crimemapper.models import (
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    return {}
+    # place = DBSession().query(Entry).get(location)
+    place = {'lat': 47.696815491, 'lng': -122.327774048}
+    return {'place': place}
+    # return {}
