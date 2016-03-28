@@ -8,6 +8,7 @@ __pycache__/
 .DS_Store
 bin/
 pyvenv.cfg
+pip-selfcheck.json
 # Distribution / packaging
 .Python
 env/
