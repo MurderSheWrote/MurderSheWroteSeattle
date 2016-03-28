@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block content %}
+{% block map %}
 
 
 <div id='map'></div>
@@ -13,7 +13,7 @@
     var map;
     map = new google.maps.Map(document.getElementById('map'), {
          center: {lat:47.6067006, lng:-122.3346896},
-         zoom: 12
+         zoom: 13
      });
      {% for place in places %}
 
@@ -29,4 +29,4 @@
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW8aTnczhQfI882U76VIXjEXbQcqjeedg&callback=initMap" async defer></script>
 
-{% endblock %}
+{% endblock map %}
