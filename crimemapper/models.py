@@ -30,9 +30,9 @@ class Entry(Base):
     offense_type = Column(Text)
     summary_offense_code = Column(Integer)
     summarized_offense_description = Column(Text)
-    date_reported = Column(DateTime)#TODO is DateTime correct format?
-    occured_data_or_data_range_start = Column(DateTime)#TODO is DateTime correct format?
-    occured = Column(DateTime)#TODO is DateTime correct format?
+    date_reported = Column(DateTime)  # TODO is DateTime correct format?
+    occured_date_or_date_range_start = Column(DateTime)  # TODO is DateTime correct format?
+    occured_date_or_date_range_end = Column(DateTime)
     hundred_block_location = Column(Text)
     district = Column(Text)
     zone = Column(Text)
