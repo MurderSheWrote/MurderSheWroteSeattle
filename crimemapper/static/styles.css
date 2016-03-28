@@ -2,6 +2,21 @@ body{
     background: yellow;
 }
 
+header{
+    font-size: 5rem;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+nav{
+    font-size: 1.8rem;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
 #map {
-    height:500px;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: 700px;
 }
