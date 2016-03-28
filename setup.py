@@ -53,5 +53,6 @@ setup(name='crimemapper',
       main = crimemapper:main
       [console_scripts]
       initialize_db = crimemapper.scripts.initializedb:main
+      populate_db = crimemapper.api:main
       """,
       )
