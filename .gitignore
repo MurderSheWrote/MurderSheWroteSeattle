@@ -2,14 +2,18 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+secret.sh
 # C extensions
 *.so
-
+.DS_Store
+bin/
+pyvenv.cfg
+pip-selfcheck.json
 # Distribution / packaging
 .Python
 env/
 build/
+share/
 develop-eggs/
 dist/
 downloads/
