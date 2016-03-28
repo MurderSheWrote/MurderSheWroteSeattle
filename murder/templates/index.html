@@ -7,6 +7,21 @@
   <link rel="stylesheet" href="static/normalize.css">
 </head>
 <body>
-
+  <header>
+    <nav>
+      <div class="container-fluid">
+        <ul class="navbar">
+          <li class="title"><a href="/">Seattle Crime Stats</a></li>
+          <li><a href="/graphs">Graphs</a></li>
+          <li><a href="/reference">Reference Key</a></li>
+          <li><a href="/about">About</a></li>
+        {% block navbar %}{% endblock %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>
