@@ -24,15 +24,13 @@ PARAMS = {
 }
 
 
-def call_api(**kwargs):
+def call_api():
     url = DOMAIN + PATH
-    params = PARAMS.copy()
-    for key, val in kwargs.items():
-        if key in params:
-                params[key] = val
-    response = requests.get(url, params=params)
+    response = requests.get(url)
     response.raise_for_status()
+    print(response.text)
     return response.text
+
 
 
 def populate_json(json):
@@ -49,7 +47,7 @@ def populate_json(json):
             u'summary_offense_code': '',
             u'summarized_offense_description': '',
             u'date_reported': '',
-            u'occurred_date_ordate_range_start': '',
+            u'occurred_date_or_date_range_start': '',
             u'occurred_date_range_end': '',
             u'hundred_block_location': '',
             u'district_sector': '',
@@ -74,7 +72,8 @@ def import_entries():
 
 
 
-
+if __name__ == '__main__':
+    call_api()
 
 
 
