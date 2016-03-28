@@ -1,0 +1,11 @@
+Violent Crime Codes:
+
+010: Homicide
+040: Assault
+043: Firearm Involved
+049: Gang Related
+110: Kidnapping
+020: Rape - Unknown Suspect (Stranger)
+021: Rape - Known Suspect (Acquaintance)
+030: Armed Robbery
+031: Robbery - Strong Arm, Purse Snatch, etc
