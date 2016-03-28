@@ -18,6 +18,7 @@ requires = [
     'waitress',
     'pyramid_jinja2',
     'psycopg2',
+    'requests'
 ]
 
 tests_require = ['pytest', 'tox', 'pytest-cov']
