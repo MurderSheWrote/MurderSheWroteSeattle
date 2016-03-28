@@ -3,21 +3,25 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 requires = [
     'pyramid',
-    'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
     'waitress',
-    ]
+    'pyramid_jinja2',
+    'psycopg2',
+]
+
+tests_require = ['pytest', 'tox', 'pytest-cov']
+dev_requires = ['ipython', 'pyramid_ipython']
 
 setup(name='crimemapper',
       version='0.0',
@@ -29,7 +33,8 @@ setup(name='crimemapper',
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
-      author='',
+      author=['Selena Flannery', 'Nadia Bahrami', 'Michael Sullivan',
+              'Mike Harrison', 'Wenjing Qiang'],
       author_email='',
       url='',
       keywords='web wsgi bfg pylons pyramid',
@@ -38,10 +43,14 @@ setup(name='crimemapper',
       zip_safe=False,
       test_suite='crimemapper',
       install_requires=requires,
+      extras_require={
+        'test': tests_require,
+        'dev': dev_requires,
+      },
       entry_points="""\
       [paste.app_factory]
       main = crimemapper:main
       [console_scripts]
-      initialize_crimemapper_db = crimemapper.scripts.initializedb:main
+      initialize_db = crimemapper.scripts.initializedb:main
       """,
       )
