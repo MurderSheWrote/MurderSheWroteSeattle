@@ -1,80 +1,58 @@
 import requests
+import pprint
+import json
+from .models import Entry
+from .models import DBSession, Base
+import transaction
+from sqlalchemy import create_engine
 
 
-DOMAIN = 'https://data.seattle.gov'
-PATH = '/resource/ih58-ykqj.json'
-PARAMS = {
-        u'rms_cdw_id': '', 
-        u'general_offense_number': '',
-        u'offense_code': '',
-        u'offense_code_extension': '', 
-        u'offense_type': '', 
-        u'summary_offense_code': '',
-        u'summarized_offense_description': '', 
-        u'date_reported': '',
-        u'occurred_date_ordate_range_start': '', 
-        u'occurred_date_range_end': '',
-        u'hundred_block_location': '', 
-        u'district_sector': '', 
-        u'zone_beat': '',
-        u'census_tract_2000': '', 
-        u'longitude': '', 
-        u'latitude': '', 
-        u'location': ''
-}
+DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
-
-def call_api(**kwargs):
-    url = DOMAIN + PATH
-    params = PARAMS.copy()
-    for key, val in kwargs.items():
-        if key in params:
-                params[key] = val
-    response = requests.get(url, params=params)
+def call_api():
+    url = DOMAIN
+    response = requests.get(url)
     response.raise_for_status()
     return response.text
 
-
-def populate_json(json):
-    data = call_api()
-    json_file = json.loads(data)
-    entry_collection = []
-    for entry in json_file:
-        entry = {
-            u'rms_cdw_id': '',
-            u'general_offense_number': '',
-            u'offense_code': '',
-            u'offense_code_extension': '',
-            u'offense_type': '',
-            u'summary_offense_code': '',
-            u'summarized_offense_description': '',
-            u'date_reported': '',
-            u'occurred_date_ordate_range_start': '',
-            u'occurred_date_range_end': '',
-            u'hundred_block_location': '',
-            u'district_sector': '',
-            u'zone_beat': '',
-            u'census_tract_2000': '',
-            u'longitude': '',
-            u'latitude': '',
-            u'location': ''
-        }
-    entry_collection.append(entry)
-    return entry_collection
-
-
 def populate_db(entry):
     entries = Entry(**entry)
-    DBSession.add(entry)
+    DBSession.add(entries)
+
+def clean_dict(listing_collection):
+    for crime in listing_collection:
+        for key in crime: 
+         if crime[key] == 'X':
+            crime[key] = 0
+    return listing_collection
+
+def make_dict(json):
+    listing_collection = []
+    for listing in json:
+        crime = {}
+        for key in listing:
+            crime[key] = listing[key]
+        listing_collection.append(crime)
+    return clean_dict(listing_collection)
+
+def import_crimes():
+    response = call_api()
+    json_response = json.loads(response)
+    return make_dict(json_response)
 
 
-def import_entries():
-    return populate_json()
 
+def main():
+    database_url = 'postgres://mike:secret@localhost:5432/testing'
+    engine = create_engine(database_url)
+    DBSession.configure(bind=engine)
+    Base.metadata.create_all(engine)
+    with transaction.manager:
+        for crime in import_crimes():
+            populate_db(crime)
+        
 
-
-
-
-
+if __name__ == '__main__':
+    main()
 
 
