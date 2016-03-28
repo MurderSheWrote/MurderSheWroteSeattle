@@ -39,6 +39,6 @@ class Entry(Base):
     census_tract_2000 = Column(Text)
     longitude = Column(Numeric)
     latitude = Column(Numeric)
-    location = Column(Numeric)
+    location = Column(Text)
 
 # Index('my_index', MyModel.name, unique=True, mysql_length=255)
