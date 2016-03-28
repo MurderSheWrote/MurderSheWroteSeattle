@@ -15,13 +15,14 @@
          center: {lat:47.6067006, lng:-122.3346896},
          zoom: 12
      });
+     {% for place in places %}
 
     var marker = new google.maps.Marker({
       map: map,
       position: {{place|safe}},
       title: 'crime'
     });
-
+    {% endfor %}
 
     marker.setMap(map);
     }

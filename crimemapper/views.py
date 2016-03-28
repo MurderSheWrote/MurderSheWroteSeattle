@@ -14,6 +14,8 @@ from crimemapper.models import (
 def map_view(request):
     """Render map view on page."""
     # place = DBSession().query(Entry).get(location)
-    place = {'lat': 47.696815491, 'lng': -122.327774048}
-    return {'place': place}
+    place = {'lat': 47.696815491, 'lng': -122.327774048}, {'lat': 47.606815491, 'lng': -122.327774048}
+    places = {'places': place}
+
+    return places
     # return {}
