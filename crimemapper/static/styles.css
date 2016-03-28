@@ -1,18 +1,29 @@
 body{
-    background: yellow;
+    background:;
 }
 
 header{
     font-size: 5rem;
+    margin-left: 10%;
+    margin-right: 10%;
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
 nav{
     font-size: 1.8rem;
+    margin-left:6%;
+    margin-right:6%;
 }
 
 nav ul{
     list-style-type: none;
+    display: inline-flex;
+    width:90%;
+    padding:0%
+}
+
+nav ul li {
+    margin-right: 5%;
 }
 
 #map {
