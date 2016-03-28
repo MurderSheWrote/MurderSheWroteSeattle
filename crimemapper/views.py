@@ -13,4 +13,4 @@ from crimemapper.models import (
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    return HTTPFound(request.route_url('map'))
+    return {}
