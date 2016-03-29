@@ -11,17 +11,15 @@
   <header>Seattle Crime Mapper
     <nav>
         <ul class="navbar">
-          <li class="title"><a href="/">Seattle Crime Stats</a></li>
-          <li><a href="/graphs">Graphs</a></li>
-          <li><a href="/reference">Reference Key</a></li>
+          <li class="title"><a href="/">Seattle Crime Map</a></li>
+          <li><a href="/stats">Graphs</a></li>
+          <li><a href="/codes">Reference Key</a></li>
           <li><a href="/about">About</a></li>
         </ul>
     </nav>
   </header>
-  <div class="words">
-    <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
-  </div>
   {% block map %}{% endblock map %}
+  {% block content %}{% endblock content %}
   <footer class="footer">
     &copy; 2016  MurderSheWrote | All Rights Reserved | For Entertainment Purposes Only
   </footer>
