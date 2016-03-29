@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 """Test file for views."""
-from testapp.models import DBSession, Entry
+from crimemapper.models import DBSession, Entry
 import pytest
 from webtest import AppError
 
