@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """Pytest fixtures for testing."""
-import pytest
 from sqlalchemy import create_engine
 from crimemapper.models import DBSession, Base, Entry
-import os
 from crimemapper import main
 from webtest import TestApp
 from pyramid.paster import get_appsettings
+import os
+import pytest
 
-
-TEST_DATABASE_URL = 'postgres://michaelsullivan:@localhost:5432/testing'
+TEST_DATABASE_URL = 'postgres://nadiabahrami:@localhost:5432/testing'
 
 
 @pytest.fixture(scope='session')

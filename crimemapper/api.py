@@ -43,7 +43,7 @@ def import_crimes():
 
 
 def main():
-    database_url = 'postgres://mike:secret@localhost:5432/testing'
+    database_url = 'postgres://nadiabahrami@localhost:5432/testing'
     engine = create_engine(database_url)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
