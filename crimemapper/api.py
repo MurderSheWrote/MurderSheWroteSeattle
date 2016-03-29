@@ -10,6 +10,9 @@ from sqlalchemy import create_engine
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
 
+DATABASE_URL = os.environ["DATABASE_URL"]
+TESTING_URL = os.environ["TESTING_URL"]
+
 def call_api():
     """Request data from socrata api and get response text back."""
     url = DOMAIN
@@ -53,8 +56,7 @@ def import_crimes():
 
 def main():
     """Set up database and populate with clean crime listing colleciton."""
-    database_url = 'postgres://mac:@localhost:5432/testing'
-    engine = create_engine(database_url)
+    engine = create_engine(DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
