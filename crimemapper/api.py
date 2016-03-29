@@ -32,7 +32,7 @@ def populate_db(entry):
 def clean_dict(listing_collection):
     """Replace 'X' with 'NULL'."""
     for crime in listing_collection:
-        for key in crime: 
+        for key in crime:
             if crime[key] == 'X':
                 crime[key] = None
     return listing_collection
