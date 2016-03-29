@@ -31,7 +31,7 @@ def clean_dict(listing_collection):
     for crime in listing_collection:
         for key in crime: 
             if crime[key] == 'X':
-                crime[key] = 'NULL'
+                crime[key] = None
     return listing_collection
 
 
