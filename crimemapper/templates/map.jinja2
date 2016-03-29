@@ -14,8 +14,8 @@
       {% for place in places %}
           var marker = new google.maps.Marker({
             map: map,
-            position: {{place|safe}},
-            title: 'crime'
+            position: {{place[0]|safe}},
+            title: '{{place[1]}}'
           });
       {% endfor %}
       marker.setMap(map);
