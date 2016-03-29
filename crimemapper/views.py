@@ -7,6 +7,7 @@ from crimemapper.models import (
     DBSession,
     Entry,
 )
+import os
 
 
 @view_config(route_name='map', renderer='templates/map.jinja2')
@@ -19,8 +20,7 @@ def map_view(request):
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         places.append(place)
-    return {'places': places}
-
+    return {'places': places, "key": os.environ.get("GOOGLE_KEY")}
 
 
 @view_config(route_name='codes', renderer='templates/reference.jinja2')
