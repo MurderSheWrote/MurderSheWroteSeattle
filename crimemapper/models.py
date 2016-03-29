@@ -12,8 +12,8 @@ from sqlalchemy.orm import (
     scoped_session,
     sessionmaker,
 )
-
 from zope.sqlalchemy import ZopeTransactionExtension
+
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -31,8 +31,8 @@ class Entry(Base):
     summary_offense_code = Column(Integer)
     summarized_offense_description = Column(Text)
     date_reported = Column(DateTime)  # TODO is DateTime correct format?
-    occurred_date_or_date_range_start = Column(DateTime)  # TODO is DateTime correct format?
-    occurred_date_range_end = Column(DateTime)
+    occured_date_or_date_range_start = Column(Text)  # TODO is DateTime correct format?
+    occured_date_or_date_range_end = Column(Text)
     hundred_block_location = Column(Text)
     district_sector = Column(Text)
     zone_beat = Column(Text)
