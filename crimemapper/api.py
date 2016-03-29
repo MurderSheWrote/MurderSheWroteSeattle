@@ -23,7 +23,7 @@ def clean_dict(listing_collection):
     for crime in listing_collection:
         for key in crime: 
          if crime[key] == 'X':
-            crime[key] = 0
+            crime[key] == 'NULL'
     return listing_collection
 
 def make_dict(json):
