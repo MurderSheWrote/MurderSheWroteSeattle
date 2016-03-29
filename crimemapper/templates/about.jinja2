@@ -1,23 +1,46 @@
 {% extends "index.html" %}
 {% block content %}
-  <section class="words">
-    <h4>A disclaimer</h4>
-    <p>
-        This website represents the public data offered by the City of Seattle.
-        As a result, some data representing more personal infractions is unavailable
-        for the purpose of protecting the privacy and safety of the persons involved.
-    </p><p>
-        In addition, some of the data offered by the City was not included. 
-        This was done to furthure protect persons identities, as well as to 
-        filter our own data to include only categories that we found useful
-        to represent in this context.
-    </p><p>
-        This site is intended for entertainment purposes only, and the information
-        provided is here purely to represent the public data available to us from 
-        the City.
-    </p><p>If you have any questions or concerns about our data set, feel free to 
-        reach out to us.
-    </p>
+<section class="words">
+    <div>
+        <h3>About Us</h3>
+        <p>
+            Seattle Crime Mapper was developed as a student project focused 
+            on creating visualizations of the public data regarding crime in
+            the City of Seattle.
+        <span id="colorful">We are all about maps and graphs!</span>
+        </p>
+    </div>
+    <div>
+        <h4>The Authors</h4>
+        <p>A student project out of CodeFellows 401 Python Course.
+        A shoutout to Cris, Ruth, and the rest of the teaching team</p>
+        <ul>
+            <li>Nadia Bahrami</li>
+            <li>Michael Sullivan</li>
+            <li>Mike Harrison</li>
+            <li>Selena Flannery</li>
+            <li>Wenjing Qiang</li>
+        </ul>
+    </div>
+    <div>
+        <h4>A disclaimer</h4>
+        <p>
+            This website represents the public data offered by the City of Seattle.
+            As a result, some data representing more personal infractions is unavailable
+            for the purpose of protecting the privacy and safety of the persons involved.
+        </p><p>
+            In addition, some of the data offered by the City was not included. 
+            This was done to furthure protect persons identities, as well as to 
+            filter our own data to include only categories that we found useful
+            to represent in this context.
+        </p><p>
+            This site is intended for entertainment purposes only, and the information
+            provided is here purely to represent the public data available to us from 
+            the City.
+        </p><p>If you have any questions or concerns about our data set, feel free to 
+            reach out to us.
+        </p>
+    </div>
 </section
 
 {% endblock %}
