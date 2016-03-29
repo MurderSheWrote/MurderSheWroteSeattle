@@ -3,7 +3,6 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from sqlalchemy.exc import DBAPIError
-
 from crimemapper.models import (
     DBSession,
     Entry,
@@ -19,3 +18,9 @@ def map_view(request):
 
     return places
     # return {}
+
+
+@view_config(route_name='codes', renderer='templates/reference.jinja2')
+def codes_view(request):
+    """Render code references on page."""
+    return {}
