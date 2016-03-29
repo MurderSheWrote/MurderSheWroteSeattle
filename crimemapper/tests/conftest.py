@@ -8,7 +8,7 @@ from pyramid.paster import get_appsettings
 import os
 import pytest
 
-TEST_DATABASE_URL = 'postgres://nadiabahrami:@localhost:5432/testing'
+TEST_DATABASE_URL = 'postgres://michaelsullivan:@localhost:5432/testing'
 
 
 @pytest.fixture(scope='session')
