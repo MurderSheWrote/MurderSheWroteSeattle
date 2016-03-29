@@ -21,7 +21,7 @@ def populate_db(entry):
 
 def clean_dict(listing_collection):
     for crime in listing_collection:
-        for key in crime: 
+        for key in crime:
          if crime[key] == 'X':
             crime[key] = 0
     return listing_collection
@@ -43,14 +43,14 @@ def import_crimes():
 
 
 def main():
-    database_url = 'postgres://nadiabahrami@localhost:5432/testing'
+    database_url = 'postgres://michaelsullivan@localhost:5432/testing'
     engine = create_engine(database_url)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
         for crime in import_crimes():
             populate_db(crime)
-        
+
 
 if __name__ == '__main__':
     main()

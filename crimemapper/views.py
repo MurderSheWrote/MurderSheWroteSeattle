@@ -13,10 +13,14 @@ import os
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    # place = DBSession().query(Entry).get(location)
-    place = {'lat': 47.696815491, 'lng': -122.327774048}, {'lat': 47.606815491, 'lng': -122.327774048}
-
-    return {"places": place, "key": os.environ.get("GOOGLE_KEY")}
+    point = DBSession().query(Entry.latitude, Entry.longitude).all()
+    places = []
+    for i, l in enumerate(point):
+        if i == 0:
+            continue
+        place = {'lat': point[i][0], 'lng': point[i][1]}
+        places.append(place)
+    return {'places': places, "key": os.environ.get("GOOGLE_KEY")}
 
 
 @view_config(route_name='codes', renderer='templates/reference.jinja2')
