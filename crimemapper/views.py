@@ -15,16 +15,13 @@ def map_view(request):
     """Render map view on page."""
     point = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
     places = []
-    descriptions = []
     for i, l in enumerate(point):
         if i == 0:
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
-        places.append(place)
-        descriptions.append(description)
-    
-    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY"), 'descriptions': descriptions}
+        places.append([place, description])
+    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY")}
     print(dict_)
     return dict_
 
