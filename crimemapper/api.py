@@ -32,14 +32,14 @@ def populate_db(entry):
 def clean_dict(listing_collection):
     """Replace 'X' with 'NULL'."""
     for crime in listing_collection:
-        for key in crime: 
+        for key in crime:
             if crime[key] == 'X':
                 crime[key] = None
     return listing_collection
 
 
 def make_dict(json):
-    """Appending crime into listing collection."""
+    """Append crime into listing collection."""
     listing_collection = []
     for listing in json:
         crime = {}
@@ -50,7 +50,7 @@ def make_dict(json):
 
 
 def import_crimes():
-    """Returns clean crime listing collection."""
+    """Return clean crime listing collection."""
     response = call_api()
     json_response = json.loads(response)
     return make_dict(json_response)
