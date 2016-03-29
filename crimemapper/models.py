@@ -2,6 +2,7 @@ from sqlalchemy import (
     Column,
     Integer,
     Numeric,
+    Float,
     Text,
     DateTime,
 )
@@ -37,8 +38,8 @@ class Entry(Base):
     district_sector = Column(Text)
     zone_beat = Column(Text)
     census_tract_2000 = Column(Text)
-    longitude = Column(Numeric)
-    latitude = Column(Numeric)
+    longitude = Column(Float)
+    latitude = Column(Float)
     location = Column(JSON)
 
 # Index('my_index', MyModel.name, unique=True, mysql_length=255)
