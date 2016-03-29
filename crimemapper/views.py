@@ -12,14 +12,18 @@ from crimemapper.models import (
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    point = DBSession().query(Entry.latitude, Entry.longitude).all()
+    point = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
     places = []
+    descriptions = []
     for i, l in enumerate(point):
         if i == 0:
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
+        description = str(point[i][2])
         places.append(place)
-    return {'places': places}
+        descriptions.append(description)
+        print(descriptions)
+    return {'places': places, 'descriptions': descriptions}
 
 
 
