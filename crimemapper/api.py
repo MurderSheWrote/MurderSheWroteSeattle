@@ -5,9 +5,11 @@ from .models import Entry
 from .models import DBSession, Base
 import transaction
 from sqlalchemy import create_engine
+import os
 
 
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 
 def call_api():
@@ -53,8 +55,7 @@ def import_crimes():
 
 def main():
     """Set up database and populate with clean crime listing colleciton."""
-    database_url = 'postgres://mac:@localhost:5432/testing'
-    engine = create_engine(database_url)
+    engine = create_engine(DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
