@@ -1,9 +1,6 @@
 # -*- coding:utf-8 -*-
 """Test file for views."""
-from crimemapper.views import entry_view
-from testapp.views import home_view
 from testapp.models import DBSession, Entry
-from pyramid.testing import DummyRequest
 import pytest
 from webtest import AppError
 
@@ -27,6 +24,12 @@ def test_stats_view_route(dbtransaction, app):
 
 
 def test_codes_view_route(dbtransaction, app):
-    """Test statistics view route path."""
+    """Test codes refference view route path."""
     response = app.get('/codes')
+    assert response.status_code == 200
+
+
+def test_about_view_route(dbtransaction, app):
+    """Test codes refference view route path."""
+    response = app.get('/about')
     assert response.status_code == 200
