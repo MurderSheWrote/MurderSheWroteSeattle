@@ -1,15 +1,32 @@
-import os
-
 {% extends "index.html" %}
-{% block navbar %}
-{% endblock %}
 
-{% block content %}
+{% block map %}
 
 
-<div id="map"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key={% os.environ.get(GOOGLE_KEY) %}&callback=initMap"
-async defer></script>
+<div id='map'></div>
 
 
-{% endblock %}
+<script>
+    function initMap() {
+    var dummy = {lat: 47.696815491, lng: -122.327774048};
+
+    var map;
+    map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat:47.6067006, lng:-122.3346896},
+         zoom: 13
+     });
+     {% for place in places %}
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: {{place|safe}},
+      title: 'crime'
+    });
+    {% endfor %}
+
+    marker.setMap(map);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW8aTnczhQfI882U76VIXjEXbQcqjeedg&callback=initMap" async defer></script>
+
+{% endblock map %}

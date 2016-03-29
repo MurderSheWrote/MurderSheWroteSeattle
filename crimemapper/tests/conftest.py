@@ -2,14 +2,14 @@
 """Pytest fixtures for testing."""
 import pytest
 from sqlalchemy import create_engine
-from crimmapper.models import DBSession, Base, Entry
+from crimemapper.models import DBSession, Base, Entry
 import os
 from crimemapper import main
 from webtest import TestApp
 from pyramid.paster import get_appsettings
 
 
-TEST_DATABASE_URL = 'postgres://nadiabahrami:@localhost:5432/testing'
+TEST_DATABASE_URL = 'postgres://michaelsullivan:@localhost:5432/testing'
 
 
 @pytest.fixture(scope='session')
@@ -69,8 +69,8 @@ def entry_dict():
         'occured_date_or_date_range_start': '08/30/2005 10:00:00 AM',
         'occured_date_or_date_range_end': '01/01/2013 10:00:00 AM',
         'hundred_block_location': '7XX BLOCK OF PIKE ST',
-        'district': 'M',
-        'zone': 'M2',
+        'district_sector': 'M',
+        'zone_beat': 'M2',
         'census_tract_2000': '8200.1018',
         'longitude': -122.332801819,
         'latitude': 47.611839294,
