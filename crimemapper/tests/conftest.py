@@ -9,7 +9,7 @@ import os
 import pytest
 
 
-TEST_DATABASE_URL = os.environ["TEST_DATABASE"]
+TEST_DATABASE_URL = os.environ["TESTING_URL"]
 
 
 @pytest.fixture(scope='session')

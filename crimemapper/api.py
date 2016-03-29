@@ -9,7 +9,10 @@ import os
 
 
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
-DATABASE_URL = os.environ.get("DATABASE_URL")
+
+
+DATABASE_URL = os.environ["DATABASE_URL"]
+TESTING_URL = os.environ["TESTING_URL"]
 
 
 def call_api():
