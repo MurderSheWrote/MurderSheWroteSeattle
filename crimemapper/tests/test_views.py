@@ -19,7 +19,7 @@ def test_bad_route(dbtransaction, app):
 
 def test_stats_view_route(dbtransaction, app):
     """Test statistics view route path."""
-    response = app.get('/statistics')
+    response = app.get('/stats')
     assert response.status_code == 200
 
 
