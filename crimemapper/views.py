@@ -24,3 +24,15 @@ def map_view(request):
 def codes_view(request):
     """Render code references on page."""
     return {}
+
+
+@view_config(route_name='about', renderer='templates/about.jinja2')
+def about_view(request):
+    """Render about page."""
+    return {}
+
+
+@view_config(route_name='stats', renderer='templates/graphs.jinja2')
+def stats_view(request):
+    """Render stats page."""
+    return {}
