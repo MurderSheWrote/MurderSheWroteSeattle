@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block content %}
+<ul>
+    {% for crime in crimes %}
+    <li> <h3>{{crime}}</h3>
+        {% for item in crimes[crime] %}
+        <p>{{ item }}
+        {% endfor %}
+    </li> 
+    {% endfor %}
+
+</ul>
+
+{% endblock content %}

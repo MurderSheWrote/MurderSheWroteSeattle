@@ -26,10 +26,11 @@ def map_view(request):
     return dict_
 
 
-@view_config(route_name='codes', renderer='templates/reference.jinja2')
+@view_config(route_name='codes', renderer='templates/crimelist.jinja2')
 def codes_view(request):
     """Render code references on page."""
-    return {}
+    from crimedict import CRIME_DICT
+    return {"crimes": CRIME_DICT}
 
 
 @view_config(route_name='about', renderer='templates/about.jinja2')
