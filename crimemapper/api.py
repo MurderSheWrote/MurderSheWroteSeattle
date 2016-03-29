@@ -29,7 +29,7 @@ def clean_dict(listing_collection):
     for crime in listing_collection:
         for key in crime: 
             if crime[key] == 'X':
-                crime[key] = 'NULL'
+                crime[key] = None
     return listing_collection
 
 
@@ -53,7 +53,7 @@ def import_crimes():
 
 def main():
     """Set up database and populate with clean crime listing colleciton."""
-    database_url = 'postgres://mac:@localhost:5432/testing'
+    database_url = 'postgres://nadiabahrami:@localhost:5432/crimedb'
     engine = create_engine(database_url)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
