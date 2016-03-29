@@ -8,6 +8,7 @@ from pyramid.paster import get_appsettings
 import os
 import pytest
 
+
 TEST_DATABASE_URL = 'postgres://mac:@localhost:5432/testing'
 
 
