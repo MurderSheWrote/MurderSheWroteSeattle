@@ -1,9 +1,12 @@
 import pytest
 import requests
 from requests import Response, HTTPError
-import json
-from unittest.mock import MagicMock, Mock
-from unittest.mock import patch
+try:
+    from unittest.mock import MagicMock, Mock
+    from unittest.mock import patch
+except:
+    from mock import MagicMock, Mock
+    from mock import patch
 
 
 RESPONSE_200_DATA = {

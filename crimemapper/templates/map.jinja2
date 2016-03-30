@@ -17,7 +17,10 @@
     <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label>
     <label><input id="Other" type="checkbox" value="Other" class="option">Other</label>
   </form>
+  <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
+  <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <!-- <script src="static/markercluster.js" type="text/script"></script> -->
   <script>(function(){var d=null;function e(a){return function(b){this[a]=b}}function h(a){return function(){return this[a]}}var j;
@@ -41,10 +44,13 @@ function A(a,b){var c=[];c.push("background-image:url("+a.da+");");c.push("backg
 k.prototype.getExtendedBounds=k.prototype.v;k.prototype.getMap=k.prototype.getMap;k.prototype.getMarkers=k.prototype.o;k.prototype.getMaxZoom=k.prototype.I;k.prototype.getStyles=k.prototype.z;k.prototype.getTotalClusters=k.prototype.U;k.prototype.getTotalMarkers=k.prototype.V;k.prototype.redraw=k.prototype.i;k.prototype.removeMarker=k.prototype.Y;k.prototype.removeMarkers=k.prototype.Z;k.prototype.resetViewport=k.prototype.m;k.prototype.repaint=k.prototype.L;k.prototype.setCalculator=k.prototype.$;
 k.prototype.setGridSize=k.prototype.aa;k.prototype.setMaxZoom=k.prototype.ba;k.prototype.onAdd=k.prototype.onAdd;k.prototype.draw=k.prototype.draw;s.prototype.getCenter=s.prototype.getCenter;s.prototype.getSize=s.prototype.T;s.prototype.getMarkers=s.prototype.o;t.prototype.onAdd=t.prototype.onAdd;t.prototype.draw=t.prototype.draw;t.prototype.onRemove=t.prototype.onRemove;
 })();</script>
+  <script src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
     var markers = [];
+    var heatdata = [];
+    var map, heatmap;
+
     function initMap() {
-      var map;
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat:47.6067006, lng:-122.3346896},
         zoom: 13
@@ -58,18 +64,39 @@ k.prototype.setGridSize=k.prototype.aa;k.prototype.setMaxZoom=k.prototype.ba;k.p
           visible: true
         });
         markers.push(marker);
+        heatdata.push(marker.position)
       {% endfor %}
       marker.setMap(map);
       var markerCluster = new MarkerClusterer(map, markers);
+      var pointArray = new google.maps.MVCArray(heatdata)
+      heatmap = new google.maps.visualization.HeatmapLayer({
+        data: pointArray,
+        map: map
+      });
+      heatmap.setMap(null);
     }
-    console.log('hello');
-    console.log(markers);
 
-    var toggleVisibility = function(show, markers){
-        for (var i = 0, length = markers.length; i < length; i++){
-          markers[i].setVisible(show);
-        };
+    var toggleHeatMap = function(){
+      if (heatmap.getMap() != null) {
+        heatmap.setMap(null);
+        showMarkers();
+      } else {
+          heatmap.setMap(map);
+          clearMarkers();
+      }
     }
+
+    function showMarkers(){
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setVisible(true);
+      };
+    }
+
+    // var toggleVisibility = function(show, markers){
+    //     for (var i = 0, length = markers.length; i < length; i++){
+    //       markers[i].setVisible(show);
+    //     };
+    // }
 
     function sortVisibility(show, list){
       for(var j = 0; j < list.length; j++){
@@ -83,8 +110,9 @@ k.prototype.setGridSize=k.prototype.aa;k.prototype.setMaxZoom=k.prototype.ba;k.p
     }
 
     function allUncheck(){
-      if ($('#All').attr('checked') == 'checked'){
-        $('#All').attr('checked', false);
+      if ($('#All:checked').length === 1){
+        console.log("You are all uncheckd")
+        $('#All').prop('checked', false);
         clearMarkers();
       }
     }
@@ -96,8 +124,16 @@ k.prototype.setGridSize=k.prototype.aa;k.prototype.setMaxZoom=k.prototype.ba;k.p
     }
 
     $('#All').on('change', function(){
-      toggleVisibility(this.checked, markers)
-        $('.option').attr('checked', false);
+      if ($('#All:checked').length == 1){
+        for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(true);
+        };
+        $('.option').prop('checked', false);
+      } else {
+         for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(false);
+        };
+      }
     });
 
     $('#Fraud').on('change', function(){
@@ -171,6 +207,8 @@ k.prototype.setGridSize=k.prototype.aa;k.prototype.setMaxZoom=k.prototype.ba;k.p
         "OBSTRUCT", "TRAFFIC", "WARRANT ARREST", "VIOLATION OF COURT ORDER"];
       sortVisibility(this.checked, other);
     });
+
+
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=visualization&callback=initMap" async defer></script>
 {% endblock map %}
