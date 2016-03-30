@@ -35,29 +35,107 @@
           title: '{{place[1]}}',
           visible: true
         });
-        console.log(marker);
         markers.push(marker);
       {% endfor %}
       marker.setMap(map);
     }
     console.log('hello');
     console.log(markers);
+
     var toggleVisibility = function(show, markers){
         for (var i = 0, length = markers.length; i < length; i++){
           markers[i].setVisible(show);
         };
     }
 
+    function allUncheck(){
+      if ($('#All').attr('checked') == 'checked'){
+        $('#All').attr('checked', false);
+        clearMarkers();
+      }
+    }
+
+    function clearMarkers() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setVisible(false);
+      };
+    }
+
     $('#All').on('change', function(){
       toggleVisibility(this.checked, markers)
     });
-    $('#Weapons').on('change', function(){
-      $('#All').attr('checked', false);
-      // for (var i = 0, length = markers.length; i < length; i++){
-      //   if markers[i].title !== "WEAPON" {
-      //     markers[i].setVisible(show);
-      //   }
-      // };
+
+    $('#Fraud').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "FRAUD") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
+    });
+
+    $('#Assault').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "ASSAULT") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
+    });
+
+    $('#Robbery').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "ROBBERY") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
+    });
+
+    $('#Homicide').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "HOMICIDE") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
+    });
+
+    $('#Property').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "PROPERTY") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
+    });
+
+    $('#Drugs').on('change', function(){
+      allUncheck();
+      drugs = ["DUI", "LIQOUR VIOLATIONS", "NARCOTICS"];
+      for(var j = 0; j < drugs.length; j++){
+        for (var i = 0, length = markers.length; i < length; i++){
+          if (markers[i].title == drugs[j]) {
+            markers[i].setVisible(this.checked);
+            console.log(markers[i])
+          }
+        };
+      };
+    });
+
+    $('#Disturbances').on('change', function(){
+      allUncheck();
+      for (var i = 0, length = markers.length; i < length; i++){
+        if (markers[i].title == "DISTURBANCE") {
+          markers[i].setVisible(this.checked);
+          console.log(markers[i])
+        }
+      };
     });
 
   </script>
