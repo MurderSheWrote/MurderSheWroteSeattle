@@ -1,3 +1,4 @@
 #!/bin/bash
 python setup.py develop
 initialize_db production.ini
+populate_db

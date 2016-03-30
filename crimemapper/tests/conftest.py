@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 """Pytest fixtures for testing."""
-import pytest
 from sqlalchemy import create_engine
 from crimemapper.models import DBSession, Base, Entry
-import os
 from crimemapper import main
 from webtest import TestApp
 from pyramid.paster import get_appsettings
+import os
+import pytest
 
 
-TEST_DATABASE_URL = 'postgres://michaelsullivan:@localhost:5432/testing'
+TEST_DATABASE_URL = os.environ["TESTING_URL"]
 
 
 @pytest.fixture(scope='session')
@@ -66,8 +66,8 @@ def entry_dict():
         'summary_offense_code': 2700,
         'summarized_offense_description': 'EMBEZZLE',
         'date_reported': '05/07/2015 11:13:00 AM',
-        'occured_date_or_date_range_start': '08/30/2005 10:00:00 AM',
-        'occured_date_or_date_range_end': '01/01/2013 10:00:00 AM',
+        'occurred_date_or_date_range_start': '08/30/2005 10:00:00 AM',
+        'occurred_date_range_end': '01/01/2013 10:00:00 AM',
         'hundred_block_location': '7XX BLOCK OF PIKE ST',
         'district_sector': 'M',
         'zone_beat': 'M2',
