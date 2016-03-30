@@ -78,42 +78,32 @@
 
     $('#Fraud').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "FRAUD") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
-      };
+      fraud = ["COUNTERFEIT", "EMBEZZLE", "FORGERY", "FRAUD"]
+      sortVisibility(this.checked, fraud);
     });
 
     $('#Assault').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "ASSAULT") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
-      };
+      aslt = ["ASSAULT"];
+      sortVisibility(this.checked, aslt);
+    });
+
+    $('#Weapons').on('change', function(){
+      allUncheck();
+      aslt = ["WEAPON"];
+      sortVisibility(this.checked, aslt);
     });
 
     $('#Robbery').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "ROBBERY") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
-      };
+      rob = ["ROBBERY"];
+      sortVisibility(this.checked, rob);
     });
 
     $('#Homicide').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "HOMICIDE") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
-      };
+      hom = ["HOMICIDE"];
+      sortVisibility(this.checked, hom);
     });
 
     $('#Property').on('change', function(){
@@ -127,26 +117,38 @@
     $('#Drugs').on('change', function(){
       allUncheck();
       drugs = ["DUI", "LIQOUR VIOLATIONS", "NARCOTICS"];
-      for(var j = 0; j < drugs.length; j++){
-        for (var i = 0, length = markers.length; i < length; i++){
-          if (markers[i].title == drugs[j]) {
-            markers[i].setVisible(this.checked);
-            console.log(markers[i])
-          }
-        };
-      };
+      sortVisibility(this.checked, drugs);
     });
 
     $('#Disturbances').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "DISTURBANCE") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
-      };
+      dist = ["DISORDERLY CONDUCT", "DISPUTE", "FIREWORK", "PUBLIC NUISANCE",
+        "THREATS", "TRESPASS"];
+      sortVisibility(this.checked, dist);
     });
 
+    $('#Theft').on('change', function(){
+      allUncheck();
+      theft = ["BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
+        "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICE", "VEHICLE THEFT",
+        "BURGLARY OF SECURE PARKING GARAGE"];
+      sortVisibility(this.checked, theft);
+    });
+
+    $('#Sin').on('change', function(){
+      allUncheck();
+      sin = ["GAMBLE", "PORNORGRAPHY", "PROSTITUTION"];
+      sortVisibility(this.checked, sin);
+    });
+
+    $('#Other').on('change', function(){
+      allUncheck();
+      other = ["ANIMAL", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION",
+        "HARBOR CALLS", "INJURY", "LOITERING", "METRO", "OBSTRUCT",
+        "STAY OUT OF AREA", "TRAFFIC", "WARRANT ARREST",
+        "VIOLATION OF COURT ORDER"];
+      sortVisibility(this.checked, other);
+    });
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
 {% endblock map %}
