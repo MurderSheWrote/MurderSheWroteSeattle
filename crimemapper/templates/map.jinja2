@@ -63,10 +63,10 @@
     }
 
 
-    function sortVisibility(ischecked, list){
-      for(var j = 0; j < list.length; j++){
+    function sortVisibility(ischecked, crimelist){
+      for(var j = 0; j < crimelist.length; j++){
         for (var i = 0, length = markers.length; i < length; i++){
-          if (markers[i].title == list[j]) {
+          if (markers[i].title == crimelist[j]) {
             markers[i].setVisible(ischecked);
           }
         };
