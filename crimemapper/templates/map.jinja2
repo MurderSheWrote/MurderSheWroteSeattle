@@ -43,13 +43,23 @@
     console.log('hello');
     console.log(markers);
     var toggleVisibility = function(show, markers){
-         for (var i = 0, length = markers.length; i < length; i++)
-              markers[i].setVisible(show);
+        for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(show);
+        };
     }
-          
+
     $('#All').on('change', function(){
       toggleVisibility(this.checked, markers)
     });
+    $('#Weapons').on('change', function(){
+      $('#All').attr('checked', false);
+      // for (var i = 0, length = markers.length; i < length; i++){
+      //   if markers[i].title !== "WEAPON" {
+      //     markers[i].setVisible(show);
+      //   }
+      // };
+    });
+
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
 {% endblock map %}
