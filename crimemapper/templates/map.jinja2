@@ -3,77 +3,151 @@
   <div class="words">
       <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
   </div>
-  <div>
-    <div class="filter-heading">
-    </div>
-    <table class="check-box-form">
-        <tbody>
-            <tr>
-                <td class="check-box">
-                    <p>Homicide</p>
-                    <input id="Homicide" type="checkbox" title="crime-types-check-list" value="Homicide" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Assault</p>
-                    <input id="Assault" type="checkbox" title="crime-types-check-list" value="Assault" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Weapons</p>
-                    <input id="Weapons" type="checkbox" title="crime-types-check-list" value="Weapons" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Rbbery</p>
-                    <input id="Robbery" type="checkbox" title="crime-types-check-list" value="Robbery" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Property</p>
-                    <input id="Property" type="checkbox" title="crime-types-check-list" value=id="Property" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Drug/Alcohol</p>
-                    <input id="Drugs/Alcohol" type="checkbox" title="crime-types-check-list" value="Drugs/Alcohol" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Nuisance</p>
-                    <input id="Nuisance" type="checkbox" title="crime-types-check-list" value="Nuisance" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Bulglary/Theft</p>
-                    <input id="Burglary/Theft" type="checkbox" title="crime-types-check-list" value="Burglary/Theft" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Sin</p>
-                    <input id="Sin" type="checkbox" title="crime-types-check-list" value="Sin" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Fraud</p>
-                    <input id="Fraud" type="checkbox" title="crime-types-check-list" value="Fraud" checked="checked">
-                </td>
-                <td class="check-box">
-                    <p>Other</p>
-                    <input id="Other" type="checkbox" title="crime-types-check-list" value="Other" checked="checked">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+  <form>
+    <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
+    <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label>
+    <label><input id="Assault" type="checkbox" value="Assault" class="option">Assault</label>
+    <label><input id="Weapons" type="checkbox" value="Weapons" class="option">Weapons</label>
+    <label><input id="Robbery" type="checkbox" value="Robbery" class="option">Robbery</label>
+    <label><input id="Property" type="checkbox" value="Property" class="option">Property</label>
+    <label><input id="Drugs" type="checkbox" value="Drugs" class="option">Drugs/Alcohol</label>
+    <label><input id="Disturbances" type="checkbox" value="Disturbances" class="option">Disturbances</label>
+    <label><input id="Theft" type="checkbox" value="Theft" class="option">Burglary/Theft</label>
+    <label><input id="Sin" type="checkbox" value="Sin" class="option">Sin</label>
+    <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label>
+    <label><input id="Other" type="checkbox" value="Other" class="option">Other</label>
+  </form>
   <div id='map'></div>
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
-      function initMap() {
+    var markers = [];
+    function initMap() {
       var map;
       map = new google.maps.Map(document.getElementById('map'), {
-           center: {lat:47.6067006, lng:-122.3346896},
-           zoom: 13
+        center: {lat:47.6067006, lng:-122.3346896},
+        zoom: 13
       });
+
       {% for place in places %}
-          var marker = new google.maps.Marker({
-            map: map,
-            position: {{place[0]|safe}},
-            title: '{{place[1]}}'
-          });
+        var marker = new google.maps.Marker({
+          map: map,
+          position: {{place[0]|safe}},
+          title: '{{place[1]}}',
+          visible: true
+        });
+        markers.push(marker);
       {% endfor %}
       marker.setMap(map);
+    }
+    console.log('hello');
+    console.log(markers);
+
+    var toggleVisibility = function(show, markers){
+        for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(show);
+        };
+    }
+
+    function sortVisibility(show, list){
+      for(var j = 0; j < list.length; j++){
+        for (var i = 0, length = markers.length; i < length; i++){
+          if (markers[i].title == list[j]) {
+            markers[i].setVisible(show);
+            console.log(markers[i])
+          }
+        };
+      };
+    }
+
+    function allUncheck(){
+      if ($('#All').attr('checked') == 'checked'){
+        $('#All').attr('checked', false);
+        clearMarkers();
       }
+    }
+
+    function clearMarkers() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setVisible(false);
+      };
+    }
+
+    $('#All').on('change', function(){
+      toggleVisibility(this.checked, markers)
+        $('.option').attr('checked', false);
+    });
+
+    $('#Fraud').on('change', function(){
+      allUncheck();
+      fraud = ["COUNTERFEIT", "EMBEZZLE", "FORGERY", "FRAUD"]
+      sortVisibility(this.checked, fraud);
+    });
+
+    $('#Assault').on('change', function(){
+      allUncheck();
+      aslt = ["ASSAULT"];
+      sortVisibility(this.checked, aslt);
+    });
+
+    $('#Weapons').on('change', function(){
+      allUncheck();
+      aslt = ["WEAPON"];
+      sortVisibility(this.checked, aslt);
+    });
+
+    $('#Robbery').on('change', function(){
+      allUncheck();
+      rob = ["ROBBERY"];
+      sortVisibility(this.checked, rob);
+    });
+
+    $('#Homicide').on('change', function(){
+      allUncheck();
+      hom = ["HOMICIDE"];
+      sortVisibility(this.checked, hom);
+    });
+
+    $('#Property').on('change', function(){
+      allUncheck();
+      prop = ["ILLEGAL DUMPING", "LOST PROPERTY", "OTHER PROPERTY",
+        "PROPERTY DAMAGE", "RECKLESS BURNING", "RECOVERED PROPERTY",
+        "STOLEN PROPERTY"];
+      sortVisibility(this.checked, prop);
+    });
+
+    $('#Drugs').on('change', function(){
+      allUncheck();
+      drugs = ["DUI", "LIQUOR VIOLATIONS", "NARCOTICS", "STAY OUT OF AREA OF DRUGS"];
+      sortVisibility(this.checked, drugs);
+    });
+
+    $('#Disturbances').on('change', function(){
+      allUncheck();
+      dist = ["DISORDERLY CONDUCT", "DISPUTE", "FIREWORK", "PUBLIC NUISANCE",
+        "THREATS", "TRESPASS"];
+      sortVisibility(this.checked, dist);
+    });
+
+    $('#Theft').on('change', function(){
+      allUncheck();
+      theft = ["BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
+        "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICE", "VEHICLE THEFT",
+        "BURGLARY-SECURE PARKING-RES"];
+      sortVisibility(this.checked, theft);
+    });
+
+    $('#Sin').on('change', function(){
+      allUncheck();
+      sin = ["GAMBLE", "PORNORGRAPHY", "PROSTITUTION"];
+      sortVisibility(this.checked, sin);
+    });
+
+    $('#Other').on('change', function(){
+      allUncheck();
+      other = ["ANIMAL COMPLAINT", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION", "HARBOR CALLS", "INJURY", "LOITERING", "METRO", 
+        "OBSTRUCT", "TRAFFIC", "WARRANT ARREST", "VIOLATION OF COURT ORDER"];
+      sortVisibility(this.checked, other);
+    });
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
 {% endblock map %}
