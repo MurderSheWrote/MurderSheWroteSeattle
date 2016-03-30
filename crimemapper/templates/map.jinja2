@@ -1,8 +1,5 @@
 {% extends "index.html" %}
 {% block map %}
-  <div class="words">
-      <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
-  </div>
   <form>
     <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
     <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label>
@@ -19,6 +16,9 @@
   </form>
   <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
+  <div class="words">
+      <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
+  </div>
   <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
@@ -55,13 +55,12 @@
     var toggleHeatMap = function(){
       if (heatmap.getMap() != null) {
         heatmap.setMap(null);
-        showMarkers();
+        showAllMarkers();
       } else {
           heatmap.setMap(map);
-          clearMarkers();
+          clearAllMarkers();
       }
     }
-
 
     function sortVisibility(ischecked, crimelist){
       for(var j = 0; j < crimelist.length; j++){
@@ -74,16 +73,17 @@
     }
 
     function allUncheck(){
-      if ($('#All:checked').length === 1){
+      if ($('#All').is(':checked')){
         $('#All').prop('checked', false);
-        clearMarkers();
+        clearAllMarkers();
       }
     }
 
-    function showMarkers(){
+    function showAllMarkers(){
       for (var i = 0; i < markers.length; i++) {
         markers[i].setVisible(true);
       };
+      $('.option').prop('checked', false);
     }
 
     function clearMarkers() {
@@ -93,11 +93,10 @@
     }
 
     $('#All').on('change', function(){
-      if ($('#All:checked').length == 1){
-        showMarkers();
-        $('.option').prop('checked', false);
+      if ($('#All').is(':checked')){
+        showAllMarkers();
       } else {
-        clearMarkers();
+        clearAllMarkers();
       }
     });
 
