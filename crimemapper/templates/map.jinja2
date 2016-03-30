@@ -74,6 +74,17 @@
 
     $('#All').on('change', function(){
       toggleVisibility(this.checked, markers)
+        $('#Fraud').attr('checked', false);
+        $('#Assault').attr('checked', false);
+        $('#Weapons').attr('checked', false);
+        $('#Robbery').attr('checked', false);
+        $('#Homicide').attr('checked', false);
+        $('#Property').attr('checked', false);
+        $('#Drugs').attr('checked', false);
+        $('#Disturbances').attr('checked', false);
+        $('#Theft').attr('checked', false);
+        $('#Sin').attr('checked', false);
+        $('#Other').attr('checked', false);
     });
 
     $('#Fraud').on('change', function(){
