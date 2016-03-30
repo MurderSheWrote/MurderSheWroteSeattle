@@ -29,7 +29,7 @@ def map_view(request):
 @view_config(route_name='codes', renderer='templates/crimelist.jinja2')
 def codes_view(request):
     """Render code references on page."""
-    from crimedict import CRIME_DICT
+    from .crimedict import CRIME_DICT
     return {"crimes": CRIME_DICT}
 
 
