@@ -20,7 +20,7 @@ def call_api():
     url = DOMAIN
     response = requests.get(url)
     response.raise_for_status()
-    return response.text
+    return response.json()
 
 
 def populate_db(entry):
@@ -38,7 +38,7 @@ def clean_dict(listing_collection):
     return listing_collection
 
 
-def make_dict(json):
+def make_dict(): #need to chance
     """Appending crime into listing collection."""
     listing_collection = []
     for listing in json:
