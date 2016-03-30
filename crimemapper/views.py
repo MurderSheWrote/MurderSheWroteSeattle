@@ -8,6 +8,7 @@ from crimemapper.models import (
     Entry,
 )
 import os
+from crimedict import CRIME_DICT
 
 
 POINTS = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
@@ -25,7 +26,7 @@ def map_view(request):
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         places.append([place, description])
-    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY")}
+    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
     print(dict_)
     return dict_
 
