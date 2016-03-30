@@ -63,11 +63,11 @@
     }
 
 
-    function sortVisibility(show, list){
+    function sortVisibility(ischecked, list){
       for(var j = 0; j < list.length; j++){
         for (var i = 0, length = markers.length; i < length; i++){
           if (markers[i].title == list[j]) {
-            markers[i].setVisible(show);
+            markers[i].setVisible(ischecked);
           }
         };
       };
