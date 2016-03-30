@@ -116,7 +116,7 @@
 
     $('#Drugs').on('change', function(){
       allUncheck();
-      drugs = ["DUI", "LIQOUR VIOLATIONS", "NARCOTICS"];
+      drugs = ["DUI", "LIQUOR VIOLATIONS", "NARCOTICS", "STAY OUT OF AREA OF DRUGS"];
       sortVisibility(this.checked, drugs);
     });
 
@@ -131,7 +131,7 @@
       allUncheck();
       theft = ["BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
         "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICE", "VEHICLE THEFT",
-        "BURGLARY OF SECURE PARKING GARAGE"];
+        "BURGLARY-SECURE PARKING-RES"];
       sortVisibility(this.checked, theft);
     });
 
@@ -143,10 +143,8 @@
 
     $('#Other').on('change', function(){
       allUncheck();
-      other = ["ANIMAL", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION",
-        "HARBOR CALLS", "INJURY", "LOITERING", "METRO", "OBSTRUCT",
-        "STAY OUT OF AREA", "TRAFFIC", "WARRANT ARREST",
-        "VIOLATION OF COURT ORDER"];
+      other = ["ANIMAL COMPLAINT", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION", "HARBOR CALLS", "INJURY", "LOITERING", "METRO", 
+        "OBSTRUCT", "TRAFFIC", "WARRANT ARREST", "VIOLATION OF COURT ORDER"];
       sortVisibility(this.checked, other);
     });
   </script>
