@@ -44,7 +44,6 @@
         heatdata.push(marker.position)
       {% endfor %}
       marker.setMap(map);
-      var markerCluster = new MarkerClusterer(map, markers);
       var pointArray = new google.maps.MVCArray(heatdata)
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: pointArray,
@@ -107,79 +106,12 @@
       }
     });
 
-    $('#Fraud').on('change', function(){
+    {% for crime in crimes %}
+    $('#' + "{{crime}}").on('change', function(){
       allUncheck();
-      fraud = ["COUNTERFEIT", "EMBEZZLE", "FORGERY", "FRAUD"]
-      sortVisibility(this.checked, fraud);
+      sortVisibility(this.checked, {{crimes[crime] | safe | upper}});
     });
-
-    $('#Assault').on('change', function(){
-      allUncheck();
-      aslt = ["ASSAULT"];
-      sortVisibility(this.checked, aslt);
-    });
-
-    $('#Weapons').on('change', function(){
-      allUncheck();
-      aslt = ["WEAPON"];
-      sortVisibility(this.checked, aslt);
-    });
-
-    $('#Robbery').on('change', function(){
-      allUncheck();
-      rob = ["ROBBERY"];
-      sortVisibility(this.checked, rob);
-    });
-
-    $('#Homicide').on('change', function(){
-      allUncheck();
-      hom = ["HOMICIDE"];
-      sortVisibility(this.checked, hom);
-    });
-
-    $('#Property').on('change', function(){
-      allUncheck();
-      prop = ["ILLEGAL DUMPING", "LOST PROPERTY", "OTHER PROPERTY",
-        "PROPERTY DAMAGE", "RECKLESS BURNING", "RECOVERED PROPERTY",
-        "STOLEN PROPERTY"];
-      sortVisibility(this.checked, prop);
-    });
-
-    $('#Drugs').on('change', function(){
-      allUncheck();
-      drugs = ["DUI", "LIQUOR VIOLATIONS", "NARCOTICS", "STAY OUT OF AREA OF DRUGS"];
-      sortVisibility(this.checked, drugs);
-    });
-
-    $('#Disturbances').on('change', function(){
-      allUncheck();
-      dist = ["DISORDERLY CONDUCT", "DISPUTE", "FIREWORK", "PUBLIC NUISANCE",
-        "THREATS", "TRESPASS"];
-      sortVisibility(this.checked, dist);
-    });
-
-    $('#Theft').on('change', function(){
-      allUncheck();
-      theft = ["BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
-        "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICE", "VEHICLE THEFT",
-        "BURGLARY-SECURE PARKING-RES"];
-      sortVisibility(this.checked, theft);
-    });
-
-    $('#Sin').on('change', function(){
-      allUncheck();
-      sin = ["GAMBLE", "PORNORGRAPHY", "PROSTITUTION"];
-      sortVisibility(this.checked, sin);
-    });
-
-    $('#Other').on('change', function(){
-      allUncheck();
-      other = ["ANIMAL COMPLAINT", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION", "HARBOR CALLS", "INJURY", "LOITERING", "METRO", 
-        "OBSTRUCT", "TRAFFIC", "WARRANT ARREST", "VIOLATION OF COURT ORDER"];
-      sortVisibility(this.checked, other);
-    });
-
-
+    {% endfor %}
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=visualization&callback=initMap" async defer></script>
 {% endblock map %}
