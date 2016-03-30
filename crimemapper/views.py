@@ -10,14 +10,25 @@ from crimemapper.models import (
 import os
 
 
-POINTS = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
+CACHED_RESULTS = {}
+
+
+def cached_db_call():
+    if 'already_called' not in CACHED_RESULTS:
+        results = DBSession().query(
+            Entry.latitude,
+            Entry.longitude,
+            Entry.summarized_offense_description
+        ).all()
+        CACHED_RESULTS['already_called'] = results
+    return CACHED_RESULTS['already_called']
 
 
 # @view_confit(route_name='map', renderer="json", xhr=True)
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    point = POINTS
+    point = cached_db_call()
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
