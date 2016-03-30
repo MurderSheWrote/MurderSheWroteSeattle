@@ -20,7 +20,7 @@ def map_view(request):
     point = POINTS
     places = []
     for i, l in enumerate(point):
-        if i == 0:
+        if point[i][0] is None:
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])

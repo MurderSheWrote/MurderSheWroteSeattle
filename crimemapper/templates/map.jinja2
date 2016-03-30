@@ -4,6 +4,7 @@
       <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
   </div>
   <form>
+    <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
     <label><input id="Homicide" type="checkbox" value="Homicide">Homicide</label>
     <label><input id="Assault" type="checkbox" value="Assault">Assault</label>
     <label><input id="Weapons" type="checkbox" value="Weapons">Weapons</label>
@@ -17,22 +18,38 @@
     <label><input id="Other" type="checkbox" value="Other">Other</label>
   </form>
   <div id='map'></div>
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
-      function initMap() {
+    var markers = [];
+    function initMap() {
       var map;
       map = new google.maps.Map(document.getElementById('map'), {
-           center: {lat:47.6067006, lng:-122.3346896},
-           zoom: 13
+        center: {lat:47.6067006, lng:-122.3346896},
+        zoom: 13
       });
+
       {% for place in places %}
-          var marker = new google.maps.Marker({
-            map: map,
-            position: {{place[0]|safe}},
-            title: '{{place[1]}}'
-          });
+        var marker = new google.maps.Marker({
+          map: map,
+          position: {{place[0]|safe}},
+          title: '{{place[1]}}',
+          visible: true
+        });
+        console.log(marker);
+        markers.push(marker);
       {% endfor %}
       marker.setMap(map);
-      }
+    }
+    console.log('hello');
+    console.log(markers);
+    var toggleVisibility = function(show, markers){
+         for (var i = 0, length = markers.length; i < length; i++)
+              markers[i].setVisible(show);
+    }
+          
+    $('#All').on('change', function(){
+      toggleVisibility(this.checked, markers)
+    });
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
 {% endblock map %}
