@@ -4,6 +4,7 @@ from requests import Response, HTTPError
 import json
 from unittest.mock import MagicMock, Mock
 from unittest.mock import patch
+from sodapy import Socrata
 
 
 RESPONSE_200_DATA = {

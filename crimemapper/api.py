@@ -6,7 +6,7 @@ from .models import DBSession, Base
 import transaction
 from sqlalchemy import create_engine
 import os
-
+from sodapy import Socrata
 
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
@@ -16,11 +16,12 @@ TESTING_URL = os.environ["TESTING_URL"]
 
 
 def call_api():
-    """Request data from socrata api and get response text back."""
-    url = DOMAIN
-    response = requests.get(url)
+    """Request data from socrata api and get back JSON."""
+    request = Socrata("data.seattle.gov", "jYvaKKK1FUmzObHnQnZLXBFGP")
+    response = request.get("ih58-ykqj", content_type="json", limit=49998)
     response.raise_for_status()
     return response.json()
+
 
 
 def populate_db(entry):
