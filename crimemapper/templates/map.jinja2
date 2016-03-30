@@ -62,11 +62,6 @@
       }
     }
 
-    function showMarkers(){
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setVisible(true);
-      };
-    }
 
     function sortVisibility(show, list){
       for(var j = 0; j < list.length; j++){
@@ -85,6 +80,12 @@
       }
     }
 
+    function showMarkers(){
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setVisible(true);
+      };
+    }
+
     function clearMarkers() {
       for (var i = 0; i < markers.length; i++) {
         markers[i].setVisible(false);
@@ -93,14 +94,10 @@
 
     $('#All').on('change', function(){
       if ($('#All:checked').length == 1){
-        for (var i = 0, length = markers.length; i < length; i++){
-          markers[i].setVisible(true);
-        };
+        showMarkers();
         $('.option').prop('checked', false);
       } else {
-         for (var i = 0, length = markers.length; i < length; i++){
-          markers[i].setVisible(false);
-        };
+        clearMarkers();
       }
     });
 
