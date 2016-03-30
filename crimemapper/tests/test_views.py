@@ -17,9 +17,11 @@ def test_map_view_1(dbtransaction):
     assert type(result['key']) is str
 
 
-# def test_map_view_2(dbtransaction):
-#     result = map_view(DummyRequest)
-#     assert type(result['places'][0]) is list
+def test_map_view_2(dbtransaction):
+    """Test that when query returns nothing places list is empty."""
+    result = map_view(DummyRequest)
+    with pytest.raises(IndexError):
+        assert type(result['places'][0]) is list
 
 
 
