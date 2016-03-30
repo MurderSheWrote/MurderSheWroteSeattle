@@ -1,8 +1,40 @@
 # -*- coding:utf-8 -*-
 """Test file for views."""
 from crimemapper.models import DBSession, Entry
+from crimemapper.views import map_view
 import pytest
 from webtest import AppError
+from pyramid.testing import DummyRequest
+
+
+def test_map_view_0(dbtransaction):
+    result = map_view(DummyRequest)
+    assert type(result['places']) is list
+
+
+def test_map_view_1(dbtransaction):
+    result = map_view(DummyRequest)
+    assert type(result['key']) is str
+
+
+def test_map_view_2(dbtransaction):
+    """Test that when query returns nothing places list is empty."""
+    result = map_view(DummyRequest)
+    with pytest.raises(IndexError):
+        assert type(result['places'][0]) is list
+
+
+
+    # test_entry = map_view(entry_dict)
+    # assert map_view(entry_dict) == {[{'lat': 47.611839294, 'lng': -122.332801819}, 'EMBEZZLE']}
+
+
+# def test_new_entry(dbtransaction, entry_dict, new_entry):
+#     new_model = Entry(entry_dict)
+#     assert new_model.id is None
+    # DBSession.add(new_entry)
+    # DBSession.flush()
+    # assert entry_dict.id is not None
 
 
 def test_map_view_route(dbtransaction, app):

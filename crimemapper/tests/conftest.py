@@ -22,7 +22,7 @@ def config_path():
 
 @pytest.fixture(scope='session')
 def test_url():
-    """Fixture to access pathe to test database."""
+    """Fixture to access path to test database."""
     return TEST_DATABASE_URL
 
 
