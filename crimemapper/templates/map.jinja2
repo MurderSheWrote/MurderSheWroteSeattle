@@ -58,7 +58,7 @@
         showAllMarkers();
       } else {
           heatmap.setMap(map);
-          clearAllMarkers();
+          toggleAllMarkerVisibility(false);
       }
     }
 
@@ -75,28 +75,27 @@
     function allUncheck(){
       if ($('#All').is(':checked')){
         $('#All').prop('checked', false);
-        clearAllMarkers();
+        toggleAllMarkerVisibility(false);
       }
     }
 
-    function showAllMarkers(){
+    function toggleAllMarkerVisibility(boolval){
       for (var i = 0; i < markers.length; i++) {
-        markers[i].setVisible(true);
+        markers[i].setVisible(boolval);
       };
+    }
+
+    function showAllMarkers(){
+      toggleAllMarkerVisibility(true);
       $('.option').prop('checked', false);
     }
 
-    function clearMarkers() {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setVisible(false);
-      };
-    }
 
     $('#All').on('change', function(){
       if ($('#All').is(':checked')){
         showAllMarkers();
       } else {
-        clearAllMarkers();
+        toggleAllMarkerVisibility(false);
       }
     });
 
