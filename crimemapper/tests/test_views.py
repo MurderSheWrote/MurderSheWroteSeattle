@@ -7,10 +7,22 @@ from webtest import AppError
 from pyramid.testing import DummyRequest
 
 
-
-def test_map_view(dbtransaction):
+def test_map_view_0(dbtransaction):
     result = map_view(DummyRequest)
     assert type(result['places']) is list
+
+
+def test_map_view_1(dbtransaction):
+    result = map_view(DummyRequest)
+    assert type(result['key']) is str
+
+
+# def test_map_view_2(dbtransaction):
+#     result = map_view(DummyRequest)
+#     assert type(result['places'][0]) is list
+
+
+
     # test_entry = map_view(entry_dict)
     # assert map_view(entry_dict) == {[{'lat': 47.611839294, 'lng': -122.332801819}, 'EMBEZZLE']}
 
