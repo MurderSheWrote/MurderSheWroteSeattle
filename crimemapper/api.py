@@ -29,31 +29,17 @@ def populate_db(entry):
     DBSession.add(entries)
 
 
-def clean_dict(listing_collection):
-    """Replace 'X' with 'NULL'."""
-    for crime in listing_collection:
-        for key in crime: 
-            if crime[key] == 'X':
-                crime[key] = None
-    return listing_collection
-
-
-def make_dict(): #need to chance
-    """Appending crime into listing collection."""
-    listing_collection = []
-    for listing in json:
-        crime = {}
-        for key in listing:
-            crime[key] = listing[key]
-        listing_collection.append(crime)
-    return clean_dict(listing_collection)
+def clean_data(crime_entry):
+    """Replace 'X' with 'None'."""
+    cleaned = {}
+    for key in crime_entry:
+        cleaned[key] = None if crime_entry[key] == "X" else crime_entry[key]
 
 
 def import_crimes():
     """Returns clean crime listing collection."""
     response = call_api()
-    json_response = json.loads(response)
-    return make_dict(json_response)
+    return clean_data(call_api())
 
 
 def main():
