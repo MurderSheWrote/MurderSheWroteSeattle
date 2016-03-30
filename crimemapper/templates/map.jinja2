@@ -107,11 +107,16 @@
 
     $('#Property').on('change', function(){
       allUncheck();
-      for (var i = 0, length = markers.length; i < length; i++){
-        if (markers[i].title == "PROPERTY") {
-          markers[i].setVisible(this.checked);
-          console.log(markers[i])
-        }
+      prop = ["ILLEGAL DUMPING", "LOST PROPERTY", "OTHER PROPERTY",
+        "PROPERTY DAMAGE", "RECKLESS BURNING", "RECOVERED PROPERTY",
+        "STOLEN PROPERTY"];
+      for(var j = 0; j < prop.length; j++){
+        for (var i = 0, length = markers.length; i < length; i++){
+          if (markers[i].title == prop[j]) {
+            markers[i].setVisible(this.checked);
+            console.log(markers[i])
+          }
+        };
       };
     });
 
