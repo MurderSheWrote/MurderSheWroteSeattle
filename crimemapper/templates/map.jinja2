@@ -42,11 +42,11 @@
     console.log('hello');
     console.log(markers);
 
-    var toggleVisibility = function(show, markers){
-        for (var i = 0, length = markers.length; i < length; i++){
-          markers[i].setVisible(show);
-        };
-    }
+    // var toggleVisibility = function(show, markers){
+    //     for (var i = 0, length = markers.length; i < length; i++){
+    //       markers[i].setVisible(show);
+    //     };
+    // }
 
     function sortVisibility(show, list){
       for(var j = 0; j < list.length; j++){
@@ -60,8 +60,9 @@
     }
 
     function allUncheck(){
-      if ($('#All').attr('checked') == 'checked'){
-        $('#All').attr('checked', false);
+      if ($('#All:checked').length === 1){
+        console.log("You are all uncheckd")
+        $('#All').prop('checked', false);
         clearMarkers();
       }
     }
@@ -73,8 +74,16 @@
     }
 
     $('#All').on('change', function(){
-      toggleVisibility(this.checked, markers)
-        $('.option').attr('checked', false);
+      if ($('#All:checked').length == 1){
+        for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(true);
+        };
+        $('.option').prop('checked', false);
+      } else {
+         for (var i = 0, length = markers.length; i < length; i++){
+          markers[i].setVisible(false);
+        };
+      }
     });
 
     $('#Fraud').on('change', function(){
