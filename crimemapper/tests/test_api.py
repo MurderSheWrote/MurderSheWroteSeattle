@@ -1,8 +1,10 @@
 import pytest
 import requests
-from types import *
+from requests import Response, HTTPError
 import json
-from unittest import mock
+# from unittest import mock
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 
 RESPONSE_200_DATA = {'census_tract_2000': '1900.1012',
@@ -26,14 +28,25 @@ RESPONSE_200_DATA = {'census_tract_2000': '1900.1012',
  'zone_beat': 'L2'}
 
 
-# @mock.patch('api.call_api')
-# def test_call_api_200():
-#     """Test calling api and getting reponse back."""
-#     from crimemapper.api import call_api, SEA_GOV_URL
-#     actual = call_api(SEA_GOV_URL)
-#     mock_reponse = mock.Mock()
+def test_call_api_200():
+    """Test calling url and getting reponse back without raising error."""
+    from crimemapper.api import call_api
+    r = Response()
+    r.status_code = 200
+    r.json = MagicMock()
+    requests.get = MagicMock(return_value=r)
+    call_api()
 
-#     assert actual == RESPONSE_200_DATA
+
+def test_call_api_403():
+    """Test calling url and raising error."""
+    from crimemapper.api import call_api
+    r = Response()
+    r.status_code = 403
+    requests.get = MagicMock(return_value=r)
+    with pytest.raises(HTTPError):
+        call_api()
+
 
 def test_clean_crime_entry():
     expected = {'census_tract_2000': '1900.1012',
