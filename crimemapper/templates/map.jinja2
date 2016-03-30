@@ -73,7 +73,6 @@
         for (var i = 0, length = markers.length; i < length; i++){
           if (markers[i].title == list[j]) {
             markers[i].setVisible(show);
-            console.log(markers[i])
           }
         };
       };
@@ -81,7 +80,6 @@
 
     function allUncheck(){
       if ($('#All:checked').length === 1){
-        console.log("You are all uncheckd")
         $('#All').prop('checked', false);
         clearMarkers();
       }
