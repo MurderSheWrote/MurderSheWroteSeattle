@@ -7,6 +7,7 @@ import transaction
 from sqlalchemy import create_engine
 import os
 from sodapy import Socrata
+from urllib.error import HTTPError
 
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
@@ -17,10 +18,16 @@ TESTING_URL = os.environ["TESTING_URL"]
 
 def call_api():
     """Request data from socrata api and get back JSON."""
-    request = Socrata("data.seattle.gov", "jYvaKKK1FUmzObHnQnZLXBFGP")
-    response = request.get("ih58-ykqj", content_type="json", limit=49998)
-    response.raise_for_status()
-    return response.json()
+    try:
+        client = Socrata("data.seattle.gov", "jYvaKKK1FUmzObHnQnZLXBFGP")
+        data = client.get("ih58-ykqj", content_type="json", limit=49998)
+        return data
+    except ConnectionError:
+        print('Service Unavailable. Please try again later.')
+    except HTTPError:
+        print("Page Not Found")
+    except:
+        print("Wenjing says you lose.")
 
 
 
