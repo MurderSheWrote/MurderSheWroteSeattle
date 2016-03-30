@@ -2,8 +2,7 @@ import pytest
 import requests
 from requests import Response, HTTPError
 import json
-# from unittest import mock
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, Mock
 from unittest.mock import patch
 
 
@@ -77,8 +76,8 @@ def test_call_api_403():
 
 
 def test_clean_crime_entry():
-    from crimemapper.api import clean_data
     """Test json data with X replcaed by None."""
+    from crimemapper.api import clean_data
     assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
 
@@ -91,3 +90,14 @@ def test_import_crimes():
     requests.get = MagicMock(return_value=r)
     assert import_crimes() == CLEANED_DATA
 
+
+def test_populate_db():
+    """Test right entry passed into db."""
+    from crimemapper.api import populate_db
+    from crimemapper.models import DBSession, Entry
+    DBSession.add = Mock()
+    populate_db(CLEANED_DATA)
+    DBSssion.add.call_args
+    #call(entries.attr=val)
+    for key, val in CLEANED_DATA.items():
+        if key =
