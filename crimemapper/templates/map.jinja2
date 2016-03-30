@@ -74,8 +74,8 @@
 
     function allUncheck(){
       if ($('#All').is(':checked')){
-        $('#All').prop('checked', false);
-        toggleAllMarkerVisibility(false);
+        $('#All').prop('checked', false).trigger('change');
+        // toggleAllMarkerVisibility(false);
       }
     }
 
@@ -89,7 +89,6 @@
       toggleAllMarkerVisibility(true);
       $('.option').prop('checked', false);
     }
-
 
     $('#All').on('change', function(){
       if ($('#All').is(':checked')){
