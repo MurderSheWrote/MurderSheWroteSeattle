@@ -21,7 +21,7 @@ requires = [
     'requests'
 ]
 
-tests_require = ['pytest', 'tox', 'pytest-cov', 'webtest']
+tests_require = ['pytest', 'tox', 'pytest-cov', 'webtest', 'mock', 'unittest']
 dev_requires = ['ipython', 'pyramid_ipython']
 
 setup(name='crimemapper',
