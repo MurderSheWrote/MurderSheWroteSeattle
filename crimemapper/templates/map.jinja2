@@ -17,7 +17,7 @@
     <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label>
     <label><input id="Other" type="checkbox" value="Other" class="option">Other</label>
   </form>
-  <button onclick="toggleHeatMap()">Click me to toggle the heat map!</button>
+  <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
   <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
@@ -36,7 +36,7 @@
           map: map,
           position: {{place[0]|safe}},
           title: '{{place[1]}}',
-          visible: false
+          visible: true
         });
         markers.push(marker);
         heatdata.push(marker.position)
@@ -46,10 +46,23 @@
         data: pointArray,
         map: map
       });
+      heatmap.setMap(null);
     }
 
     var toggleHeatMap = function(){
-      heatmap.setMap(heatmap.getMap() ? null : map);
+      if (heatmap.getMap() != null) {
+        heatmap.setMap(null);
+        showMarkers();
+      } else {
+          heatmap.setMap(map);
+          clearMarkers();
+      }
+    }
+
+    function showMarkers(){
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setVisible(true);
+      };
     }
 
     var toggleVisibility = function(show, markers){
