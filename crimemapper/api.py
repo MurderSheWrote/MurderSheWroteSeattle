@@ -34,11 +34,11 @@ def clean_data(crime_entry):
     cleaned = {}
     for key in crime_entry:
         cleaned[key] = None if crime_entry[key] == "X" else crime_entry[key]
+    return cleaned
 
 
 def import_crimes():
     """Returns clean crime listing collection."""
-    response = call_api()
     return clean_data(call_api())
 
 
