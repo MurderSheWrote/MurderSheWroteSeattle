@@ -88,11 +88,8 @@
     }
 
     $('#All').on('change', function(){
-      if ($('#All').is(':checked')){
-        toggleAllMarkerVisibility(true);
-      } else {
-        toggleAllMarkerVisibility(false);
-      }
+      var boolval = $('#All').is(':checked')? true : false;
+      toggleAllMarkerVisibility(boolval);
     });
 
     {% for crime in crimes %}
