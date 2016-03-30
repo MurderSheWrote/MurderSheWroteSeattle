@@ -13,6 +13,7 @@ import os
 POINTS = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
 
 
+# @view_confit(route_name='map', renderer="json", xhr=True)
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
