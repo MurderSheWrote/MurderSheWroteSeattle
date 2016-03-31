@@ -27,10 +27,11 @@ nav ul li {
 }
 
 .words{
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
     text-align: left;
     padding-bottom: 10%
+    max-width:25%;
 }
 
 .reference{
@@ -48,8 +49,8 @@ p{
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom:2rem;
-    height: 700px;
-    width: 700px;
+    height: 800px;
+    width: 800px;
     float: left;
 }
 
@@ -57,10 +58,4 @@ p{
     background-color:;
     margin: 5px;
     padding: 5px;
-}
-
-#selectors{
-    max-width: 20%;
-    float:right;
-   
 }
