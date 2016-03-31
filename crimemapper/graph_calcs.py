@@ -116,5 +116,4 @@ def crime_category_breakdown():
                 continue
                 # sub_dict.setdefault(key, sub_pie[i][0])
         print(sub_dict)
-
-    return sub_pie
+    return sub_dict
