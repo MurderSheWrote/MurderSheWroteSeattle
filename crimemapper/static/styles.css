@@ -39,6 +39,7 @@ nav ul li {
     margin-right: 15%;
     text-align: left;
     padding-bottom: 10%
+    max-width: 80%;
 }
 
 p{
@@ -58,4 +59,13 @@ p{
     background-color:;
     margin: 5px;
     padding: 5px;
+}
+
+.crime_list {
+    width: 12rem;
+    float: left;
+}
+
+footer { 
+    display: inline-block;
 }

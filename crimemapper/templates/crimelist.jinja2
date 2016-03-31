@@ -3,14 +3,14 @@
 <section class=reference>
   <p>Not every type of crime is equally relevant or interesting. In using our page you may wish to be aware of some crimes more than others. Our site groups together similar types of crimes we think you may be interested in tracking and allows you to filter the results by the relevant categories. Here are the categories we use and the types of crime they encompass:
   <br><br>
-  <ul>
+  <div>
       {% for crime in crimes %}
-      <li> <h3>{{crime}}</h3>
+      <ul class='crime_list'> <h3>{{crime}}</h3>
           {% for item in crimes[crime] %}
-          <p>{{ item }}
+          <li>{{ item }} </li>
           {% endfor %}
-      </li>
+      </ul>
       {% endfor %}
-  </ul>
+  </div>
 </section>
 {% endblock content %}
