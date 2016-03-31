@@ -64,7 +64,7 @@ def main_db_call():
 
 
 def random_colors():
-    """Produce random colors for charts."""
+    """Produce a random rgb colors for charts."""
     def r():
         return random.randint(0, 255)
     return 'rgb({},{},{})'.format(r(), r(), r())
