@@ -7,7 +7,6 @@ from crimemapper.models import (
 import os
 from .crimedict import CRIME_DICT
 from .graph_calcs import crime_dict_totals
-from .graph_calcs import UPPER_DICT 
 
 
 CACHED_RESULTS = {}
@@ -25,9 +24,10 @@ def cached_db_call():
 
 
 def find_category(description):
-    for k, v in UPPER_DICT.items():
+    for k, v in CRIME_DICT.items():
         if description in v:
             return k
+
 
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
@@ -40,9 +40,8 @@ def map_view(request):
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         category = find_category(description)
-        print(category, description)
         places.append([place, description, category])
-    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
+    dict_ = {"places": places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
     return dict_
 
 
