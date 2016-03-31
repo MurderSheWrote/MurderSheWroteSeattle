@@ -8,7 +8,8 @@ from crimemapper.models import (
     Entry,
 )
 import os
-from crimedict import CRIME_DICT
+from .crimedict import CRIME_DICT
+from .graph_calcs import crime_dict_totals
 
 
 CACHED_RESULTS = {}
@@ -58,4 +59,5 @@ def about_view(request):
 @view_config(route_name='stats', renderer='templates/graphs.jinja2')
 def stats_view(request):
     """Render stats page."""
-    return {}
+    main_pie = crime_dict_totals()
+    return {'main_pie': main_pie}

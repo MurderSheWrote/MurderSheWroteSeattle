@@ -4,6 +4,7 @@ from crimemapper.models import (
     Entry,
 )
 from collections import Counter
+import random
 
 UPPER_DICT = {
     "Assault": ["ASSAULT"],
@@ -36,6 +37,7 @@ UPPER_DICT = {
     ],
 }
 
+
 CATEGORY_MAPPING = {tuple(val): key for key, val in UPPER_DICT.items()}
 
 
@@ -48,9 +50,29 @@ def get_category(word):
         return None
 
 
+MAIN_RESULTS = {}
+
+
+def main_db_call():
+    """Cashing a db call to close the session."""
+    if 'already_called' not in MAIN_RESULTS:
+        results = DBSession().query(
+            Entry.summarized_offense_description
+        ).all()
+        MAIN_RESULTS['already_called'] = results
+    return MAIN_RESULTS['already_called']
+
+
+def random_colors():
+    """Produce random colors for charts."""
+    def r():
+        return random.randint(0, 255)
+    return 'rgb({},{},{})'.format(r(), r(), r())
+
+
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
-    db_request = DBSession().query(Entry.summarized_offense_description).all()
+    db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
     categorized_crimes = map(get_category, all_crimes)
     categorized_crimes = [c for c in categorized_crimes]
@@ -60,19 +82,8 @@ def crime_dict_totals():
             continue
         sum_offense[offense] += 1
     sum_offense = sum_offense.most_common()
-    return sum_offense
-
-
-def pie_calc():
-    working_on = crime_dict_totals()
-    total = 0
-    for i in working_on:
-        total += i[1]
-    percentages = []
-    for i in working_on:
-        new_list = [i[0], (i[1]/total)]
-        percentages.append(new_list)
-    print(percentages)
-    return percentages
-
-pie_calc()
+    main_pie = []
+    for i, item in enumerate(sum_offense):
+        wedge = item + (random_colors(),)
+        main_pie.append(wedge)
+    return main_pie

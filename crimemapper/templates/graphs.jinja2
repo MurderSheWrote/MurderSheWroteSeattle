@@ -1,6 +1,25 @@
 {% extends "index.html" %}
 {% block content %}
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script src="static/chart.js"></script>
   <div class="words">
     <p>Graphs will go here.</p>
   </div>
+  <div>
+    <h1>All Crimes in S
+    <canvas id="mainChart" width="400" height="400"></canvas>
+  </div>
+   <script>
+   var mainPieData = [];
+      {% for wedge in main_pie %}
+        var addition = {
+          value: {{wedge[1]}},
+          label: '{{wedge[0]}}',
+          color: '{{wedge[2]}}'
+        };
+        mainPieData.push(addition);
+      {% endfor %}
+    var ctx = document.getElementById("mainChart").getContext("2d");
+    new Chart(ctx).Pie(mainPieData);
+    </script>
 {% endblock content%}
