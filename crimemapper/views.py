@@ -9,7 +9,7 @@ from crimemapper.models import (
 )
 import os
 from .crimedict import CRIME_DICT
-from .graph_calcs import crime_dict_totals
+from .graph_calcs import crime_dict_totals, crime_category_breakdown
 
 
 CACHED_RESULTS = {}
@@ -60,4 +60,6 @@ def about_view(request):
 def stats_view(request):
     """Render stats page."""
     main_pie = crime_dict_totals()
-    return {'main_pie': main_pie}
+    sub_dict = crime_category_breakdown()
+    return {'main_pie': main_pie, 'sub_dict': sub_dict}
+
