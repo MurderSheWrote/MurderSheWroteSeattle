@@ -1,6 +1,14 @@
 {% extends "index.html" %}
 {% block content %}
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script>
+  <script src="chart.js"></script>
   <div class="words">
     <p>Graphs will go here.</p>
   </div>
+  <div>
+    <canvas id="mainChart" width="400" height="400"></canvas>
+  </div>
+
+
 {% endblock content%}

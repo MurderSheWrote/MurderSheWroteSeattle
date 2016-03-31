@@ -8,7 +8,7 @@ from crimemapper.models import (
     Entry,
 )
 import os
-from crimedict import CRIME_DICT
+from .crimedict import CRIME_DICT
 
 
 CACHED_RESULTS = {}
