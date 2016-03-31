@@ -16,7 +16,7 @@ def test_map_view_0(dbtransaction):
 def test_map_view_1(dbtransaction):
     """Test that map view returns key for google as a string."""
     result = map_view(DummyRequest)
-    assert type(result['key']) is str
+    assert type(result['crimes']) is dict
 
 
 def test_map_view_2(dbtransaction):
