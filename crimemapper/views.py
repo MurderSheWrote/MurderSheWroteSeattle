@@ -1,8 +1,5 @@
 """View functions created here."""
-# from pyramid.response import Response
 from pyramid.view import view_config
-# from pyramid.httpexceptions import HTTPFound
-# from sqlalchemy.exc import DBAPIError
 from crimemapper.models import (
     DBSession,
     Entry,
@@ -10,6 +7,7 @@ from crimemapper.models import (
 import os
 from .crimedict import CRIME_DICT
 from .graph_calcs import crime_dict_totals
+from .graph_calcs import UPPER_DICT 
 
 
 CACHED_RESULTS = {}
@@ -26,7 +24,11 @@ def cached_db_call():
     return CACHED_RESULTS['already_called']
 
 
-# @view_confit(route_name='map', renderer="json", xhr=True)
+def find_category(description):
+    for k, v in UPPER_DICT.items():
+        if description in v:
+            return k
+
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
@@ -37,9 +39,10 @@ def map_view(request):
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
-        places.append([place, description])
+        category = find_category(description)
+        print(category, description)
+        places.append([place, description, category])
     dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
-    print(dict_)
     return dict_
 
 
