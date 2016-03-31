@@ -52,14 +52,20 @@
       heatmap.setMap(null);
     }
 
-    var toggleHeatMap = function(){
-      if (heatmap.getMap() != null) {
-        heatmap.setMap(null);
-        toggleAllMarkerVisibility(true);
-      } else {
-          heatmap.setMap(map);
-          toggleAllMarkerVisibility(false);
-      }
+    // var toggleHeatMap = function(){
+    //   if (heatmap.getMap() != null) {
+    //     heatmap.setMap(null);
+    //     toggleAllMarkerVisibility(true);
+    //   } else {
+    //       heatmap.setMap(map);
+    //       toggleAllMarkerVisibility(false);
+    //   }
+    // }
+
+    function toggleHeatMap(){
+      var boolVal = (heatmap.getMap() != null);
+      toggleAllMarkerVisibility(boolVal);
+      boolVal ? heatmap.setMap(null) : heatmap.setMap(map)
     }
 
     function sortVisibility(ischecked, crimelist){
@@ -82,7 +88,7 @@
       for (var i = 0; i < markers.length; i++) {
         markers[i].setVisible(boolval);
       };
-      if(boolval == true){
+      if(boolval){
         $('.option').prop('checked', false);
       }
     }
