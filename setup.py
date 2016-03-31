@@ -18,10 +18,11 @@ requires = [
     'waitress',
     'pyramid_jinja2',
     'psycopg2',
+    'sodapy',
     'requests'
 ]
 
-tests_require = ['pytest', 'tox', 'pytest-cov', 'webtest']
+tests_require = ['pytest', 'tox', 'pytest-cov', 'webtest', 'sodapy']
 dev_requires = ['ipython', 'pyramid_ipython']
 
 setup(name='crimemapper',

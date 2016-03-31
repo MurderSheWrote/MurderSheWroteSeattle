@@ -7,6 +7,7 @@ from webtest import TestApp
 from pyramid.paster import get_appsettings
 import os
 import pytest
+import transaction
 
 
 TEST_DATABASE_URL = os.environ["TESTING_URL"]
@@ -39,14 +40,14 @@ def sqlengine(request):
     return engine
 
 
-@pytest.fixture()
+@pytest.fixture(scope='function')
 def dbtransaction(request, sqlengine):
     connection = sqlengine.connect()
-    transaction = connection.begin()
+    trans = connection.begin()
     DBSession.configure(bind=connection)
 
     def teardown():
-        transaction.rollback()
+        trans.rollback()
         connection.close()
         DBSession.remove()
 
@@ -54,10 +55,10 @@ def dbtransaction(request, sqlengine):
     return connection
 
 
-@pytest.fixture()
+@pytest.fixture(scope='function')
 def entry_dict():
     """Create a testing dictionary."""
-    entry_dict = {
+    a_dict = {
         'rms_cdw_id': 705233,
         'general_offense_number': 201939834,
         'offense_code': 2799,
@@ -74,34 +75,38 @@ def entry_dict():
         'census_tract_2000': '8200.1018',
         'longitude': -122.332801819,
         'latitude': 47.611839294,
-        'location': '(47.611839294°, -122.332801819°)',
+        'location': '(47.611839294, -122.332801819)',
     }
-    return entry_dict
+    return a_dict
 
 
-@pytest.fixture()
-def new_entry(request, sqlengine, dbtransaction, entry_dict):
+@pytest.fixture(scope='function')
+def new_entry(request, dbtransaction, entry_dict):
     """Create an entry to testing db."""
-    connection = sqlengine.connect()
-    transaction = connection.begin()
-    DBSession.configure(bind=connection)
     new_model = Entry(**entry_dict)
-    DBSession.add(new_model)
-    DBSession.flush()
+    with transaction.manager:
+        DBSession.add(new_model)
 
     def teardown():
-        transaction.rollback()
-        connection.close()
-        DBSession.remove()
+        # import pdb; pdb.set_trace()
+        with transaction.manager:
+            DBSession.delete(new_model)
+        print('foo')
 
     request.addfinalizer(teardown)
-    return new_model
 
 
-@pytest.fixture()
+@pytest.fixture(scope='function')
 def app(config_path, dbtransaction, test_url):
     """Create pretend app fixture of main app to test routing."""
     settings = get_appsettings(config_path)
     settings['sqlalchemy.url'] = test_url
     app = main({}, **settings)
     return TestApp(app)
+
+
+@pytest.fixture(scope="function")
+def clear_db_cache():
+    import crimemapper
+    crimemapper.views.CACHED_RESULTS = {}
+
