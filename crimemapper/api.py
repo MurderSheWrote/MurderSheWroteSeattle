@@ -14,12 +14,13 @@ DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
 DATABASE_URL = os.environ["DATABASE_URL"]
 TESTING_URL = os.environ["TESTING_URL"]
+SOCRATA_TOKEN = os.environ["SOCRATA_TOKEN"]
 
 
 def call_api():
     """Request data from socrata api and get back JSON."""
     try:
-        client = Socrata("data.seattle.gov", "jYvaKKK1FUmzObHnQnZLXBFGP")
+        client = Socrata("data.seattle.gov", 'SOCRATA_TOKEN')
         data = client.get("ih58-ykqj", content_type="json", limit=49998)
         return data
     except ConnectionError:
