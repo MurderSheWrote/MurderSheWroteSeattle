@@ -60,6 +60,6 @@ def about_view(request):
 def stats_view(request):
     """Render stats page."""
     main_pie = crime_dict_totals()
-    sub_pies = crime_category_breakdown()
-    return {'main_pie': main_pie, 'sub_pies': sub_pies}
+    sub_dict = crime_category_breakdown()
+    return {'main_pie': main_pie, 'sub_dict': sub_dict}
 
