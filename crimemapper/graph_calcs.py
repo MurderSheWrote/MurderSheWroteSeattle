@@ -72,6 +72,7 @@ def random_colors():
 
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
+    # import pdb; pdb.set_trace()
     db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
     categorized_crimes = map(get_category, all_crimes)
@@ -87,3 +88,32 @@ def crime_dict_totals():
         wedge = item + (random_colors(),)
         main_pie.append(wedge)
     return main_pie
+
+
+def crime_category_breakdown():
+    """Return a dictionary of crimes broken down by subcategories."""
+    db_request = main_db_call()
+    all_crimes = [item[0] for item in db_request]
+    sub_offense = Counter()
+    for offense in all_crimes:
+        if offense is None:
+            continue
+        sub_offense[offense] += 1
+    sub_offense = sub_offense.most_common()
+    sub_pie = []
+    for i, item in enumerate(sub_offense):
+        wedge = item + (random_colors(),)
+        sub_pie.append(wedge)
+    print(sub_pie)
+    sub_dict = {}
+    # import pdb; pdb.set_trace()
+    for i, thing in enumerate(sub_pie):
+        for key, category in UPPER_DICT.items():
+            if sub_pie[i][0] in category:
+                sub_dict = {key: [sub_pie[i][0]]}
+            else:
+                continue
+                # sub_dict.setdefault(key, sub_pie[i][0])
+        print(sub_dict)
+
+    return sub_pie
