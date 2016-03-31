@@ -24,7 +24,7 @@ CRIME_DICT = {
     ],
     "Other": [
         "Animal Complaint", "Bias Incident", "Eluding", "Escape", "Extortion",
-        "Harbor Calls", "Injury", "Loitering", "Metro", "Obstruct", "Traffic", 
+        "Harbor Calls", "Injury", "Loitering", "Metro", "Obstruct", "Traffic",
         "Warrant Arrest", "Violation of Court Order"
     ],
 }

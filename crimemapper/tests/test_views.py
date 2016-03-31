@@ -8,11 +8,13 @@ from pyramid.testing import DummyRequest
 
 
 def test_map_view_0(dbtransaction):
+    """Test that map view returns a list of items for template."""
     result = map_view(DummyRequest)
     assert type(result['places']) is list
 
 
 def test_map_view_1(dbtransaction):
+    """Test that map view returns key for google as a string."""
     result = map_view(DummyRequest)
     assert type(result['key']) is str
 
@@ -22,19 +24,6 @@ def test_map_view_2(dbtransaction):
     result = map_view(DummyRequest)
     with pytest.raises(IndexError):
         assert type(result['places'][0]) is list
-
-
-
-    # test_entry = map_view(entry_dict)
-    # assert map_view(entry_dict) == {[{'lat': 47.611839294, 'lng': -122.332801819}, 'EMBEZZLE']}
-
-
-# def test_new_entry(dbtransaction, entry_dict, new_entry):
-#     new_model = Entry(entry_dict)
-#     assert new_model.id is None
-    # DBSession.add(new_entry)
-    # DBSession.flush()
-    # assert entry_dict.id is not None
 
 
 def test_map_view_route(dbtransaction, app):
