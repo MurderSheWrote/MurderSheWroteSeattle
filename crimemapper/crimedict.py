@@ -1,30 +1,31 @@
 CRIME_DICT = {
-    "Assault": ["Assault"],
-    "Theft": [
-        "Bike Theft", "Burglary", "Car Prowl", "Mail Theft", "Pickpocket",
-        "Purse Snatch", "Shoplifting", "Theft of Service", "Vehicle Theft",
+    "ASSAULT": ["ASSAULT"],
+    "THEFT": [
+        "BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
+        "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICES", "VEHICLE THEFT",
         "BURGLARY-SECURE PARKING-RES"
     ],
-    "Sin": ["Gamble", "Pornography", "Prostitution"],
-    "Drugs": [
-        "DUI", "Liquor Violations", "Narcotics", "Stay out of Area of Drugs"
+    "SIN": ["GAMBLE", "PORNOGRAPHY", "PROSTITUTION"],
+    "DRUGS": [
+        "DUI", "LIQUOR VIOLATION", "NARCOTICS", "STAY OUT OF AREA OF DRUGS"
     ],
-    "Fraud": ["Counterfeit", "Embezzle", "Forgery", "Fraud"],
-    "Homicide": ["Homicide"],
-    "Property": [
-        "Illegal Dumping", "Lost Property", "Other Property",
-        "Property Damage", "Reckless Burning", "Recovered Property",
-        "Stolen Property",
+    "FRAUD": ["COUNTERFEIT", "EMBEZZLE", "FORGERY", "FRAUD"],
+    "HOMICIDE": ["HOMICIDE"],
+    "PROPERTY": [
+        "ILLEGAL DUMPING", "LOST PROPERTY", "OTHER PROPERTY",
+        "PROPERTY DAMAGE", "RECKLESS BURNING", "RECOVERED PROPERTY",
+        "STOLEN PROPERTY",
     ],
-    "Robbery": ["Robbery"],
-    "Weapons": ["Weapons"],
-    "Disturbances": [
-        "Disorderly Conduct", "Dispute", "Firework", "Public Nuisance",
-        "Threats", "Trespass"
+    "ROBBERY": ["ROBBERY"],
+    "WEAPON": ["WEAPON"],
+    "DISTURBANCE": [
+        "DISORDERLY CONDUCT", "DISPUTE", "FIREWORK", "PUBLIC NUISANCE",
+        "THREATS", "TRESPASS", "DISTURBANCE", "THREATS"
     ],
-    "Other": [
-        "Animal Complaint", "Bias Incident", "Eluding", "Escape", "Extortion",
-        "Harbor Calls", "Injury", "Loitering", "Metro", "Obstruct", "Traffic",
-        "Warrant Arrest", "Violation of Court Order"
+    "OTHER": [
+        "ANIMAL COMPLAINT", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION",
+        "HARBOR CALLS", "INJURY", "LOITERING", "METRO", "OBSTRUCT", "TRAFFIC",
+        "WARRANT ARREST", "VIOLATION OF COURT ORDER",
+        "[INC - CASE DC USE ONLY]", "FALSE REPORT",
     ],
 }
