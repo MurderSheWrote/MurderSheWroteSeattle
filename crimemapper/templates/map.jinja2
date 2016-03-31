@@ -5,25 +5,26 @@
   <div class="words">
     <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
     <form id='selectors'>
-      <label><input id="All" type="checkbox" value="All" checked="checked">All</label></br>
-      <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label></br>
-      <label><input id="Assault" type="checkbox" value="Assault" class="option">Assault</label></br>
-      <label><input id="Weapons" type="checkbox" value="Weapons" class="option">Weapons</label></br>
-      <label><input id="Robbery" type="checkbox" value="Robbery" class="option">Robbery</label></br>
-      <label><input id="Property" type="checkbox" value="Property" class="option">Property</label></br>
-      <label><input id="Drugs" type="checkbox" value="Drugs" class="option">Drugs/Alcohol</label></br>
-      <label><input id="Disturbances" type="checkbox" value="Disturbances" class="option">Disturbances</label></br>
-      <label><input id="Theft" type="checkbox" value="Theft" class="option">Burglary/Theft</label></br>
-      <label><input id="Sin" type="checkbox" value="Sin" class="option">Sin</label></br>
-      <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label></br>
-      <label><input id="Other" type="checkbox" value="Other" class="option">Other</label></br>
-    </form>  
+        <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
+        <label><input id="HOMICIDE" type="checkbox" value="HOMICIDE" class="option">Homicide</label>
+        <label><input id="ASSAULT" type="checkbox" value="ASSAULT" class="option">Assault</label>
+        <label><input id="WEAPON" type="checkbox" value="WEAPONS" class="option">Weapons</label>
+        <label><input id="ROBBERY" type="checkbox" value="Robbery" class="option">Robbery</label>
+        <label><input id="PROPERTY" type="checkbox" value="PROPERTY" class="option">Property</label>
+        <label><input id="DRUGS" type="checkbox" value="DRUGS" class="option">Drugs/Alcohol</label>
+        <label><input id="DISTURBANCE" type="checkbox" value="DISTRUBANCE" class="option">Disturbances</label>
+        <label><input id="THEFT" type="checkbox" value="THEFT" class="option">Burglary/Theft</label>
+        <label><input id="SIN" type="checkbox" value="SIN" class="option">Sin</label>
+        <label><input id="FRAUD" type="checkbox" value="FRAUD" class="option">Fraud</label>
+        <label><input id="OTHER" type="checkbox" value="OTHER" class="option">Other</label>
+    </form>
   </div>
   <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
     var markers = [];
+    var sortedMarkers = {};
     var heatdata = [];
     var map, heatmap;
 
@@ -32,18 +33,21 @@
         center: {lat:47.6067006, lng:-122.3346896},
         zoom: 13
       });
-
+      {% for crime in crimes %}
+        sortedMarkers.{{ crime }} = [];
+      {% endfor %}
       {% for place in places %}
         var marker = new google.maps.Marker({
           map: map,
-          position: {{place[0]|safe}},
+          position: {{ place[0]|safe }},
           title: '{{place[1]}}',
-          visible: true
+          visible: true,
         });
+        sortedMarkers['{{place[2] | upper }}'].push(marker);
         markers.push(marker);
-        heatdata.push(marker.position)
+        heatdata.push(marker.position);
       {% endfor %}
-      marker.setMap(map);
+      markers.setMap(map);
 
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: new google.maps.MVCArray(heatdata),
@@ -252,14 +256,10 @@
       boolVal ? heatmap.setMap(null) : heatmap.setMap(map)
     }
 
-    function sortVisibility(ischecked, crimelist){
-      for(var j = 0; j < crimelist.length; j++){
-        for (var i = 0, length = markers.length; i < length; i++){
-          if (markers[i].title == crimelist[j]) {
-            markers[i].setVisible(ischecked);
-          }
-        };
-      };
+    function sortVisibility(ischecked, crimeArray){
+      for(var i = 0; i < crimeArray.length; i++){
+        crimeArray[i].setVisible(ischecked)
+      }
     }
 
     function allUncheck(){
@@ -283,9 +283,9 @@
     });
 
     {% for crime in crimes %}
-    $('#' + "{{crime}}").on('change', function(){
+    $('#' + "{{ crime }}").on('change', function(){
       allUncheck();
-      sortVisibility(this.checked, {{crimes[crime] | safe | upper}});
+      sortVisibility(this.checked, sortedMarkers['{{ crime }}']);
     });
     {% endfor %}
 
