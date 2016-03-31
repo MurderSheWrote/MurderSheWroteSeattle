@@ -9,30 +9,37 @@
     <canvas id="mainChart" width="400" height="400"></canvas>
   </div>
    <script>
-   var pieData = [
-       {
-          value: 25,
-          label: 'Java',
-          color: '#811BD6'
-       },
-       {
-          value: 10,
-          label: 'Scala',
-          color: '#9CBABA'
-       },
-       {
-          value: 30,
-          label: 'PHP',
-          color: '#D18177'
-       },
-       {
-          value : 35,
-          label: 'HTML',
-          color: '#6AE128'
-       }
-    ];
-
-    var ctx = $("#mainChart").get(0).getContext("2d");
-    var skillsChart = new Chart(ctx).Pie(pieData);
+   var colors = ['#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128']
+   var mainPieData = [];
+       // {
+       //    value: 25,
+       //    label: 'Java',
+       //    color: '#811BD6'
+       // },
+       // {
+       //    value: 10,
+       //    label: 'Scala',
+       //    color: '#9CBABA'
+       // },
+       // {
+       //    value: 30,
+       //    label: 'PHP',
+       //    color: '#D18177'
+       // },
+       // {
+       //    value : 35,
+       //    label: 'HTML',
+       //    color: '#6AE128'
+       // }
+      {% for wedge in main_pie %}
+        var addition = {
+          value: {{wedge[1]}},
+          label: '{{wedge[0]}}',
+          color: '{{wedge[2]}}'
+        };
+        mainPieData.push(addition);
+      {% endfor %}
+    var ctx = document.getElementById("mainChart").getContext("2d");
+    new Chart(ctx).Pie(mainPieData);
     </script>
 {% endblock content%}
