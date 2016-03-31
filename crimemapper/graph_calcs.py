@@ -110,7 +110,8 @@ def crime_category_breakdown():
     for i, thing in enumerate(sub_pie):
         for key, category in UPPER_DICT.items():
             if sub_pie[i][0] in category:
-                sub_dict = {key: [sub_pie[i][0]]}
+                sub_dict.setdefault(key, [])
+                sub_dict[key].append(sub_pie[i])
             else:
                 continue
                 # sub_dict.setdefault(key, sub_pie[i][0])
