@@ -5,6 +5,7 @@ from sqlalchemy import (
     Float,
     Text,
     DateTime,
+    BigInteger
 )
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.ext.declarative import declarative_base
@@ -25,7 +26,7 @@ class Entry(Base):
     __tablename__ = 'crimedb'
     id = Column(Integer, primary_key=True)
     rms_cdw_id = Column(Integer)
-    general_offense_number = Column(Integer)
+    general_offense_number = Column(BigInteger)
     offense_code = Column(Integer)
     offense_code_extension = Column(Integer)
     offense_type = Column(Text)

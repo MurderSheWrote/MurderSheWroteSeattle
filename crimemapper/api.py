@@ -34,12 +34,13 @@ def populate_db(entry):
     DBSession.add(entries)
 
 
-def clean_data(crime_entry):
+def clean_data(crime_entries):
     """Replace 'X' with 'None'."""
-    cleaned = {}
-    for key in crime_entry:
-        cleaned[key] = None if crime_entry[key] == "X" else crime_entry[key]
-    return cleaned
+    for entry in crime_entries:
+        for key in entry:
+            if entry[key] == "X":
+                entry[key] = None
+    return crime_entries
 
 
 def import_crimes():
