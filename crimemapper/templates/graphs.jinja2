@@ -6,31 +6,11 @@
     <p>Graphs will go here.</p>
   </div>
   <div>
+    <h1>All Crimes in S
     <canvas id="mainChart" width="400" height="400"></canvas>
   </div>
    <script>
-   var colors = ['#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128']
    var mainPieData = [];
-       // {
-       //    value: 25,
-       //    label: 'Java',
-       //    color: '#811BD6'
-       // },
-       // {
-       //    value: 10,
-       //    label: 'Scala',
-       //    color: '#9CBABA'
-       // },
-       // {
-       //    value: 30,
-       //    label: 'PHP',
-       //    color: '#D18177'
-       // },
-       // {
-       //    value : 35,
-       //    label: 'HTML',
-       //    color: '#6AE128'
-       // }
       {% for wedge in main_pie %}
         var addition = {
           value: {{wedge[1]}},

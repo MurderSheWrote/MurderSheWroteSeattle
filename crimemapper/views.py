@@ -59,14 +59,5 @@ def about_view(request):
 @view_config(route_name='stats', renderer='templates/graphs.jinja2')
 def stats_view(request):
     """Render stats page."""
-    # import pdb; pdb.set_trace()
-    needs_color = crime_dict_totals()
-    main_pie = []
-    colors = ['#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128', '#811BD6', '#9CBABA', '#D18177', '#6AE128']
-    for i, item in enumerate(needs_color):
-        print(item)
-        wedge = item + (colors[i],)
-        print(wedge)
-        main_pie.append(wedge)
-    print(main_pie)
+    main_pie = crime_dict_totals()
     return {'main_pie': main_pie}

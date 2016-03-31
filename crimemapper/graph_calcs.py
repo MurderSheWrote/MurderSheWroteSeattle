@@ -4,6 +4,7 @@ from crimemapper.models import (
     Entry,
 )
 from collections import Counter
+import random
 
 UPPER_DICT = {
     "Assault": ["ASSAULT"],
@@ -36,6 +37,7 @@ UPPER_DICT = {
     ],
 }
 
+
 CATEGORY_MAPPING = {tuple(val): key for key, val in UPPER_DICT.items()}
 
 
@@ -61,6 +63,13 @@ def main_db_call():
     return MAIN_RESULTS['already_called']
 
 
+def random_colors():
+    """Produce random colors for charts."""
+    def r():
+        return random.randint(0, 255)
+    return 'rgb({},{},{})'.format(r(), r(), r())
+
+
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
     db_request = main_db_call()
@@ -73,5 +82,8 @@ def crime_dict_totals():
             continue
         sum_offense[offense] += 1
     sum_offense = sum_offense.most_common()
-    return sum_offense
-
+    main_pie = []
+    for i, item in enumerate(sum_offense):
+        wedge = item + (random_colors(),)
+        main_pie.append(wedge)
+    return main_pie
