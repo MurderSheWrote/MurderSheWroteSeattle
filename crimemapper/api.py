@@ -44,18 +44,13 @@ def clean_data(crime_entries):
     return crime_entries
 
 
-def import_crimes():
-    """Return clean crime listing collection."""
-    return clean_data(call_api())
-
-
 def main():
     """Set up database and populate with clean crime listing colleciton."""
     engine = create_engine(DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        for crime in import_crimes():
+        for crime in clean_data(call_api()):
             populate_db(crime)
 
 
