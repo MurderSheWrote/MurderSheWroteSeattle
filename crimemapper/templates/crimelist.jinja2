@@ -1,14 +1,16 @@
 {% extends "index.html" %}
 {% block content %}
-<ul>
-    {% for crime in crimes %}
-    <li> <h3>{{crime}}</h3>
-        {% for item in crimes[crime] %}
-        <p>{{ item }}
-        {% endfor %}
-    </li>
-    {% endfor %}
-
-</ul>
-
+<section class=reference>
+  <p>Not every type of crime is equally relevant or interesting. In using our page you may wish to be aware of some crimes more than othes. Our sight groups together similar types of crimes we think you may be interested in tracking, and allows you to filter the results by the relevant categories. Here are the categories we use and the types of crime they encompass:
+  <br><br>
+  <ul>
+      {% for crime in crimes %}
+      <li> <h3>{{crime}}</h3>
+          {% for item in crimes[crime] %}
+          <p>{{ item }}
+          {% endfor %}
+      </li>
+      {% endfor %}
+  </ul>
+</section>
 {% endblock content %}
