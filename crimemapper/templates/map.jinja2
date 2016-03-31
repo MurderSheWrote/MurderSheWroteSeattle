@@ -1,23 +1,23 @@
 {% extends "index.html" %}
 {% block map %}
-  <form>
-    <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
-    <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label>
-    <label><input id="Assault" type="checkbox" value="Assault" class="option">Assault</label>
-    <label><input id="Weapons" type="checkbox" value="Weapons" class="option">Weapons</label>
-    <label><input id="Robbery" type="checkbox" value="Robbery" class="option">Robbery</label>
-    <label><input id="Property" type="checkbox" value="Property" class="option">Property</label>
-    <label><input id="Drugs" type="checkbox" value="Drugs" class="option">Drugs/Alcohol</label>
-    <label><input id="Disturbances" type="checkbox" value="Disturbances" class="option">Disturbances</label>
-    <label><input id="Theft" type="checkbox" value="Theft" class="option">Burglary/Theft</label>
-    <label><input id="Sin" type="checkbox" value="Sin" class="option">Sin</label>
-    <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label>
-    <label><input id="Other" type="checkbox" value="Other" class="option">Other</label>
-  </form>
   <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
   <div class="words">
       <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
+    <form id='selectors'>
+      <label><input id="All" type="checkbox" value="All" checked="checked">All</label></br>
+      <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label></br>
+      <label><input id="Assault" type="checkbox" value="Assault" class="option">Assault</label></br>
+      <label><input id="Weapons" type="checkbox" value="Weapons" class="option">Weapons</label></br>
+      <label><input id="Robbery" type="checkbox" value="Robbery" class="option">Robbery</label></br>
+      <label><input id="Property" type="checkbox" value="Property" class="option">Property</label></br>
+      <label><input id="Drugs" type="checkbox" value="Drugs" class="option">Drugs/Alcohol</label></br>
+      <label><input id="Disturbances" type="checkbox" value="Disturbances" class="option">Disturbances</label></br>
+      <label><input id="Theft" type="checkbox" value="Theft" class="option">Burglary/Theft</label></br>
+      <label><input id="Sin" type="checkbox" value="Sin" class="option">Sin</label></br>
+      <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label></br>
+      <label><input id="Other" type="checkbox" value="Other" class="option">Other</label></br>
+    </form>  
   </div>
   <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

@@ -45,14 +45,22 @@ p{
 }
 
 #map {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-bottom:2rem;
     height: 700px;
+    width: 700px;
+    float: left;
 }
 
 .check-box{
     background-color:;
     margin: 5px;
     padding: 5px;
+}
+
+#selectors{
+    max-width: 20%;
+    float:right;
+   
 }
