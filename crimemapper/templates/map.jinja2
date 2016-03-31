@@ -33,7 +33,17 @@
         zoom: 13
       });
 
-
+      {% for place in places %}
+        var marker = new google.maps.Marker({
+          map: map,
+          position: {{place[0]|safe}},
+          title: '{{place[1]}}',
+          visible: true
+        });
+        markers.push(marker);
+        heatdata.push(marker.position)
+      {% endfor %}
+      marker.setMap(map);
 
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: new google.maps.MVCArray(heatdata),
