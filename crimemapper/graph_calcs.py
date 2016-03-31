@@ -103,7 +103,6 @@ def crime_category_breakdown():
     for i, item in enumerate(sub_offense):
         wedge = item + (random_colors(),)
         sub_pie.append(wedge)
-    print(sub_pie)
     sub_dict = {}
     for i, thing in enumerate(sub_pie):
         for key, category in UPPER_DICT.items():
@@ -112,5 +111,4 @@ def crime_category_breakdown():
                 sub_dict[key].append(sub_pie[i])
             else:
                 continue
-        print(sub_dict)
     return sub_dict
