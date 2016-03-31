@@ -47,13 +47,14 @@
         markers.push(marker);
         heatdata.push(marker.position);
       {% endfor %}
-      markers.setMap(map);
+      marker.setMap(map);
 
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: new google.maps.MVCArray(heatdata),
         map: map
       });
       heatmap.setMap(null);
+    
 
       var testCoordiantes = [
         {lat:47.733551, lng:-122.374306},
@@ -242,13 +243,14 @@
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 3,
         fillColor: '#5F4963',
-        fillOpacity: 0.35
+        fillOpacity: 0.005
       });
 
-      testPath.setMap(map)
+      testPath.setMap(map);
     }
+
 
     function toggleHeatMap(){
       var boolVal = (heatmap.getMap() != null);
