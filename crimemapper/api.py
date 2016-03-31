@@ -1,4 +1,5 @@
 import requests
+from requests import ConnectionError
 import pprint
 import json
 from .models import Entry

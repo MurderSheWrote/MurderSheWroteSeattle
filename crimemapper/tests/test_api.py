@@ -1,25 +1,11 @@
-
 import pytest
-import requests
-from requests import Response, HTTPError
-try:
-    from unittest.mock import MagicMock, Mock
-    from unittest.mock import patch
-except:
-    from mock import MagicMock, Mock
-    from mock import patch
-
-import pytest
-import requests
-from requests import Response, HTTPError
-import json
-from unittest.mock import MagicMock, Mock
-from unittest.mock import patch
+from requests import HTTPError, ConnectionError
 from sodapy import Socrata
+import json
 try:
-    from unittest import mock
+    from unittest.mock import Mock, patch, mock
 except ImportError:
-    import mock
+    from mock import Mock, patch, mock
 
 RESPONSE_200_DATA = [{
     'census_tract_2000': '1900.1012',
