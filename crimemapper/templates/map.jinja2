@@ -1,8 +1,5 @@
 {% extends "index.html" %}
 {% block map %}
-  <div class="words">
-      <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
-  </div>
   <form>
     <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
     <label><input id="Homicide" type="checkbox" value="Homicide" class="option">Homicide</label>
@@ -17,12 +14,20 @@
     <label><input id="Fraud" type="checkbox" value="Fraud" class="option">Fraud</label>
     <label><input id="Other" type="checkbox" value="Other" class="option">Other</label>
   </form>
+  <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
+  <div class="words">
+      <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
+  </div>
+  <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
     var markers = [];
+    var heatdata = [];
+    var map, heatmap;
+
     function initMap() {
-      var map;
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat:47.6067006, lng:-122.3346896},
         zoom: 13
@@ -36,118 +41,58 @@
           visible: true
         });
         markers.push(marker);
+        heatdata.push(marker.position)
       {% endfor %}
       marker.setMap(map);
-    }
-    console.log('hello');
-    console.log(markers);
-
-    var toggleVisibility = function(show, markers){
-        for (var i = 0, length = markers.length; i < length; i++){
-          markers[i].setVisible(show);
-        };
+      heatmap = new google.maps.visualization.HeatmapLayer({
+        data: new google.maps.MVCArray(heatdata),
+        map: map
+      });
+      heatmap.setMap(null);
     }
 
-    function sortVisibility(show, list){
-      for(var j = 0; j < list.length; j++){
+    function toggleHeatMap(){
+      var boolVal = (heatmap.getMap() != null);
+      toggleAllMarkerVisibility(boolVal);
+      boolVal ? heatmap.setMap(null) : heatmap.setMap(map)
+    }
+
+    function sortVisibility(ischecked, crimelist){
+      for(var j = 0; j < crimelist.length; j++){
         for (var i = 0, length = markers.length; i < length; i++){
-          if (markers[i].title == list[j]) {
-            markers[i].setVisible(show);
-            console.log(markers[i])
+          if (markers[i].title == crimelist[j]) {
+            markers[i].setVisible(ischecked);
           }
         };
       };
     }
 
     function allUncheck(){
-      if ($('#All').attr('checked') == 'checked'){
-        $('#All').attr('checked', false);
-        clearMarkers();
+      if ($('#All').is(':checked')){
+        $('#All').prop('checked', false).trigger('change');
       }
     }
 
-    function clearMarkers() {
+    function toggleAllMarkerVisibility(boolval){
       for (var i = 0; i < markers.length; i++) {
-        markers[i].setVisible(false);
+        markers[i].setVisible(boolval);
       };
+      if(boolval){
+        $('.option').prop('checked', false);
+      }
     }
 
     $('#All').on('change', function(){
-      toggleVisibility(this.checked, markers)
-        $('.option').attr('checked', false);
+      var boolval = $('#All').is(':checked')? true : false;
+      toggleAllMarkerVisibility(boolval);
     });
 
-    $('#Fraud').on('change', function(){
+    {% for crime in crimes %}
+    $('#' + "{{crime}}").on('change', function(){
       allUncheck();
-      fraud = ["COUNTERFEIT", "EMBEZZLE", "FORGERY", "FRAUD"]
-      sortVisibility(this.checked, fraud);
+      sortVisibility(this.checked, {{crimes[crime] | safe | upper}});
     });
-
-    $('#Assault').on('change', function(){
-      allUncheck();
-      aslt = ["ASSAULT"];
-      sortVisibility(this.checked, aslt);
-    });
-
-    $('#Weapons').on('change', function(){
-      allUncheck();
-      aslt = ["WEAPON"];
-      sortVisibility(this.checked, aslt);
-    });
-
-    $('#Robbery').on('change', function(){
-      allUncheck();
-      rob = ["ROBBERY"];
-      sortVisibility(this.checked, rob);
-    });
-
-    $('#Homicide').on('change', function(){
-      allUncheck();
-      hom = ["HOMICIDE"];
-      sortVisibility(this.checked, hom);
-    });
-
-    $('#Property').on('change', function(){
-      allUncheck();
-      prop = ["ILLEGAL DUMPING", "LOST PROPERTY", "OTHER PROPERTY",
-        "PROPERTY DAMAGE", "RECKLESS BURNING", "RECOVERED PROPERTY",
-        "STOLEN PROPERTY"];
-      sortVisibility(this.checked, prop);
-    });
-
-    $('#Drugs').on('change', function(){
-      allUncheck();
-      drugs = ["DUI", "LIQUOR VIOLATIONS", "NARCOTICS", "STAY OUT OF AREA OF DRUGS"];
-      sortVisibility(this.checked, drugs);
-    });
-
-    $('#Disturbances').on('change', function(){
-      allUncheck();
-      dist = ["DISORDERLY CONDUCT", "DISPUTE", "FIREWORK", "PUBLIC NUISANCE",
-        "THREATS", "TRESPASS"];
-      sortVisibility(this.checked, dist);
-    });
-
-    $('#Theft').on('change', function(){
-      allUncheck();
-      theft = ["BIKE THEFT", "BURGLARY", "CAR PROWL", "MAIL THEFT", "PICKPOCKET",
-        "PURSE SNATCH", "SHOPLIFTING", "THEFT OF SERVICE", "VEHICLE THEFT",
-        "BURGLARY-SECURE PARKING-RES"];
-      sortVisibility(this.checked, theft);
-    });
-
-    $('#Sin').on('change', function(){
-      allUncheck();
-      sin = ["GAMBLE", "PORNORGRAPHY", "PROSTITUTION"];
-      sortVisibility(this.checked, sin);
-    });
-
-    $('#Other').on('change', function(){
-      allUncheck();
-      other = ["ANIMAL COMPLAINT", "BIAS INCIDENT", "ELUDING", "ESCAPE", "EXTORTION", "HARBOR CALLS", "INJURY", "LOITERING", "METRO", 
-        "OBSTRUCT", "TRAFFIC", "WARRANT ARREST", "VIOLATION OF COURT ORDER"];
-      sortVisibility(this.checked, other);
-    });
+    {% endfor %}
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=visualization&callback=initMap" async defer></script>
 {% endblock map %}

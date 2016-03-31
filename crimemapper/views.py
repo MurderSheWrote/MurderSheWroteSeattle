@@ -8,16 +8,28 @@ from crimemapper.models import (
     Entry,
 )
 import os
+from crimedict import CRIME_DICT
 
 
-POINTS = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
+CACHED_RESULTS = {}
+
+
+def cached_db_call():
+    if 'already_called' not in CACHED_RESULTS:
+        results = DBSession().query(
+            Entry.latitude,
+            Entry.longitude,
+            Entry.summarized_offense_description
+        ).all()
+        CACHED_RESULTS['already_called'] = results
+    return CACHED_RESULTS['already_called']
 
 
 # @view_confit(route_name='map', renderer="json", xhr=True)
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    point = POINTS
+    point = cached_db_call()
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
@@ -25,7 +37,7 @@ def map_view(request):
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         places.append([place, description])
-    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY")}
+    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
     print(dict_)
     return dict_
 

@@ -1,3 +1,14 @@
+
+# import pytest
+# import requests
+# from requests import Response, HTTPError
+# try:
+#     from unittest.mock import MagicMock, Mock
+#     from unittest.mock import patch
+# except:
+#     from mock import MagicMock, Mock
+#     from mock import patch
+
 # import pytest
 # import requests
 # from requests import Response, HTTPError
@@ -94,6 +105,7 @@
 #     assert clean_data(RESPONSE_200_DATA[0]) == CLEANED_DATA[0]
 
 
+
 # def test_populate_db():
 #     """Test right entry passed into db."""
 #     pass
@@ -106,3 +118,4 @@
 # #     call()[0]
 # #     for key, val in CLEANED_DATA.items():
 # #         if key =
+

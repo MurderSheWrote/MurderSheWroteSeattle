@@ -33,6 +33,13 @@ nav ul li {
     padding-bottom: 10%
 }
 
+.reference{
+    margin-left: 20%;
+    margin-right: 15%;
+    text-align: left;
+    padding-bottom: 10%
+}
+
 p{
     font-family: 'Merriweather', serif;
 }
