@@ -23,12 +23,9 @@ def call_api():
         data = client.get("ih58-ykqj", content_type="json", limit=49998)
         return data
     except ConnectionError:
-        print('Service Unavailable. Please try again later.')
+        raise ConnectionError
     except HTTPError:
-        print("Page Not Found")
-    except:
-        print("Wenjing says you lose.")
-
+        raise HTTPError
 
 
 def populate_db(entry):
@@ -46,7 +43,7 @@ def clean_data(crime_entry):
 
 
 def import_crimes():
-    """Returns clean crime listing collection."""
+    """Return clean crime listing collection."""
     return clean_data(call_api())
 
 
