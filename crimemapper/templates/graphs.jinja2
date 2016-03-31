@@ -26,8 +26,9 @@
 <br></br>
 <div>
   {% for key in sub_dict %}
-<script>
-    canvas id="newChart" width="400" height="400"></canvas>
+    <h2>{{key}}</h2>
+    <canvas id="{{key}}" width="400" height="400"></canvas>
+    <script>
     var granPieData = []
     {% for wedge in sub_dict[key] %}
       var addition = {
@@ -36,10 +37,10 @@
         color: '{{wedge[2]}}'
       };
       granPieData.push(addition);
-    var ctx = document.getElementById("newChart").getContext("2d");
+    var ctx = document.getElementById("{{key}}").getContext("2d");
     new Chart(ctx).Pie(granPieData);
-  </script>
     {% endfor %}
+    </script>
   {% endfor %}
 </div>
 {% endblock content%}
