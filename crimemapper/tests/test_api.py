@@ -102,20 +102,14 @@ def test_call_api_http_error(socrata):
 def test_clean_crime_entry():
     """Test json data with X replcaed by None."""
     from crimemapper.api import clean_data
-    assert clean_data(RESPONSE_200_DATA[0]) == CLEANED_DATA[0]
+    assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
-
-
-# def test_populate_db():
-#     """Test right entry passed into db."""
-#     pass
-# #     from crimemapper.api import populate_db
-# #     from crimemapper.models import DBSession, Entry
-# #     DBSession.add = Mock()
-# #     populate_db(CLEANED_DATA)
-# #     DBSssion.add.call_args
-# #     #call(entries.attr=val)
-# #     call()[0]
-# #     for key, val in CLEANED_DATA.items():
-# #         if key =
-
+@mock.patch('crimemapper.models.DBSession')
+def test_populate_db(DBSession):
+    from crimemapper.api import populate_db
+    from crimemapper.models import DBSession
+    entry = CLEANED_DATA[0]
+    mocked = DBSession.add()
+    mocked.return_value = CLEANED_DATA[0]
+    populate_db(entry)
+    assert DBSession is not None
