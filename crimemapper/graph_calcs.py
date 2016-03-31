@@ -48,9 +48,22 @@ def get_category(word):
         return None
 
 
+MAIN_RESULTS = {}
+
+
+def main_db_call():
+    """Cashing a db call to close the session."""
+    if 'already_called' not in MAIN_RESULTS:
+        results = DBSession().query(
+            Entry.summarized_offense_description
+        ).all()
+        MAIN_RESULTS['already_called'] = results
+    return MAIN_RESULTS['already_called']
+
+
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
-    db_request = DBSession().query(Entry.summarized_offense_description).all()
+    db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
     categorized_crimes = map(get_category, all_crimes)
     categorized_crimes = [c for c in categorized_crimes]
@@ -62,17 +75,3 @@ def crime_dict_totals():
     sum_offense = sum_offense.most_common()
     return sum_offense
 
-
-def pie_calc():
-    working_on = crime_dict_totals()
-    total = 0
-    for i in working_on:
-        total += i[1]
-    percentages = []
-    for i in working_on:
-        new_list = [i[0], (i[1]/total)]
-        percentages.append(new_list)
-    print(percentages)
-    return percentages
-
-pie_calc()
