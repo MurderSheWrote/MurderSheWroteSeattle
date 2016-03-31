@@ -27,10 +27,11 @@ nav ul li {
 }
 
 .words{
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
     text-align: left;
     padding-bottom: 10%
+    max-width:25%;
 }
 
 .reference{
@@ -45,10 +46,12 @@ p{
 }
 
 #map {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
     margin-bottom:2rem;
-    height: 700px;
+    height: 800px;
+    width: 800px;
+    float: left;
 }
 
 .check-box{
