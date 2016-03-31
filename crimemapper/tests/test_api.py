@@ -110,6 +110,6 @@ def test_populate_db(DBSession):
     from crimemapper.models import DBSession
     entry = CLEANED_DATA[0]
     mocked = DBSession.add()
-    mocked.return_value = CLEANED_DATA[0]
+    mocked.return_value = None
     populate_db(entry)
     assert DBSession is not None
