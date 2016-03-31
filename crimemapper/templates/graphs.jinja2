@@ -3,10 +3,11 @@
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script src="static/chart.js"></script>
   <div class="words">
-    <p>Graphs will go here.</p>
+    <h1>CRIMEGRAPHS!</h1>
+    <p>These graphs are based on a large and representative but incomplete sample of data from the Seattle Police Department. First we visualize all the crimes in our database, then breakdown the major categories we use to filter the results on our map page, and give a graph showing the more specific crimes aggregated under those categories.
   </div>
   <div>
-    <h1>All Crimes in S
+    <h1>All Crimes in Seattle</h1>
     <canvas id="mainChart" width="400" height="400"></canvas>
   </div>
    <script>
@@ -22,4 +23,24 @@
     var ctx = document.getElementById("mainChart").getContext("2d");
     new Chart(ctx).Pie(mainPieData);
     </script>
+<br></br>
+<div>
+  {% for key in sub_dict %}
+    <h2>{{key}}</h2>
+    <canvas id="{{key}}" width="400" height="400"></canvas>
+    <script>
+    var granPieData = []
+    {% for wedge in sub_dict[key] %}
+      var addition = {
+        value: {{wedge[1]}},
+        label: '{{wedge[0]}}',
+        color: '{{wedge[2]}}'
+      };
+      granPieData.push(addition);
+    var ctx = document.getElementById("{{key}}").getContext("2d");
+    new Chart(ctx).Pie(granPieData);
+    {% endfor %}
+    </script>
+  {% endfor %}
+</div>
 {% endblock content%}
