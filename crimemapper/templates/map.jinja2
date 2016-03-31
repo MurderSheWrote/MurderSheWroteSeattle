@@ -44,9 +44,8 @@
         heatdata.push(marker.position)
       {% endfor %}
       marker.setMap(map);
-      var pointArray = new google.maps.MVCArray(heatdata)
       heatmap = new google.maps.visualization.HeatmapLayer({
-        data: pointArray,
+        data: new google.maps.MVCArray(heatdata),
         map: map
       });
       heatmap.setMap(null);
