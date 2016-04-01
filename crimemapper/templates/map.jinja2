@@ -250,12 +250,9 @@
     }
 
     function sortVisibility(ischecked, crimeArray){
-        for(var i = 0; i < crimeArray.length; i++){
-            crimeArray[i].setVisible(ischecked);
-        };
-        // crimeArray.forEach(function(m){
-        //     m.setVisible(ischecked)
-        // });
+        crimeArray.forEach(function(m){
+            m.setVisible(ischecked)
+        });
     }
 
     function allUncheck(){
@@ -265,13 +262,9 @@
     }
 
     function toggleAllMarkerVisibility(boolval){
-        console.log("toggleAllMarkerVisibility: " + boolval);
-        for (var i = 0; i < markers.length; i++){
-            markers[i].setVisible(boolval);
-        };
-        // markers.forEach(function(m){
-        //     m.setVisible(boolval);
-        // });
+        markers.forEach(function(m){
+            m.setVisible(boolval);
+        });
         if(boolval){
             $options.prop('checked', false);
         }
