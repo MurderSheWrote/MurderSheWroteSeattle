@@ -1,7 +1,7 @@
+"""Entry Model defined."""
 from sqlalchemy import (
     Column,
     Integer,
-    Numeric,
     Float,
     Text,
     DateTime,
