@@ -41,7 +41,7 @@ UPPER_DICT = {
 CATEGORY_MAPPING = {tuple(val): key for key, val in UPPER_DICT.items()}
 
 
-def get_category(word):  # TESTED
+def get_category(word):
     """Inverting keys and items."""
     for words in CATEGORY_MAPPING:
         if word in words:
@@ -67,14 +67,14 @@ def main_db_call():
     return MAIN_RESULTS['already_called']
 
 
-def random_colors():  # TESTED
+def random_colors():
     """Produce a random rgb colors for charts."""
     def r():
         return random.randint(0, 255)
     return 'rgb({},{},{})'.format(r(), r(), r())
 
 
-def offense_counter(offense_list):  # TESTED
+def offense_counter(offense_list):
     """Return a list of tuples with counted offenses."""
     sum_offense = Counter()
     for offense in offense_list:
@@ -84,7 +84,7 @@ def offense_counter(offense_list):  # TESTED
     return sum_offense.most_common()
 
 
-def color_applicator(sum_list):  # TESTED
+def color_applicator(sum_list):
     """Return a list of tuples with colors pacakaged."""
     pie = []
     for i, item in enumerate(sum_list):

@@ -162,3 +162,58 @@ def test_main_db_call_items(new_entry, clear_main_cache):
     """Assert db will be hit & return a list of with sub-category."""
     result = main_db_call()
     assert type(result[0][0]) == str
+
+
+def test_crime_dict_totals(new_entry, clear_main_cache):
+    """Assert function will return a list."""
+    result = crime_dict_totals()
+    assert type(result) == list
+
+
+def test_crime_dict_totals_contents(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples."""
+    result = crime_dict_totals()
+    assert type(result[0]) == tuple
+
+
+def test_crime_dict_totals_inside_1(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples with formatted content."""
+    result = crime_dict_totals()
+    assert type(result[0][0]) == str
+
+
+def test_crime_dict_totals_inside_2(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples with formatted content."""
+    result = crime_dict_totals()
+    assert type(result[0][1]) == int
+
+
+def test_crime_dict_totals_inside_3(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples with formatted content."""
+    result = crime_dict_totals()
+    assert type(result[0][2]) == str
+
+
+def test_crime_dict_totals_inside_4(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples with formatted content."""
+    result = crime_dict_totals()
+    assert result[0][2][:4] == 'rgb('
+
+
+def test_crime_dict_totals_inside_5(new_entry, clear_main_cache):
+    """Assert function will return a list of tuples with formatted content."""
+    result = crime_dict_totals()
+    assert len(result[0]) == 3
+
+
+def test_crime_dict_totals_key(new_entry, clear_main_cache):
+    """Assert function converted from keys."""
+    from crimemapper.graph_calcs import UPPER_DICT
+    result = crime_dict_totals()
+    assert result[0][0] in UPPER_DICT
+
+
+def test_crime_category_breakdown_contents(new_entry, clear_main_cache):
+    """Assert function will return a dictionary."""
+    result = crime_category_breakdown()
+    assert type(result) == dict

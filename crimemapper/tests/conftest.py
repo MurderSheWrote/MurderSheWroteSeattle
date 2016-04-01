@@ -88,7 +88,6 @@ def new_entry(request, dbtransaction, entry_dict):
         DBSession.add(new_model)
 
     def teardown():
-        # import pdb; pdb.set_trace()
         with transaction.manager:
             DBSession.delete(new_model)
         print('foo')
