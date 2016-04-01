@@ -22,7 +22,7 @@
     var $all = $('#All');
     var $options = $('.option');
 
-    function initMap() {
+    function initMap(){
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat:47.6067006, lng:-122.3346896},
             zoom: 13
@@ -229,8 +229,7 @@
             {lat:47.734244, lng:-122.307701},
             {lat:47.734475, lng:-122.344780},
             {lat:47.734013, lng:-122.373962}
-            ];
-
+        ];
         var testPath = new google.maps.Polygon({
             path: testCoordinates,
             geodesic: true,
@@ -254,41 +253,22 @@
         console.log("sortVisibility: " + ischecked + ' ' + crimeArray);
         for(var i = 0; i < crimeArray.length; i++){
             crimeArray[i].setVisible(ischecked);
-        }
+        };
         // crimeArray.forEach(function(m){
         //     m.setVisible(ischecked)
         // });
     }
 
-    // function toggleArrayVisibility(ischecked, thisArray){
-    //     thisArray.forEach(function(m){
-    //         m.setVisible(ischecked);
-    //     });
-    // }
-    // function allUncheck(){
-    //   if ($('#All').is(':checked')){
-    //     $('#All').prop('checked', false).trigger('change');
-    //   }
-    // }
-
     function allUncheck(){
         console.log("uncheck all button: all is checked="+ $all.is(':checked'));
-        if ($all.is(':checked'){
+        if ($all.is(':checked')){
             $all.prop('checked', false).trigger('change');
-        }
+        };
     }
 
-    // function toggleAllMarkerVisibility(boolval){
-    //   for (var i = 0; i < markers.length; i++) {
-    //     markers[i].setVisible(boolval);
-    //   };
-    //   if(boolval){
-    //     $('.option').prop('checked', false);
-    //   }
-    // }
     function toggleAllMarkerVisibility(boolval){
         console.log("toggleAllMarkerVisibility: " + boolval);
-        for (var i = 0; i < markers.length; i++) {
+        for (var i = 0; i < markers.length; i++){
             markers[i].setVisible(boolval);
         };
         // markers.forEach(function(m){
@@ -300,22 +280,10 @@
         }
     }
 
-    // $('#All').on('change', function(){
-    //   var boolval = $('#All').is(':checked')? true : false;
-    //   toggleAllMarkerVisibility(boolval);
-    // });
     $all.on('change', function(){
-        console.log("all onchange event");
-        // var boolval = this.checked? true : false;
-        // toggleAllMarkerVisibility(boolval);
         toggleAllMarkerVisibility(this.checked);
     });
-    // {% for crime in crimes %}
-    // $('#' + "{{ crime }}").on('change', function(){
-    //   allUncheck();
-    //   sortVisibility(this.checked, sortedMarkers['{{ crime }}']);
-    // });
-    // {% endfor %}
+
     $options.on('change', function(){
         allUncheck();
         console.log("sorting visibility: " + this.checked + this.id);
