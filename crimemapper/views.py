@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """View functions created here."""
 from pyramid.view import view_config
 from crimemapper.models import (
@@ -26,6 +28,7 @@ def cached_db_call():
 
 
 def find_category(description):
+    """Return category of crime in dictionary."""
     for k, v in CRIME_DICT.items():
         if description in v:
             return k
@@ -38,7 +41,7 @@ def map_view(request):
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
-            continue  # pragma: no cover
+            continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         category = find_category(description)

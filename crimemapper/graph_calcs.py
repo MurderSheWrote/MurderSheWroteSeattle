@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Graph calculations for graph view."""
 from crimemapper.models import (
     DBSession,
@@ -42,7 +44,7 @@ CATEGORY_MAPPING = {tuple(val): key for key, val in UPPER_DICT.items()}
 
 
 def get_category(word):
-    """Inverting keys and items."""
+    """Invert keys and items."""
     for words in CATEGORY_MAPPING:
         if word in words:
             return CATEGORY_MAPPING[words]
@@ -54,7 +56,7 @@ MAIN_RESULTS = {}
 
 
 def main_db_call():
-    """Cashing a db call to close the session."""
+    """Cache a db call to close the session."""
     if 'already_called' not in MAIN_RESULTS:
         results = DBSession().query(
             Entry.summarized_offense_description
@@ -68,7 +70,7 @@ def main_db_call():
 
 
 def random_colors():
-    """Produce a random rgb colors for charts."""
+    """Produce random rgb colors for graphs."""
     def r():
         return random.randint(0, 255)
     return 'rgb({},{},{})'.format(r(), r(), r())
@@ -85,7 +87,7 @@ def offense_counter(offense_list):
 
 
 def color_applicator(sum_list):
-    """Return a list of tuples with colors pacakaged."""
+    """Return a list of tuples with colors packaged."""
     pie = []
     for i, item in enumerate(sum_list):
         wedge = item + (random_colors(),)

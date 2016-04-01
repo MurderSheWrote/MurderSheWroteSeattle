@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 CRIME_DICT = {
     "ASSAULT": ["ASSAULT"],
     "THEFT": [

@@ -15,7 +15,7 @@ TEST_DATABASE_URL = os.environ["TESTING_URL"]
 
 @pytest.fixture(scope='session')
 def config_path():
-    """Fixture to send path of dev.ini file."""
+    """Create fixture to send path of dev.ini file."""
     dir_ = os.path.dirname(__file__)
     demo_dir = os.path.join(dir_, '../..')
     return os.path.join(demo_dir, 'development.ini')
@@ -23,12 +23,13 @@ def config_path():
 
 @pytest.fixture(scope='session')
 def test_url():
-    """Fixture to access path to test database."""
+    """Create fixture to access path to test database."""
     return TEST_DATABASE_URL
 
 
 @pytest.fixture(scope='session')
 def sqlengine(request):
+    """Create fixture to test session engine."""
     engine = create_engine(TEST_DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
@@ -42,6 +43,7 @@ def sqlengine(request):
 
 @pytest.fixture(scope='function')
 def dbtransaction(request, sqlengine):
+    """Create fixture to test database session."""
     connection = sqlengine.connect()
     trans = connection.begin()
     DBSession.configure(bind=connection)
@@ -57,7 +59,7 @@ def dbtransaction(request, sqlengine):
 
 @pytest.fixture(scope='function')
 def entry_dict():
-    """Create a testing dictionary."""
+    """Create a test database entry as dictionary."""
     a_dict = {
         'rms_cdw_id': 705233,
         'general_offense_number': 201939834,
@@ -82,7 +84,7 @@ def entry_dict():
 
 @pytest.fixture(scope='function')
 def new_entry(request, dbtransaction, entry_dict):
-    """Create an entry to testing db."""
+    """Create an entry to test db."""
     new_model = Entry(**entry_dict)
     with transaction.manager:
         DBSession.add(new_model)
@@ -106,7 +108,7 @@ def app(config_path, dbtransaction, test_url):
 
 @pytest.fixture(scope="function")
 def clear_db_cache():
-    """Clear cache."""
+    """Create fixture to clear cache."""
     import crimemapper
     crimemapper.views.CACHED_RESULTS = {}
 
@@ -120,6 +122,6 @@ def clear_main_cache():
 
 @pytest.fixture(scope="function")
 def test_list():
-    """Fake list for testing."""
+    """Create fake list fixture for testing."""
     t_list = ['cat', 'dog', 'cat', 'potato', 'potato', None]
     return t_list

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from crimemapper.models import DBSession, Entry
 
 
