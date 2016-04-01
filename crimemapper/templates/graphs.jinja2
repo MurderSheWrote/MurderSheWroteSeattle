@@ -43,4 +43,31 @@
     </script>
   {% endfor %}
 </div>
+
+<h2>Histogram by year</h2>
+<div id='chart_div'>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {packages: ['corechart', 'bar']});
+  google.charts.setOnLoadCallback(drawBar);
+
+  function drawBar() {
+      var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Year');
+        data.addColumn('number', 'Incidents');
+        {% for key, value in bar_chart.items() %}
+        data.addRow([{{key}},{{value}}]);
+        {% endfor %}
+
+      var options = {
+        hAxis:{
+          direction: -1
+        }
+      }
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
+</script>
 {% endblock content%}

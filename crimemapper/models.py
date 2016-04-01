@@ -23,6 +23,7 @@ Base = declarative_base()
 
 class Entry(Base):
     """Create New Crime Entry for crimedb database. Mimic Socrata Table."""
+
     __tablename__ = 'crimedb'
     id = Column(Integer, primary_key=True)
     rms_cdw_id = Column(Integer)
