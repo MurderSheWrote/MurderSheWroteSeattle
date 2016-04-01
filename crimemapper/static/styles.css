@@ -104,6 +104,7 @@ input{
 .crime_list {
     width: 12rem;
     float: left;
+    display: inline-table;
 }
 
 button{
