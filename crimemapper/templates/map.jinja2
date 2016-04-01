@@ -250,7 +250,6 @@
     }
 
     function sortVisibility(ischecked, crimeArray){
-        console.log("sortVisibility: " + ischecked + ' ' + crimeArray);
         for(var i = 0; i < crimeArray.length; i++){
             crimeArray[i].setVisible(ischecked);
         };
@@ -260,7 +259,6 @@
     }
 
     function allUncheck(){
-        console.log("uncheck all button: all is checked="+ $all.is(':checked'));
         if ($all.is(':checked')){
             $all.prop('checked', false).trigger('change');
         };
@@ -275,7 +273,6 @@
         //     m.setVisible(boolval);
         // });
         if(boolval){
-            console.log("toggle all options off")
             $options.prop('checked', false);
         }
     }
@@ -286,7 +283,6 @@
 
     $options.on('change', function(){
         allUncheck();
-        console.log("sorting visibility: " + this.checked + this.id);
         sortVisibility(this.checked, sortedMarkers[this.id]);
     });
   </script>
