@@ -60,6 +60,10 @@ def main_db_call():
             Entry.summarized_offense_description
         ).all()
         MAIN_RESULTS['already_called'] = results
+        try:
+            MAIN_RESULTS['already_called'][0]
+        except IndexError:
+            raise ImportError
     return MAIN_RESULTS['already_called']
 
 
