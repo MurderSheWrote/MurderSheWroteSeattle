@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Test that initializedb runs when called. Tests to boost coverage."""
 import pytest
 from crimemapper.scripts.initializedb import main

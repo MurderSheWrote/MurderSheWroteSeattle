@@ -1,14 +1,11 @@
-import requests
-from requests import ConnectionError
-import pprint
-import json
+# -*- coding: utf-8 -*-
+"""Populate database from api."""
 from .models import Entry
 from .models import DBSession, Base
 import transaction
 from sqlalchemy import create_engine
 import os
 from sodapy import Socrata
-from urllib.error import HTTPError
 
 DOMAIN = 'https://data.seattle.gov/resource/ih58-ykqj.json'
 
@@ -20,24 +17,19 @@ SOCRATA_TOKEN = os.environ["SOCRATA_TOKEN"]
 
 def call_api():
     """Request data from socrata api and get back JSON."""
-    try:
-        client = Socrata("data.seattle.gov", SOCRATA_TOKEN)
-        data = client.get("ih58-ykqj", content_type="json", limit=9999)
-        return data
-    except ConnectionError:
-        raise ConnectionError
-    except HTTPError:
-        raise HTTPError
+    client = Socrata("data.seattle.gov", 'SOCRATA_TOKEN')
+    data = client.get("ih58-ykqj", content_type="json", limit=49998)
+    return data
 
 
-def populate_db(entry):
+def add_entry(entry):
     """Populate database with entries."""
     entries = Entry(**entry)
     DBSession.add(entries)
 
 
 def clean_data(crime_entries):
-    """Replace 'X' with 'None'."""
+    """Replace 'X' in database with 'None'."""
     for entry in crime_entries:
         for key in entry:
             if entry[key] == "X":
@@ -45,15 +37,11 @@ def clean_data(crime_entries):
     return crime_entries
 
 
-def main():
+if __name__ == '__main__':
     """Set up database and populate with clean crime listing."""
     engine = create_engine(DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
         for crime in clean_data(call_api()):
-            populate_db(crime)
-
-
-if __name__ == '__main__':
-    main()
+            add_entry(crime)

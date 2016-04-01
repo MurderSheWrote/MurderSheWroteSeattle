@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """View functions created here."""
 from pyramid.view import view_config
 from crimemapper.models import (
@@ -7,8 +9,7 @@ from crimemapper.models import (
 import os
 from .crimedict import CRIME_DICT
 from pyramid.httpexceptions import HTTPServiceUnavailable
-from .graph_calcs import crime_dict_totals, crime_category_breakdown
-
+from .graph_calcs import crime_dict_totals, crime_category_breakdown, crime_month_count
 
 CACHED_RESULTS = {}
 
@@ -26,6 +27,7 @@ def cached_db_call():
 
 
 def find_category(description):
+    """Return category of crime in dictionary."""
     for k, v in CRIME_DICT.items():
         if description in v:
             return k
@@ -38,7 +40,7 @@ def map_view(request):
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
-            continue  # pragma: no cover
+            continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         category = find_category(description)
@@ -66,6 +68,7 @@ def stats_view(request):
     try:
         main_pie = crime_dict_totals()
         sub_dict = crime_category_breakdown()
-        return {'main_pie': main_pie, 'sub_dict': sub_dict}
+        bar_chart = crime_month_count()
+        return {'main_pie': main_pie, 'sub_dict': sub_dict, 'bar_chart': bar_chart}
     except ImportError:
         raise HTTPServiceUnavailable()

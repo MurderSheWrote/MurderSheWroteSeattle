@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Entry Model defined."""
 from sqlalchemy import (
     Column,

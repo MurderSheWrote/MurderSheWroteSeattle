@@ -4,7 +4,7 @@
   <script src="static/chart.js"></script>
   <div class="words">
     <h1>CRIMEGRAPHS!</h1>
-    <p>These graphs are based on a large and representative but incomplete sample of data from the Seattle Police Department. First we visualize all the crimes in our database, then breakdown the major categories we use to filter the results on our map page, and give a graph showing the more specific crimes aggregated under those categories.
+    <p>These graphs are based on a large and representative but incomplete sample of data from the Seattle Police Department. First we visualize all the crimes in our database, then breakdown the major categories we use to filter the results on our map page, and give a graph showing the more specific crimes aggregated under those categories.</p>
   </div>
   <div id="outside">
   <div class="pies" id="mainpie">
@@ -44,5 +44,33 @@
     </script>
   {% endfor %}
 </div>
+
+<div id='chart_div'>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {packages: ['corechart', 'bar']});
+  google.charts.setOnLoadCallback(drawBar);
+
+  function drawBar() {
+      var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Month');
+        data.addColumn('number', 'Incidents');
+        {% for key, value in bar_chart.items() %}
+        data.addRow([{{key}},{{value}}]);
+        {% endfor %}
+
+      var options = {
+        title: "Histogram",
+        width: 600,
+        height: 400,
+        hAxis: {
+          title: 'Month of Year'
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+  }
+</script>
 {% endblock content%}
