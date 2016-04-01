@@ -41,7 +41,7 @@ UPPER_DICT = {
 CATEGORY_MAPPING = {tuple(val): key for key, val in UPPER_DICT.items()}
 
 
-def get_category(word):
+def get_category(word):  # TESTED
     """Inverting keys and items."""
     for words in CATEGORY_MAPPING:
         if word in words:
@@ -70,7 +70,7 @@ def random_colors():  # TESTED
     return 'rgb({},{},{})'.format(r(), r(), r())
 
 
-def offense_counter(offense_list):
+def offense_counter(offense_list):  # TESTED
     """Return a list of tuples with counted offenses."""
     sum_offense = Counter()
     for offense in offense_list:
@@ -80,7 +80,7 @@ def offense_counter(offense_list):
     return sum_offense.most_common()
 
 
-def color_applicator(sum_list):
+def color_applicator(sum_list):  # TESTED
     """Return a list of tuples with colors pacakaged."""
     pie = []
     for i, item in enumerate(sum_list):
@@ -111,6 +111,4 @@ def crime_category_breakdown():
             if sub_pie[i][0] in category:
                 sub_dict.setdefault(key, [])
                 sub_dict[key].append(sub_pie[i])
-            else:
-                continue
     return sub_dict

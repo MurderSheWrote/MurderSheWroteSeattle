@@ -1,7 +1,7 @@
 """Test writing for graphs."""
 import pytest
 
-from crimemapper.graph_calcs import random_colors, offense_counter, color_applicator
+from crimemapper.graph_calcs import random_colors, offense_counter, color_applicator, get_category
 
 
 def test_random_colors_type():
@@ -119,3 +119,22 @@ def test_color_applicator_contents_4(test_list):
     result = offense_counter(test_list)
     result = color_applicator(result)
     assert result[0][2][:4] == 'rgb('
+
+
+def test_get_category():
+    """Assert return is None when item not in values."""
+    result = get_category('fish')
+    assert result is None
+
+
+def test_get_category_2():
+    """Assert that key is returned for a found value."""
+    result = get_category('BIKE THEFT')
+    assert result == 'Theft'
+
+
+def test_get_category_3():
+    """Assert return is None when item is not string."""
+    result = get_category([])
+    assert result is None
+
