@@ -110,3 +110,8 @@ def clear_db_cache():
     import crimemapper
     crimemapper.views.CACHED_RESULTS = {}
 
+
+@pytest.fixture(scope="function")
+def test_list():
+    t_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    return t_list

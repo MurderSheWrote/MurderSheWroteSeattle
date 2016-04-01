@@ -42,36 +42,32 @@ def test_random_colors_range():
     assert 0 <= int(num_list[2]) <= 255
 
 
-def test_offense_counter_obj():
+def test_offense_counter_obj(test_list):
     """Assert that function returns a list."""
     test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert type(result) == list
 
 
-def test_offense_counter_contains():
+def test_offense_counter_contains(test_list):
     """Assert that function returns a list of tuples."""
-    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert type(result[0]) == tuple
 
 
-def test_offense_counter_tuple():
+def test_offense_counter_tuple(test_list):
     """Assert that function returns a list of tuples with two items in each."""
-    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert len(result[0]) == 2
 
 
-def test_offense_counter_contents_1():
+def test_offense_counter_contents_1(test_list):
     """Assert that first item in tuple is the offense."""
-    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert type(result[0][0]) == str
 
 
-def test_offense_counter_contents_2():
+def test_offense_counter_contents_2(test_list):
     """Assert that second item in tuple is the the number of times counted."""
-    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert type(result[0][1]) == int
