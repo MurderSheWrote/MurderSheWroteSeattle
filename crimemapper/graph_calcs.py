@@ -5,6 +5,8 @@ from crimemapper.models import (
 )
 from collections import Counter
 import random
+import pandas
+
 
 UPPER_DICT = {
     "Assault": ["ASSAULT"],
@@ -116,3 +118,22 @@ def crime_category_breakdown():
                 sub_dict.setdefault(key, [])
                 sub_dict[key].append(sub_pie[i])
     return sub_dict
+
+
+def crime_month_count():
+    """Return total incident amounts for each year."""
+    if 'called_entry' not in MAIN_RESULTS:
+        results = DBSession().query(
+            Entry.occurred_date_or_date_range_start
+        ).all()
+        MAIN_RESULTS['called_entry'] = results
+    date_occurred = MAIN_RESULTS['called_entry']
+    all_crimes_year = [crime[0] for crime in date_occurred]
+    all_crimes_year = pandas.to_datetime(all_crimes_year)
+    month_occurred = all_crimes_year.month
+    month_dict = {}
+    for month in month_occurred:
+        if month not in month_dict:
+            month_dict[month] = 0
+        month_dict[month] += 1
+    return month_dict
