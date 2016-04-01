@@ -90,5 +90,7 @@ p{
 }
 
 footer { 
-    display: inline-block;
+    display: block;
+    text-align: center;
+    padding-top: 1.5em;
 }
