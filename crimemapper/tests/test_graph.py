@@ -1,7 +1,7 @@
 """Test writing for graphs."""
 import pytest
 
-from crimemapper.graph_calcs import random_colors, offense_counter
+from crimemapper.graph_calcs import random_colors, offense_counter, color_applicator
 
 
 def test_random_colors_type():
@@ -44,7 +44,6 @@ def test_random_colors_range():
 
 def test_offense_counter_obj(test_list):
     """Assert that function returns a list."""
-    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
     result = offense_counter(test_list)
     assert type(result) == list
 
@@ -71,3 +70,52 @@ def test_offense_counter_contents_2(test_list):
     """Assert that second item in tuple is the the number of times counted."""
     result = offense_counter(test_list)
     assert type(result[0][1]) == int
+
+
+def test_color_applicator_obj(test_list):
+    """Assert that function returns a list."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert type(result) == list
+
+
+def test_color_applicator_contains(test_list):
+    """Assert that function returns a list of tuples."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert type(result[0]) == tuple
+
+
+def test_color_applicator_tuple(test_list):
+    """Assert that function returns a list of tuples with 3 items in each."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert len(result[0]) == 3
+
+
+def test_color_applicator_contents_1(test_list):
+    """Assert that first item in tuple is the offense."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert type(result[0][0]) == str
+
+
+def test_color_applicator_contents_2(test_list):
+    """Assert that second item in tuple is the the number of times counted."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert type(result[0][1]) == int
+
+
+def test_color_applicator_contents_3(test_list):
+    """Assert that third item in tuple is the rgb."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert type(result[0][2]) == str
+
+
+def test_color_applicator_contents_4(test_list):
+    """Assert that third item in tuple is the rgb for sure."""
+    result = offense_counter(test_list)
+    result = color_applicator(result)
+    assert result[0][2][:4] == 'rgb('
