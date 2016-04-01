@@ -10,7 +10,6 @@ from crimemapper.graph_calcs import(
     main_db_call,
     crime_dict_totals,
     crime_category_breakdown,
-    crime_month_count
 )
 
 
@@ -222,7 +221,3 @@ def test_crime_category_breakdown_contents(new_entry, clear_main_cache):
     assert type(result) == dict
 
 
-def test_crime_month_count_input(new_entry, clear_main_cache):
-    """Test query is correct entry column."""
-    result = crime_month_count()
-    assert type(result) == dict

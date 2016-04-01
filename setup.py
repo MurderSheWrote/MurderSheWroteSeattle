@@ -18,7 +18,6 @@ requires = [
     'waitress',
     'pyramid_jinja2',
     'psycopg2',
-    'pandas',
     'sodapy',
     'requests'
 ]
