@@ -46,7 +46,7 @@ def clean_data(crime_entries):
 
 
 def main():
-    """Set up database and populate with clean crime listing colleciton."""
+    """Set up database and populate with clean crime listing."""
     engine = create_engine(DATABASE_URL)
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
