@@ -1,11 +1,9 @@
 import pytest
 from requests import HTTPError, ConnectionError
-from sodapy import Socrata
-import json
 try:
-    from unittest.mock import Mock, patch
+    from unittest.mock import patch
 except ImportError:
-    from mock import Mock, patch
+    from mock import patch
 
 RESPONSE_200_DATA = [{
     'census_tract_2000': '1900.1012',
@@ -91,12 +89,10 @@ def test_clean_crime_entry():
     assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
 
-def test_populate_db(dbtransaction):
-    """Test entry entering database"""
-    from crimemapper.api import populate_db
+def test_add_entry(dbtransaction, entry_dict):
+    """Test entry entering database."""
+    from crimemapper.api import add_entry
     from crimemapper.models import Entry, DBSession
-    new_entry = Entry(rms_cdw_id='700713')
-    assert new_entry.id is None
-    DBSession.add(new_entry)
-    DBSession.flush()
-    assert new_entry.id is not None
+    num_rows = len(DBSession.query(Entry).all())
+    add_entry(entry_dict)
+    assert len(DBSession.query(Entry).all()) == (num_rows + 1)
