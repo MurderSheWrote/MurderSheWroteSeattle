@@ -3,9 +3,9 @@ from requests import HTTPError, ConnectionError
 from sodapy import Socrata
 import json
 try:
-    from unittest.mock import Mock, patch, mock
+    from unittest.mock import Mock, patch
 except ImportError:
-    from mock import Mock, patch, mock
+    from mock import Mock, patch
 
 RESPONSE_200_DATA = [{
     'census_tract_2000': '1900.1012',
@@ -56,7 +56,7 @@ CLEANED_DATA = [{
 }]
 
 
-@mock.patch('crimemapper.api.Socrata')
+@patch('crimemapper.api.Socrata')
 def test_call_api_200(socrata):
     """Test calling url and getting reponse back without raising error."""
     from crimemapper.api import call_api
@@ -65,7 +65,7 @@ def test_call_api_200(socrata):
     assert call_api()[0] == RESPONSE_200_DATA[0]
 
 
-@mock.patch('crimemapper.api.Socrata')
+@patch('crimemapper.api.Socrata')
 def test_call_api_connection_error(socrata):
     """Test Call Api with connection error."""
     from crimemapper.api import call_api
@@ -75,7 +75,7 @@ def test_call_api_connection_error(socrata):
         call_api()
 
 
-@mock.patch('crimemapper.api.Socrata')
+@patch('crimemapper.api.Socrata')
 def test_call_api_http_error(socrata):
     """Test Call Api with http error."""
     from crimemapper.api import call_api
@@ -90,12 +90,13 @@ def test_clean_crime_entry():
     from crimemapper.api import clean_data
     assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
-# @mock.patch('crimemapper.models.DBSession')
-# def test_populate_db(DBSession):
-#     from crimemapper.api import populate_db
-#     from crimemapper.models import DBSession
-#     entry = CLEANED_DATA[0]
-#     mocked = DBSession.add
-#     mocked.return_value = None
-#     populate_db(entry)
-#     assert DBSession is not None
+
+def test_populate_db(dbtransaction):
+    """Test entry entering database"""
+    from crimemapper.api import populate_db
+    from crimemapper.models import Entry, DBSession
+    new_entry = Entry(rms_cdw_id='700713')
+    assert new_entry.id is None
+    DBSession.add(new_entry)
+    DBSession.flush()
+    assert new_entry.id is not None
