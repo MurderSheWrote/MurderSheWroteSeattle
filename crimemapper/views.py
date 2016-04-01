@@ -6,6 +6,7 @@ from crimemapper.models import (
 )
 import os
 from .crimedict import CRIME_DICT
+from pyramid.httpexceptions import HTTPServiceUnavailable
 from .graph_calcs import crime_dict_totals, crime_category_breakdown
 
 
@@ -13,6 +14,7 @@ CACHED_RESULTS = {}
 
 
 def cached_db_call():
+    """Cache database hit so no further calls need to be made."""
     if 'already_called' not in CACHED_RESULTS:
         results = DBSession().query(
             Entry.latitude,
@@ -36,7 +38,7 @@ def map_view(request):
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
-            continue
+            continue  # pragma: no cover
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         category = find_category(description)
@@ -61,7 +63,9 @@ def about_view(request):
 @view_config(route_name='stats', renderer='templates/graphs.jinja2')
 def stats_view(request):
     """Render stats page."""
-    main_pie = crime_dict_totals()
-    sub_dict = crime_category_breakdown()
-    return {'main_pie': main_pie, 'sub_dict': sub_dict}
-
+    try:
+        main_pie = crime_dict_totals()
+        sub_dict = crime_category_breakdown()
+        return {'main_pie': main_pie, 'sub_dict': sub_dict}
+    except ImportError:
+        raise HTTPServiceUnavailable()

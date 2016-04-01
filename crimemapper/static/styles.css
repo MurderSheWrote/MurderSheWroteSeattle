@@ -26,6 +26,11 @@ nav ul li {
     margin-right:7%;
 }
 
+h1 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size:3em;
+}
+
 .words{
     margin-left: 5%;
     margin-right: 5%;
@@ -41,9 +46,19 @@ nav ul li {
     padding-bottom: 10%
     max-width: 80%;
 }
+.pies {
+    display:inline-block;
+    text-align: center;
+    width:48%;
+    padding-bottom: 5%
+}
 
 p{
     font-family: 'Merriweather', serif;
+}
+#outside{
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 #map {
@@ -53,6 +68,14 @@ p{
     height: 800px;
     width: 800px;
     float: left;
+}
+
+#mainpie {
+    display:inline-block;
+    text-align: center;
+    width:100%;
+    padding-bottom: 10%
+
 }
 
 .check-box{
@@ -67,5 +90,7 @@ p{
 }
 
 footer { 
-    display: inline-block;
+    display: block;
+    text-align: center;
+    padding-top: 1.5em;
 }
