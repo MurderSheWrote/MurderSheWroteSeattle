@@ -1,15 +1,13 @@
 import pytest
-import requests
-from requests import Response, HTTPError
+from requests import HTTPError, ConnectionError
+from sodapy import Socrata
+import json
 try:
-    from unittest.mock import MagicMock, Mock
-    from unittest.mock import patch
-except:
-    from mock import MagicMock, Mock
-    from mock import patch
+    from unittest.mock import Mock, patch, mock
+except ImportError:
+    from mock import Mock, patch, mock
 
-
-RESPONSE_200_DATA = {
+RESPONSE_200_DATA = [{
     'census_tract_2000': '1900.1012',
     'date_reported': '2016-03-10T08:18:00',
     'district_sector': 'L',
@@ -31,9 +29,9 @@ RESPONSE_200_DATA = {
     'summarized_offense_description': 'DISTURBANCE',
     'summary_offense_code': 'X',
     'zone_beat': 'L2'
-}
+}]
 
-CLEANED_DATA = {
+CLEANED_DATA = [{
     'census_tract_2000': '1900.1012',
     'date_reported': '2016-03-10T08:18:00',
     'district_sector': 'L',
@@ -55,25 +53,34 @@ CLEANED_DATA = {
     'summarized_offense_description': 'DISTURBANCE',
     'summary_offense_code': None,
     'zone_beat': 'L2'
-}
+}]
 
 
-def test_call_api_200():
+@mock.patch('crimemapper.api.Socrata')
+def test_call_api_200(socrata):
     """Test calling url and getting reponse back without raising error."""
     from crimemapper.api import call_api
-    r = Response()
-    r.status_code = 200
-    r.json = MagicMock()
-    requests.get = MagicMock(return_value=r)
-    call_api()
+    mocked = socrata().get
+    mocked.return_value = RESPONSE_200_DATA
+    assert call_api()[0] == RESPONSE_200_DATA[0]
 
 
-def test_call_api_403():
-    """Test calling url and raising error."""
+@mock.patch('crimemapper.api.Socrata')
+def test_call_api_connection_error(socrata):
+    """Test Call Api with connection error."""
     from crimemapper.api import call_api
-    r = Response()
-    r.status_code = 403
-    requests.get = MagicMock(return_value=r)
+    mocked = socrata().get
+    mocked.side_effect = ConnectionError
+    with pytest.raises(ConnectionError):
+        call_api()
+
+
+@mock.patch('crimemapper.api.Socrata')
+def test_call_api_http_error(socrata):
+    """Test Call Api with http error."""
+    from crimemapper.api import call_api
+    mocked = socrata().get
+    mocked.side_effect = HTTPError
     with pytest.raises(HTTPError):
         call_api()
 
@@ -83,26 +90,12 @@ def test_clean_crime_entry():
     from crimemapper.api import clean_data
     assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
-
-def test_import_crimes():
-    """Test json data is clean."""
-    from crimemapper.api import import_crimes
-    r = Response()
-    r.status_code = 200
-    r.json = MagicMock(return_value=RESPONSE_200_DATA)
-    requests.get = MagicMock(return_value=r)
-    assert import_crimes() == CLEANED_DATA
-
-
-def test_populate_db():
-    """Test right entry passed into db."""
-    pass
+# @mock.patch('crimemapper.models.DBSession')
+# def test_populate_db(DBSession):
 #     from crimemapper.api import populate_db
-#     from crimemapper.models import DBSession, Entry
-#     DBSession.add = Mock()
-#     populate_db(CLEANED_DATA)
-#     DBSssion.add.call_args
-#     #call(entries.attr=val)
-#     call()[0]
-#     for key, val in CLEANED_DATA.items():
-#         if key =
+#     from crimemapper.models import DBSession
+#     entry = CLEANED_DATA[0]
+#     mocked = DBSession.add
+#     mocked.return_value = None
+#     populate_db(entry)
+#     assert DBSession is not None

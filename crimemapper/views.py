@@ -1,32 +1,47 @@
 """View functions created here."""
-# from pyramid.response import Response
 from pyramid.view import view_config
-# from pyramid.httpexceptions import HTTPFound
-# from sqlalchemy.exc import DBAPIError
 from crimemapper.models import (
     DBSession,
     Entry,
 )
 import os
+from .crimedict import CRIME_DICT
+from .graph_calcs import crime_dict_totals, crime_category_breakdown
 
 
-POINTS = DBSession().query(Entry.latitude, Entry.longitude, Entry.summarized_offense_description).all()
+CACHED_RESULTS = {}
 
 
-# @view_confit(route_name='map', renderer="json", xhr=True)
+def cached_db_call():
+    if 'already_called' not in CACHED_RESULTS:
+        results = DBSession().query(
+            Entry.latitude,
+            Entry.longitude,
+            Entry.summarized_offense_description
+        ).all()
+        CACHED_RESULTS['already_called'] = results
+    return CACHED_RESULTS['already_called']
+
+
+def find_category(description):
+    for k, v in CRIME_DICT.items():
+        if description in v:
+            return k
+
+
 @view_config(route_name='map', renderer='templates/map.jinja2')
 def map_view(request):
     """Render map view on page."""
-    point = POINTS
+    point = cached_db_call()
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
             continue
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
-        places.append([place, description])
-    dict_ = {'places': places, "key": os.environ.get("GOOGLE_KEY")}
-    print(dict_)
+        category = find_category(description)
+        places.append([place, description, category])
+    dict_ = {"places": places, "key": os.environ.get("GOOGLE_KEY"), "crimes": CRIME_DICT}
     return dict_
 
 
@@ -46,4 +61,7 @@ def about_view(request):
 @view_config(route_name='stats', renderer='templates/graphs.jinja2')
 def stats_view(request):
     """Render stats page."""
-    return {}
+    main_pie = crime_dict_totals()
+    sub_dict = crime_category_breakdown()
+    return {'main_pie': main_pie, 'sub_dict': sub_dict}
+
