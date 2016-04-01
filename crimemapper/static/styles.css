@@ -27,11 +27,12 @@ nav ul li {
 }
 
 .words{
-    margin-left: 5%;
-    margin-right: 5%;
+/*    margin-left: 3%;
+    margin-right: 3%;*/
+    margin: auto;
     text-align: left;
     padding-bottom: 10%
-    max-width:25%;
+    max-width:20%;
 }
 
 .reference{
@@ -70,6 +71,15 @@ input{
     float: left;
 }
 
+button{
+    margin-bottom: 3%;
+    max-width: 10%;
+}
+
+.twitter-timeline{
+    /*margin: auto;*/
+    margin-left: 10%;
+}
 footer { 
     display: inline-block;
 }

@@ -2,8 +2,7 @@
 {% block map %}
   <div id='map'></div>
   <div class="words">
-    <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
-    <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
+    <button onclick="toggleHeatMap()">Click to toggle heatmap</button>
     <form id='selectors'>
         <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
         {% for crime in crimes %}
