@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pytest
 from requests import HTTPError, ConnectionError
 from sodapy import Socrata
@@ -86,13 +87,13 @@ def test_call_api_http_error(socrata):
 
 
 def test_clean_crime_entry():
-    """Test json data with X replcaed by None."""
+    """Test json data with X replaced by None."""
     from crimemapper.api import clean_data
     assert clean_data(RESPONSE_200_DATA) == CLEANED_DATA
 
 
 def test_populate_db(dbtransaction):
-    """Test entry entering database"""
+    """Test entering an entry into database."""
     from crimemapper.api import populate_db
     from crimemapper.models import Entry, DBSession
     new_entry = Entry(rms_cdw_id='700713')

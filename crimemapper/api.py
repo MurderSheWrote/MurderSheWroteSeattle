@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from requests import ConnectionError
 import pprint
@@ -37,7 +38,7 @@ def populate_db(entry):
 
 
 def clean_data(crime_entries):
-    """Replace 'X' with 'None'."""
+    """Replace 'X' in database with 'None'."""
     for entry in crime_entries:
         for key in entry:
             if entry[key] == "X":
