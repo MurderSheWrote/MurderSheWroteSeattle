@@ -1,7 +1,14 @@
 """Test writing for graphs."""
 import pytest
-
-from crimemapper.graph_calcs import random_colors, offense_counter, color_applicator, get_category
+from crimemapper.graph_calcs import(
+    random_colors,
+    offense_counter,
+    color_applicator,
+    get_category,
+    main_db_call,
+    crime_dict_totals,
+    crime_category_breakdown
+)
 
 
 def test_random_colors_type():
@@ -33,7 +40,7 @@ def test_random_colors_ints():
 
 
 def test_random_colors_range():
-    """Assert that numbers are int the correct place."""
+    """Assert that numbers are in the rgb range."""
     result = random_colors()
     result = result[4:-1]
     num_list = result.split(',')
@@ -138,3 +145,14 @@ def test_get_category_3():
     result = get_category([])
     assert result is None
 
+
+def test_main_db_call(new_entry, clear_db_cache):
+    """Assert db will be hit & return a list."""
+    result = main_db_call()
+    assert type(result) == list
+
+
+def test_main_db_call_items(new_entry, clear_db_cache):
+    """Assert db will be hit & return a list of with sub-category."""
+    result = main_db_call()
+    assert type(result[0][0]) == str

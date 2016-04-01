@@ -113,5 +113,5 @@ def clear_db_cache():
 
 @pytest.fixture(scope="function")
 def test_list():
-    t_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    t_list = ['cat', 'dog', 'cat', 'potato', 'potato', None]
     return t_list
