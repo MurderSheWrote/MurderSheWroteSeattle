@@ -1,7 +1,7 @@
+"""Entry Model defined."""
 from sqlalchemy import (
     Column,
     Integer,
-    Numeric,
     Float,
     Text,
     DateTime,
@@ -23,6 +23,7 @@ Base = declarative_base()
 
 class Entry(Base):
     """Create New Crime Entry for crimedb database. Mimic Socrata Table."""
+
     __tablename__ = 'crimedb'
     id = Column(Integer, primary_key=True)
     rms_cdw_id = Column(Integer)
@@ -32,8 +33,8 @@ class Entry(Base):
     offense_type = Column(Text)
     summary_offense_code = Column(Integer)
     summarized_offense_description = Column(Text)
-    date_reported = Column(DateTime)  # TODO is DateTime correct format?
-    occurred_date_or_date_range_start = Column(Text)  # TODO is DateTime correct format?
+    date_reported = Column(DateTime)
+    occurred_date_or_date_range_start = Column(Text)
     occurred_date_range_end = Column(Text)
     hundred_block_location = Column(Text)
     district_sector = Column(Text)
@@ -42,5 +43,3 @@ class Entry(Base):
     longitude = Column(Float)
     latitude = Column(Float)
     location = Column(JSON)
-
-# Index('my_index', MyModel.name, unique=True, mysql_length=255)

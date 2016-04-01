@@ -88,7 +88,6 @@ def new_entry(request, dbtransaction, entry_dict):
         DBSession.add(new_model)
 
     def teardown():
-        # import pdb; pdb.set_trace()
         with transaction.manager:
             DBSession.delete(new_model)
         print('foo')
@@ -107,6 +106,20 @@ def app(config_path, dbtransaction, test_url):
 
 @pytest.fixture(scope="function")
 def clear_db_cache():
+    """Clear cache."""
     import crimemapper
     crimemapper.views.CACHED_RESULTS = {}
 
+
+@pytest.fixture(scope="function")
+def clear_main_cache():
+    """Clear main cache."""
+    import crimemapper
+    crimemapper.graph_calcs.MAIN_RESULTS = {}
+
+
+@pytest.fixture(scope="function")
+def test_list():
+    """Fake list for testing."""
+    t_list = ['cat', 'dog', 'cat', 'potato', 'potato', None]
+    return t_list
