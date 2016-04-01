@@ -158,6 +158,13 @@ def test_main_db_call_empty_db(dbtransaction, clear_main_cache):
     assert type(result) == list
 
 
+def test_main_db_call_empty(dbtransaction, clear_main_cache):
+    """Assert if db is empty it will return a list."""
+    result = main_db_call()
+    with pytest.raises(IndexError):
+        type(result[0])
+
+
 def test_main_db_call_items(new_entry, clear_main_cache):
     """Assert db will be hit & return a list of with sub-category."""
     result = main_db_call()
