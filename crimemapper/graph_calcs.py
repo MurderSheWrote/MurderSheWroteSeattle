@@ -70,18 +70,23 @@ def random_colors():
     return 'rgb({},{},{})'.format(r(), r(), r())
 
 
+def offense_counter(offense_list):
+    """Return a list of tuples with counted offenses."""
+    sum_offense = Counter()
+    for offense in offense_list:
+        if offense is None:
+            continue
+        sum_offense[offense] += 1
+    return sum_offense.most_common()
+
+
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
     db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
     categorized_crimes = map(get_category, all_crimes)
     categorized_crimes = [c for c in categorized_crimes]
-    sum_offense = Counter()
-    for offense in categorized_crimes:
-        if offense is None:
-            continue
-        sum_offense[offense] += 1
-    sum_offense = sum_offense.most_common()
+    sum_offense = offense_counter(categorized_crimes)
     main_pie = []
     for i, item in enumerate(sum_offense):
         wedge = item + (random_colors(),)
@@ -93,12 +98,7 @@ def crime_category_breakdown():
     """Return a dictionary of crimes broken down by subcategories."""
     db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
-    sub_offense = Counter()
-    for offense in all_crimes:
-        if offense is None:
-            continue
-        sub_offense[offense] += 1
-    sub_offense = sub_offense.most_common()
+    sub_offense = offense_counter(all_crimes)
     sub_pie = []
     for i, item in enumerate(sub_offense):
         wedge = item + (random_colors(),)
