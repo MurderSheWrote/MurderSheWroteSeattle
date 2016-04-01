@@ -107,11 +107,20 @@ def app(config_path, dbtransaction, test_url):
 
 @pytest.fixture(scope="function")
 def clear_db_cache():
+    """Clear cache."""
     import crimemapper
     crimemapper.views.CACHED_RESULTS = {}
 
 
 @pytest.fixture(scope="function")
+def clear_main_cache():
+    """Clear main cache."""
+    import crimemapper
+    crimemapper.graph_calcs.MAIN_RESULTS = {}
+
+
+@pytest.fixture(scope="function")
 def test_list():
+    """Fake list for testing."""
     t_list = ['cat', 'dog', 'cat', 'potato', 'potato', None]
     return t_list

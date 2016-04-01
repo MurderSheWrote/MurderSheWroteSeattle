@@ -146,13 +146,13 @@ def test_get_category_3():
     assert result is None
 
 
-def test_main_db_call(new_entry, clear_db_cache):
+def test_main_db_call(new_entry, clear_main_cache):
     """Assert db will be hit & return a list."""
     result = main_db_call()
     assert type(result) == list
 
 
-def test_main_db_call_items(new_entry, clear_db_cache):
+def test_main_db_call_items(new_entry, clear_main_cache):
     """Assert db will be hit & return a list of with sub-category."""
     result = main_db_call()
     assert type(result[0][0]) == str
