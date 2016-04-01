@@ -41,8 +41,8 @@ h1 {
 }
 
 .reference{
-    margin-left: 20%;
-    margin-right: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
     text-align: left;
     padding-bottom: 10%
     max-width: 80%;
@@ -103,6 +103,15 @@ button{
     /*margin: auto;*/
     margin-left: 10%;
 }
+
+#refblock{
+    display:inline-block;
+}
+
+#chart_div{
+     margin-left: 20%;
+}
+
 footer { 
     display: block;
     text-align: center;
