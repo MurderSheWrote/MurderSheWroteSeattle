@@ -61,6 +61,10 @@ p{
     padding: 5px;
 }
 
+input{
+    display: block;
+}
+
 .crime_list {
     width: 12rem;
     float: left;
