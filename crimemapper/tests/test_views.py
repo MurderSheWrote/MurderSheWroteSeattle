@@ -1,49 +1,58 @@
 # -*- coding:utf-8 -*-
 """Test file for views."""
-from crimemapper.models import DBSession, Entry
 from crimemapper.views import map_view
 import pytest
 from webtest import AppError
 from pyramid.testing import DummyRequest
 
 
-def test_map_view_0(dbtransaction):
+def test_map_view_0(new_entry, clear_db_cache):
+    """Test that map view returns a list of items for template."""
     result = map_view(DummyRequest)
     assert type(result['places']) is list
 
 
-def test_map_view_1(dbtransaction):
+def test_map_view_1(new_entry, clear_db_cache):
+    """Test that map view returns key for google as a string."""
     result = map_view(DummyRequest)
-    assert type(result['key']) is str
+    assert type(result['crimes']) is dict
 
 
-def test_map_view_2(dbtransaction):
+def test_map_view_2(new_entry, clear_db_cache):
     """Test that when query returns nothing places list is empty."""
     result = map_view(DummyRequest)
+    assert type(result[['places'][0]]) is list
+
+
+def test_map_view_3(dbtransaction, clear_db_cache):
+    """Test that when query returns nothing places list is empty."""
+    result = map_view(DummyRequest)
+    places_list = result[['places'][0]]
     with pytest.raises(IndexError):
-        assert type(result['places'][0]) is list
+        type(places_list[0]) is list
 
 
-
-    # test_entry = map_view(entry_dict)
-    # assert map_view(entry_dict) == {[{'lat': 47.611839294, 'lng': -122.332801819}, 'EMBEZZLE']}
-
-
-# def test_new_entry(dbtransaction, entry_dict, new_entry):
-#     new_model = Entry(entry_dict)
-#     assert new_model.id is None
-    # DBSession.add(new_entry)
-    # DBSession.flush()
-    # assert entry_dict.id is not None
+def test_map_view_4(new_entry, clear_db_cache):
+    """Test that when query returns nothing places list is empty."""
+    result = map_view(DummyRequest)
+    places_list = result[['places'][0]]
+    assert type(places_list[0][0]) is dict
 
 
-def test_map_view_route(dbtransaction, app):
+def test_map_view_5(new_entry, clear_db_cache):
+    """Test that when query returns nothing places list is empty."""
+    result = map_view(DummyRequest)
+    places_list = result[['places'][0]]
+    assert type(places_list[0][1]) is str
+
+
+def test_map_view_route(app, clear_db_cache):
     """Test map view route path."""
     response = app.get('/')
     assert response.status_code == 200
 
 
-def test_bad_route(dbtransaction, app):
+def test_bad_route(app):
     """Test bad route requests."""
     with pytest.raises(AppError):
         app.get('/whatever')
