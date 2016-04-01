@@ -80,6 +80,15 @@ def offense_counter(offense_list):
     return sum_offense.most_common()
 
 
+def color_applicator(sum_list):
+    """Return a list of tuples with colors pacakaged."""
+    pie = []
+    for i, item in enumerate(sum_list):
+        wedge = item + (random_colors(),)
+        pie.append(wedge)
+    return pie
+
+
 def crime_dict_totals():
     """Return a count of all instances of a summary offense."""
     db_request = main_db_call()
@@ -87,11 +96,7 @@ def crime_dict_totals():
     categorized_crimes = map(get_category, all_crimes)
     categorized_crimes = [c for c in categorized_crimes]
     sum_offense = offense_counter(categorized_crimes)
-    main_pie = []
-    for i, item in enumerate(sum_offense):
-        wedge = item + (random_colors(),)
-        main_pie.append(wedge)
-    return main_pie
+    return color_applicator(sum_offense)
 
 
 def crime_category_breakdown():
@@ -99,10 +104,7 @@ def crime_category_breakdown():
     db_request = main_db_call()
     all_crimes = [item[0] for item in db_request]
     sub_offense = offense_counter(all_crimes)
-    sub_pie = []
-    for i, item in enumerate(sub_offense):
-        wedge = item + (random_colors(),)
-        sub_pie.append(wedge)
+    sub_pie = color_applicator(sub_offense)
     sub_dict = {}
     for i, thing in enumerate(sub_pie):
         for key, category in UPPER_DICT.items():
