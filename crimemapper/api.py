@@ -21,8 +21,8 @@ SOCRATA_TOKEN = os.environ["SOCRATA_TOKEN"]
 def call_api():
     """Request data from socrata api and get back JSON."""
     try:
-        client = Socrata("data.seattle.gov", 'SOCRATA_TOKEN')
-        data = client.get("ih58-ykqj", content_type="json", limit=49998)
+        client = Socrata("data.seattle.gov", SOCRATA_TOKEN)
+        data = client.get("ih58-ykqj", content_type="json", limit=9999)
         return data
     except ConnectionError:
         raise ConnectionError

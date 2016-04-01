@@ -6,8 +6,12 @@ from crimemapper.models import (
 )
 import os
 from .crimedict import CRIME_DICT
+<<<<<<< HEAD
 from pyramid.httpexceptions import HTTPServiceUnavailable
 from .graph_calcs import crime_dict_totals, crime_category_breakdown
+=======
+from .graph_calcs import crime_dict_totals, crime_category_breakdown, crime_month_count
+>>>>>>> f78371761bcc3b4fb6791cda30034d3fd980f6ce
 
 
 CACHED_RESULTS = {}
@@ -66,6 +70,7 @@ def stats_view(request):
     try:
         main_pie = crime_dict_totals()
         sub_dict = crime_category_breakdown()
-        return {'main_pie': main_pie, 'sub_dict': sub_dict}
+        bar_chart = crime_month_count()
+        return {'main_pie': main_pie, 'sub_dict': sub_dict, 'bar_chart': bar_chart}
     except ImportError:
         raise HTTPServiceUnavailable()

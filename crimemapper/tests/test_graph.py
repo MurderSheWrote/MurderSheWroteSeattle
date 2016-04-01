@@ -1,5 +1,6 @@
 """Test writing for graphs."""
 import pytest
+
 from crimemapper.graph_calcs import(
     random_colors,
     offense_counter,
@@ -9,6 +10,12 @@ from crimemapper.graph_calcs import(
     crime_dict_totals,
     crime_category_breakdown
 )
+
+from crimemapper.models import DBSession, Entry
+try:
+    from unittest.mock import Mock, patch, mock, MagicMock
+except ImportError:
+    from mock import Mock, patch, mock, MagicMock
 
 
 def test_random_colors_type():
@@ -49,6 +56,7 @@ def test_random_colors_range():
     assert 0 <= int(num_list[2]) <= 255
 
 
+<<<<<<< HEAD
 def test_offense_counter_obj(test_list):
     """Assert that function returns a list."""
     result = offense_counter(test_list)
@@ -217,3 +225,37 @@ def test_crime_category_breakdown_contents(new_entry, clear_main_cache):
     """Assert function will return a dictionary."""
     result = crime_category_breakdown()
     assert type(result) == dict
+
+
+def test_crime_month_count_input():
+    """Test query is correct entry column."""
+    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
+    mocked = MagicMock()
+    DBSession().query = mocked
+    mocked.all = MagicMock(return_value=[])
+    crime_month_count()
+    DBSession().query.assert_called_with(Entry.occurred_date_or_date_range_start)
+
+
+def test_crime_month_count_output():
+    """Test query output is dict of tuple."""
+    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
+    mocked = MagicMock()
+    DBSession().query = mocked
+    mocked.all = MagicMock(return_value=[])
+    crime_month_count()
+    assert type(MAIN_RESULTS) is dict
+
+
+# def test_crime_year_count_result():
+#     """Test function returns year and count dict."""
+#     from crimemapper.graph_calcs import crime_year_count, MAIN_RESULTS
+#     mocked = MagicMock()
+#     DBSession().query = mocked
+#     mocked.all = MagicMock(return_value=[
+#         ('1990-01-01T00:00:00',),
+#         ('1990-01-06T00:00:00',),
+#         ('1992-01-01T00:00:00',)
+#     ])
+#     test = crime_year_count()
+#     assert test == {1990: 2, 1992: 1}
