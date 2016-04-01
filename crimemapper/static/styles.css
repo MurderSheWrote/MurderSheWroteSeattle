@@ -29,7 +29,7 @@ nav ul li {
 h1 {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size:3em;
-    margin-left: 10%;
+    margin: auto;
 }
 
 h3, h4 {
