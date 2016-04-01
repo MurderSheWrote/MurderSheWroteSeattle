@@ -1,7 +1,7 @@
 """Test writing for graphs."""
 import pytest
 
-from crimemapper.graph_calcs import random_colors
+from crimemapper.graph_calcs import random_colors, offense_counter
 
 
 def test_random_colors_type():
@@ -40,3 +40,31 @@ def test_random_colors_range():
     assert 0 <= int(num_list[0]) <= 255
     assert 0 <= int(num_list[1]) <= 255
     assert 0 <= int(num_list[2]) <= 255
+
+
+def test_offense_counter_obj():
+    """Assert that function returns a list."""
+    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    result = offense_counter(test_list)
+    assert type(result) == list
+
+
+def test_offense_counter_contains():
+    """Assert that function returns a list of tuples."""
+    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    result = offense_counter(test_list)
+    assert type(result[0]) == tuple
+
+
+def test_offense_counter_contents_1():
+    """Assert that first item in tuple is the offense."""
+    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    result = offense_counter(test_list)
+    assert type(result[0][0]) == str
+
+
+def test_offense_counter_contents_2():
+    """Assert that second item in tuple is the the number of times counted."""
+    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    result = offense_counter(test_list)
+    assert type(result[0][1]) == int

@@ -63,7 +63,7 @@ def main_db_call():
     return MAIN_RESULTS['already_called']
 
 
-def random_colors():
+def random_colors():  # TESTED
     """Produce a random rgb colors for charts."""
     def r():
         return random.randint(0, 255)
