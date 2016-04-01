@@ -48,23 +48,23 @@ def test_random_colors_range():
     assert 0 <= int(num_list[2]) <= 255
 
 
-def test_crime_year_count_input():
+def test_crime_month_count_input():
     """Test query is correct entry column."""
-    from crimemapper.graph_calcs import crime_year_count, MAIN_RESULTS
+    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
     mocked = MagicMock()
     DBSession().query = mocked
     mocked.all = MagicMock(return_value=[])
-    crime_year_count()
+    crime_month_count()
     DBSession().query.assert_called_with(Entry.occurred_date_or_date_range_start)
 
 
-def test_crime_year_count_output():
+def test_crime_month_count_output():
     """Test query output is dict of tuple."""
-    from crimemapper.graph_calcs import crime_year_count, MAIN_RESULTS
+    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
     mocked = MagicMock()
     DBSession().query = mocked
     mocked.all = MagicMock(return_value=[])
-    crime_year_count()
+    crime_month_count()
     assert type(MAIN_RESULTS) is dict
 
 

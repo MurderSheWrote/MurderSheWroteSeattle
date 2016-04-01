@@ -116,23 +116,20 @@ def crime_category_breakdown():
     return sub_dict
 
 
-def crime_year_count():
+def crime_month_count():
     """Return total incident amounts for each year."""
-    # print(MAIN_RESULTS)
     if 'called_entry' not in MAIN_RESULTS:
-        # print(MAIN_RESULTS)
         results = DBSession().query(
             Entry.occurred_date_or_date_range_start
         ).all()
         MAIN_RESULTS['called_entry'] = results
-        # print(MAIN_RESULTS)
     date_occurred = MAIN_RESULTS['called_entry']
     all_crimes_year = [crime[0] for crime in date_occurred]
     all_crimes_year = pandas.to_datetime(all_crimes_year)
-    year_occurred = all_crimes_year.year
-    year_dict = {}
-    for year in year_occurred:
-        if year not in year_dict:
-            year_dict[year] = 0
-        year_dict[year] += 1
-    return year_dict
+    month_occurred = all_crimes_year.month
+    month_dict = {}
+    for month in month_occurred:
+        if month not in month_dict:
+            month_dict[month] = 0
+        month_dict[month] += 1
+    return month_dict
