@@ -29,7 +29,7 @@
     <h2>{{key}}</h2>
     <canvas id="{{key}}" width="400" height="400"></canvas>
     <script>
-    var granPieData = []
+    var granPieData = [];
     {% for wedge in sub_dict[key] %}
       var addition = {
         value: {{wedge[1]}},
@@ -37,9 +37,9 @@
         color: '{{wedge[2]}}'
       };
       granPieData.push(addition);
+    {% endfor %}
     var ctx = document.getElementById("{{key}}").getContext("2d");
     new Chart(ctx).Pie(granPieData);
-    {% endfor %}
     </script>
   {% endfor %}
 </div>
