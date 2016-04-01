@@ -6,6 +6,7 @@ from crimemapper.models import (
 )
 import os
 from .crimedict import CRIME_DICT
+from pyramid.httpexceptions import HTTPServiceUnavailable
 from .graph_calcs import crime_dict_totals, crime_category_breakdown
 
 
@@ -61,7 +62,9 @@ def about_view(request):
 @view_config(route_name='stats', renderer='templates/graphs.jinja2')
 def stats_view(request):
     """Render stats page."""
-    main_pie = crime_dict_totals()
-    sub_dict = crime_category_breakdown()
-    return {'main_pie': main_pie, 'sub_dict': sub_dict}
-
+    try:
+        main_pie = crime_dict_totals()
+        sub_dict = crime_category_breakdown()
+        return {'main_pie': main_pie, 'sub_dict': sub_dict}
+    except ImportError:
+        raise HTTPServiceUnavailable()
