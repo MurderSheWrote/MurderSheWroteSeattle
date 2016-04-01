@@ -74,9 +74,3 @@ def test_about_view_route(dbtransaction, app):
     """Test codes reference view route path."""
     response = app.get('/about')
     assert response.status_code == 200
-
-
-def test_main_db_call_empty_db_status(dbtransaction, clear_main_cache):
-    """Assert database returns list if empty."""
-    with pytest.raises(AppError):
-        app.get('/stats')
