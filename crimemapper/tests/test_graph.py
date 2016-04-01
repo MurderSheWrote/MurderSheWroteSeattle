@@ -56,6 +56,13 @@ def test_offense_counter_contains():
     assert type(result[0]) == tuple
 
 
+def test_offense_counter_tuple():
+    """Assert that function returns a list of tuples with two items in each."""
+    test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
+    result = offense_counter(test_list)
+    assert len(result[0]) == 2
+
+
 def test_offense_counter_contents_1():
     """Assert that first item in tuple is the offense."""
     test_list = ['cat', 'dog', 'cat', 'potato', 'potato']
