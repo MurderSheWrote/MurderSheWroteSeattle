@@ -6,13 +6,8 @@ from crimemapper.models import (
 )
 import os
 from .crimedict import CRIME_DICT
-<<<<<<< HEAD
 from pyramid.httpexceptions import HTTPServiceUnavailable
-from .graph_calcs import crime_dict_totals, crime_category_breakdown
-=======
 from .graph_calcs import crime_dict_totals, crime_category_breakdown, crime_month_count
->>>>>>> f78371761bcc3b4fb6791cda30034d3fd980f6ce
-
 
 CACHED_RESULTS = {}
 

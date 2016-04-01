@@ -8,14 +8,9 @@ from crimemapper.graph_calcs import(
     get_category,
     main_db_call,
     crime_dict_totals,
-    crime_category_breakdown
+    crime_category_breakdown,
+    crime_month_count
 )
-
-from crimemapper.models import DBSession, Entry
-try:
-    from unittest.mock import Mock, patch, mock, MagicMock
-except ImportError:
-    from mock import Mock, patch, mock, MagicMock
 
 
 def test_random_colors_type():
@@ -56,7 +51,6 @@ def test_random_colors_range():
     assert 0 <= int(num_list[2]) <= 255
 
 
-<<<<<<< HEAD
 def test_offense_counter_obj(test_list):
     """Assert that function returns a list."""
     result = offense_counter(test_list)
@@ -166,12 +160,6 @@ def test_main_db_call_empty_db(dbtransaction, clear_main_cache):
         main_db_call()
 
 
-def test_main_db_call_items(new_entry, clear_main_cache):
-    """Assert db will be hit & return a list of with sub-category."""
-    result = main_db_call()
-    assert type(result[0][0]) == unicode
-
-
 def test_crime_dict_totals(new_entry, clear_main_cache):
     """Assert function will return a list."""
     result = crime_dict_totals()
@@ -227,35 +215,7 @@ def test_crime_category_breakdown_contents(new_entry, clear_main_cache):
     assert type(result) == dict
 
 
-def test_crime_month_count_input():
+def test_crime_month_count_input(new_entry, clear_main_cache):
     """Test query is correct entry column."""
-    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
-    mocked = MagicMock()
-    DBSession().query = mocked
-    mocked.all = MagicMock(return_value=[])
-    crime_month_count()
-    DBSession().query.assert_called_with(Entry.occurred_date_or_date_range_start)
-
-
-def test_crime_month_count_output():
-    """Test query output is dict of tuple."""
-    from crimemapper.graph_calcs import crime_month_count, MAIN_RESULTS
-    mocked = MagicMock()
-    DBSession().query = mocked
-    mocked.all = MagicMock(return_value=[])
-    crime_month_count()
-    assert type(MAIN_RESULTS) is dict
-
-
-# def test_crime_year_count_result():
-#     """Test function returns year and count dict."""
-#     from crimemapper.graph_calcs import crime_year_count, MAIN_RESULTS
-#     mocked = MagicMock()
-#     DBSession().query = mocked
-#     mocked.all = MagicMock(return_value=[
-#         ('1990-01-01T00:00:00',),
-#         ('1990-01-06T00:00:00',),
-#         ('1992-01-01T00:00:00',)
-#     ])
-#     test = crime_year_count()
-#     assert test == {1990: 2, 1992: 1}
+    result = crime_month_count()
+    assert type(result) == dict

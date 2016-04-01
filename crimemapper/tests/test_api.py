@@ -4,8 +4,8 @@ from sodapy import Socrata
 import json
 try:
     from unittest.mock import Mock, patch
-except ImportError:
-    from mock import Mock, patch
+except ImportError:  # pragma: no cover
+    from mock import Mock, patch  # pragma: no cover
 
 RESPONSE_200_DATA = [{
     'census_tract_2000': '1900.1012',
