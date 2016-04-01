@@ -1,32 +1,26 @@
 {% extends "index.html" %}
 {% block map %}
-  <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
   <div id='map'></div>
   <div class="words">
+    <button onclick="toggleHeatMap()">Click to toggle between markers and heatmap</button>
     <p>Scroll around the map below to see a selection of police incidents in Seattle</p>
     <form id='selectors'>
         <label><input id="All" type="checkbox" value="All" checked="checked">All</label>
-        <label><input id="HOMICIDE" type="checkbox" value="HOMICIDE" class="option">Homicide</label>
-        <label><input id="ASSAULT" type="checkbox" value="ASSAULT" class="option">Assault</label>
-        <label><input id="WEAPON" type="checkbox" value="WEAPONS" class="option">Weapons</label>
-        <label><input id="ROBBERY" type="checkbox" value="Robbery" class="option">Robbery</label>
-        <label><input id="PROPERTY" type="checkbox" value="PROPERTY" class="option">Property</label>
-        <label><input id="DRUGS" type="checkbox" value="DRUGS" class="option">Drugs/Alcohol</label>
-        <label><input id="DISTURBANCE" type="checkbox" value="DISTRUBANCE" class="option">Disturbances</label>
-        <label><input id="THEFT" type="checkbox" value="THEFT" class="option">Burglary/Theft</label>
-        <label><input id="SIN" type="checkbox" value="SIN" class="option">Sin</label>
-        <label><input id="FRAUD" type="checkbox" value="FRAUD" class="option">Fraud</label>
-        <label><input id="OTHER" type="checkbox" value="OTHER" class="option">Other</label>
+        {% for crime in crimes %}
+        <label><input id="{{ crime | safe }}" type="checkbox" value="{{ crime }}" class="option">{{ crime }}</label>
+        {% endfor %}
     </form>
   </div>
   <a class="twitter-timeline" href="https://twitter.com/SeattlePD" data-widget-id="715243882074603520">Tweets by @SeattlePD</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script>
     var markers = [];
     var sortedMarkers = {};
     var heatdata = [];
     var map, heatmap;
+    var $all = $('#All');
+    var $options = $('.option');
 
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
@@ -56,7 +50,7 @@
       heatmap.setMap(null);
     
 
-      var testCoordiantes = [
+    var testCoordinates = [
         {lat:47.733551, lng:-122.374306},
         {lat:47.727778, lng:-122.372589},
         {lat:47.722466, lng:-122.376022},
@@ -236,10 +230,10 @@
         {lat:47.734244, lng:-122.307701},
         {lat:47.734475, lng:-122.344780},
         {lat:47.734013, lng:-122.373962}
-      ];
+    ];
 
       var testPath = new google.maps.Polygon({
-        path: testCoordiantes,
+        path: testCoordinates,
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
@@ -255,43 +249,69 @@
     function toggleHeatMap(){
       var boolVal = (heatmap.getMap() != null);
       toggleAllMarkerVisibility(boolVal);
-      boolVal ? heatmap.setMap(null) : heatmap.setMap(map)
+      boolVal ? heatmap.setMap(null) : heatmap.setMap(map);
     }
 
     function sortVisibility(ischecked, crimeArray){
-      for(var i = 0; i < crimeArray.length; i++){
-        crimeArray[i].setVisible(ischecked)
-      }
+        console.log("sortVisibility: " + ischecked + ' ' + crimeArray);
+        for(var i = 0; i < crimeArray.length; i++){
+            crimeArray[i].setVisible(ischecked);
+        }
     }
+
+    // function allUncheck(){
+    //   if ($('#All').is(':checked')){
+    //     $('#All').prop('checked', false).trigger('change');
+    //   }
+    // }
 
     function allUncheck(){
-      if ($('#All').is(':checked')){
-        $('#All').prop('checked', false).trigger('change');
-      }
+        console.log("uncheck all button: all is checked="+ $all.is(':checked'));
+        if ($all.is(':checked'){
+            $all.prop('checked', false).trigger('change');
+        }
     }
 
+    // function toggleAllMarkerVisibility(boolval){
+    //   for (var i = 0; i < markers.length; i++) {
+    //     markers[i].setVisible(boolval);
+    //   };
+    //   if(boolval){
+    //     $('.option').prop('checked', false);
+    //   }
+    // }
     function toggleAllMarkerVisibility(boolval){
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setVisible(boolval);
-      };
-      if(boolval){
-        $('.option').prop('checked', false);
-      }
+        console.log("toggleAllMarkerVisibility: " + boolval);
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setVisible(boolval);
+        };
+        if(boolval){
+            console.log("toggle all options off")
+            $options.prop('checked', false);
+        }
     }
 
-    $('#All').on('change', function(){
-      var boolval = $('#All').is(':checked')? true : false;
-      toggleAllMarkerVisibility(boolval);
+    // $('#All').on('change', function(){
+    //   var boolval = $('#All').is(':checked')? true : false;
+    //   toggleAllMarkerVisibility(boolval);
+    // });
+    $all.on('change', function(){
+        console.log("all onchange event");
+        // var boolval = this.checked? true : false;
+        // toggleAllMarkerVisibility(boolval);
+        toggleAllMarkerVisibility(this.checked);
     });
-
-    {% for crime in crimes %}
-    $('#' + "{{ crime }}").on('change', function(){
-      allUncheck();
-      sortVisibility(this.checked, sortedMarkers['{{ crime }}']);
+    // {% for crime in crimes %}
+    // $('#' + "{{ crime }}").on('change', function(){
+    //   allUncheck();
+    //   sortVisibility(this.checked, sortedMarkers['{{ crime }}']);
+    // });
+    // {% endfor %}
+    $options.on('change', function(){
+        allUncheck();
+        console.log("sorting visibility: " + this.checked + this.id);
+        sortVisibility(this.checked, sortedMarkers[this.id]);
     });
-    {% endfor %}
-
-
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=visualization&callback=initMap" async defer></script>
 {% endblock map %}
