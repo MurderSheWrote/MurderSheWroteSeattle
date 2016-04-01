@@ -29,15 +29,24 @@ nav ul li {
 h1 {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size:3em;
+    margin-left: 10%;
+}
+
+h3, h4 {
+    margin-left: 10%;
 }
 
 .words{
-/*    margin-left: 3%;
-    margin-right: 3%;*/
+    margin-left: 10%;
+    margin-right: 3%;
     margin: auto;
     text-align: left;
     padding-bottom: 10%
     max-width:20%;
+}
+
+.authors{
+    margin-left: 10%;
 }
 
 .reference{
@@ -56,7 +65,10 @@ h1 {
 
 p{
     font-family: 'Merriweather', serif;
+    margin-left: 10%;
+    margin-right: 5%
 }
+
 #outside{
     margin-left: 10%;
     margin-right: 10%;
@@ -103,7 +115,7 @@ button{
     /*margin: auto;*/
     margin-left: 10%;
 }
-footer { 
+footer {
     display: block;
     text-align: center;
     padding-top: 1.5em;
