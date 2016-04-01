@@ -262,9 +262,7 @@
     }
 
     function toggleAllMarkerVisibility(boolval){
-        markers.forEach(function(m){
-            m.setVisible(boolval);
-        });
+        sortVisibility(boolval, markers);
         if(boolval){
             $options.prop('checked', false);
         }
