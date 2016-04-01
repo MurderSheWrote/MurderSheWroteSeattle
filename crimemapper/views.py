@@ -14,6 +14,7 @@ CACHED_RESULTS = {}
 
 
 def cached_db_call():
+    """Cache database hit so no further calls need to be made."""
     if 'already_called' not in CACHED_RESULTS:
         results = DBSession().query(
             Entry.latitude,
@@ -37,7 +38,7 @@ def map_view(request):
     places = []
     for i, l in enumerate(point):
         if point[i][0] is None:
-            continue
+            continue  # pragma: no cover
         place = {'lat': point[i][0], 'lng': point[i][1]}
         description = str(point[i][2])
         category = find_category(description)
