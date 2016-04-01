@@ -161,6 +161,12 @@ def test_main_db_call_empty_db(dbtransaction, clear_main_cache):
         main_db_call()
 
 
+def test_main_db_call_items(new_entry, clear_main_cache):
+    """Assert db will be hit & return a list of with sub-category."""
+    result = main_db_call()
+    assert type(result[0][0]) == str or unicode
+
+
 def test_crime_dict_totals(new_entry, clear_main_cache):
     """Assert function returns a list."""
     result = crime_dict_totals()
