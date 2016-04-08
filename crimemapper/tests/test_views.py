@@ -9,19 +9,19 @@ from pyramid.testing import DummyRequest
 def test_map_view_0(new_entry, clear_db_cache):
     """Test that map view returns a list of items for template."""
     result = map_view(DummyRequest)
-    assert type(result['places']) is list
+    assert isinstance(result['places'], list)
 
 
 def test_map_view_1(new_entry, clear_db_cache):
     """Test that map view returns key for google as a string."""
     result = map_view(DummyRequest)
-    assert type(result['crimes']) is dict
+    assert isinstance(result['crimes'], dict)
 
 
 def test_map_view_2(new_entry, clear_db_cache):
     """Test that when query returns nothing, places list is empty."""
     result = map_view(DummyRequest)
-    assert type(result[['places'][0]]) is list
+    assert isinstance(result['places'][0], list)
 
 
 def test_map_view_3(dbtransaction, clear_db_cache):
@@ -29,21 +29,21 @@ def test_map_view_3(dbtransaction, clear_db_cache):
     result = map_view(DummyRequest)
     places_list = result[['places'][0]]
     with pytest.raises(IndexError):
-        type(places_list[0]) is list
+        isinstance(places_list[0], list)
 
 
 def test_map_view_4(new_entry, clear_db_cache):
     """Test that when query returns nothing, places list is empty."""
     result = map_view(DummyRequest)
     places_list = result[['places'][0]]
-    assert type(places_list[0][0]) is dict
+    assert isinstance(places_list[0][0], dict)
 
 
 def test_map_view_5(new_entry, clear_db_cache):
     """Test that when query returns nothing, places list is empty."""
     result = map_view(DummyRequest)
     places_list = result[['places'][0]]
-    assert type(places_list[0][1]) is str
+    assert isinstance(places_list[0][1], str)
 
 
 def test_map_view_route(app, clear_db_cache):
